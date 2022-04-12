@@ -1,0 +1,14 @@
+.buttonUI {
+    padding: 3px 3px;
+    margin: 15px 0;
+    color: teal;
+    fontsize: 14px;
+    width: 200px;
+    height: 30px;
+    background: transparent;
+    border: 1px solid teal;
+}
+
+.buttonUI:hover {
+    border: 2px solid teal;
+}
