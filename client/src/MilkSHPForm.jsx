@@ -28,9 +28,9 @@ const MilkShpForm = (props) => {
         console.log("Submit")
     }
 
-    const region = [{id: 1, name: "Анна"}];
+    const region = [{name: "Анна"}, {name: "Бобров"}];
     const listRegion = region.map((region) =>
-        <tr key={region.id.toString()}>
+        <tr key={region.name.toString()}>
             <td>{region.name.toString()}</td>
             <td><InputField getChildVal={getChildVal} id={1} placeholder={2021}></InputField></td>
             <td><InputField getChildVal={getChildVal} id={2} placeholder={2022}></InputField></td>
@@ -80,6 +80,9 @@ const MilkShpForm = (props) => {
                 <tbody>
                 {listRegion}
                 </tbody>
+                <tfoot>
+
+                </tfoot>
             </table>
             <ButtonUI type="submit">Отправить</ButtonUI>
         </div>
