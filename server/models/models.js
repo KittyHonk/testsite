@@ -12,13 +12,13 @@ const Reports = sequelize.define('reports', {
     row_id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
 })
 
-const ReportsTable = sequelize.define('reportstable', {
+const ReportsTable = sequelize.define('reports_table', {
     row_id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
 })
 
-const Table = sequelize.define('table', {
+const Table = sequelize.define('table_value', {
     row_id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    table_name: {type: DataTypes.STRING, unique: true, allowNull: false},
+    table_name: {type: DataTypes.STRING, allowNull: false},
     value_id: {type: DataTypes.INTEGER, allowNull: false},
     value: {type: DataTypes.INTEGER},
     result_id: {type: DataTypes.INTEGER, allowNull: false},
