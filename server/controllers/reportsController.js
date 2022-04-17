@@ -1,3 +1,6 @@
+const {Reports} = require('../models/models')
+const ApiError = require('../error/ApiError')
+
 class reportsController {
     async open(req, res) {
 

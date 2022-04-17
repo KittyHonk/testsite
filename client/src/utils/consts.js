@@ -1,0 +1,6 @@
+export const INDEX_ROUTE = '/'
+export const ADMIN_ROUTE = '/admin'
+export const LOGIN_ROUTE = '/login'
+export const REGISTRATION_ROUTE = '/registration'
+export const TABLE_ROUTE = '/table'
+export const REPORT_LIST_ROUTE = '/report'

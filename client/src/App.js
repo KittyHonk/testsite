@@ -1,17 +1,14 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './styles/App.css'
-import MilkSHPForm from "./MilkSHPForm";
+import AppRouter from "./component/AppRouter";
+import {authRoutes} from "./routes";
+import {BrowserRouter, Route, Router} from "react-router-dom";
 
 function App() {
-
   return (
-    <div className="App">
-        <div className="mainMenu">
-            <div>
-                <MilkSHPForm></MilkSHPForm>
-            </div>
-        </div>
-    </div>
+      <BrowserRouter>
+        <AppRouter/>
+      </BrowserRouter>
   );
 }
 
