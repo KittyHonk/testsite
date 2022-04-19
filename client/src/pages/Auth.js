@@ -1,7 +1,29 @@
-import React from 'react';
+import React, {useContext, useState} from 'react';
 import {Button, Card, Container, Form} from "react-bootstrap";
+import {observer} from "mobx-react-lite";
+import {loginFunc} from "../http/UserApi";
+import {Context} from "../index";
+import {useHistory} from "react-router-dom";
+import {INDEX_ROUTE} from "../utils/consts";
 
-const Auth = () => {
+const Auth = observer(() => {
+    const {user} = useContext(Context)
+    const history = useHistory()
+    const [login, setLogin] = useState('')
+    const [password, setPassword] = useState('')
+
+    const logIn = async () => {
+        try {
+            let data;
+            data = await loginFunc(login, password)
+            user.setUser(user)
+            user.setIsAuth(true)
+            history.push(INDEX_ROUTE)
+        } catch (e) {
+            alert(e.response.data.message)
+        }
+    }
+
     return (
         <Container
             className="d-flex justify-content-center align-items-center"
@@ -10,13 +32,13 @@ const Auth = () => {
             <Card style={{width: 600}} className="p-5">
                 <h2 className="m-auto">Авторизация</h2>
                 <Form className="d-flex flex-column">
-                    <Form.Control className="mt-3" placeholder="Логин"/>
-                    <Form.Control className="mt-3" placeholder="Пароль"/>
-                    <Button className="mt-3">Войти</Button>
+                    <Form.Control value={login} onChange={e => setLogin(e.target.value)} className="mt-3" placeholder="Логин"/>
+                    <Form.Control value={password} onChange={e => setPassword(e.target.value)} type="password" className="mt-3" placeholder="Пароль"/>
+                    <Button onClick={logIn} className="mt-3">Войти</Button>
                 </Form>
             </Card>
         </Container>
     );
-};
+});
 
 export default Auth;

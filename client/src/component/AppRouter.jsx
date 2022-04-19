@@ -1,14 +1,12 @@
 import React, {useContext} from 'react';
-import {Route, Router, Switch} from "react-router-dom";
+import {Redirect, Route, Router, Switch, useHistory} from "react-router-dom";
 import {authRoutes, publicRoutes} from "../routes";
 import {Context} from "../index";
-import {createBrowserHistory} from "history";
+import {observer} from "mobx-react-lite";
 
-const AppRouter = () => {
+const AppRouter = observer(() => {
     const {user} = useContext(Context)
-    const history = createBrowserHistory()
-
-    console.log(user)
+    const history = useHistory()
     return (
         <Router history={history}>
             <Switch>
@@ -21,6 +19,6 @@ const AppRouter = () => {
             </Switch>
         </Router>
     );
-};
+});
 
 export default AppRouter;

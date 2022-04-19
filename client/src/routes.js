@@ -4,7 +4,7 @@ import {
     LOGIN_ROUTE,
     REGISTRATION_ROUTE,
     REPORT_LIST_ROUTE,
-    TABLE_ROUTE
+    TABLE_ROUTE,
 } from "./utils/consts";
 import Admin from "./pages/Admin";
 import ReportList from "./pages/ReportList";
@@ -18,12 +18,12 @@ export const authRoutes = [
         Component: Admin
     },
     {
-        path: REPORT_LIST_ROUTE,
-        Component: ReportList
-    },
-    {
         path: TABLE_ROUTE/* + '/:table_name'*/,
         Component: Tables
+    },
+    {
+        path: REPORT_LIST_ROUTE,
+        Component: ReportList
     },
 ]
 

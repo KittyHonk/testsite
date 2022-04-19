@@ -3,8 +3,8 @@ const router = new Router()
 const reportsController = require('../controllers/reportsController')
 
 
-router.post('/', reportsController.open)
 router.get('/', reportsController.getAll)
+router.post('/', reportsController.create)
 
 
 module.exports = router

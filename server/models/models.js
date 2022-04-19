@@ -10,10 +10,13 @@ const User = sequelize.define('user', {
 
 const Reports = sequelize.define('reports', {
     row_id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    reports_name: {type: DataTypes.STRING, unique: true},
 })
 
 const ReportsTable = sequelize.define('reports_table', {
     row_id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    report_name: {type: DataTypes.STRING},
+    table_name: {type: DataTypes.STRING, unique: true},
 })
 
 const Table = sequelize.define('table_value', {

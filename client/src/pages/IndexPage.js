@@ -1,11 +1,14 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import {observer} from "mobx-react-lite";
+import {Container} from "react-bootstrap";
+import {Context} from "../index";
 
-const IndexPage = () => {
+const IndexPage = observer(() => {
+    const {user} = useContext(Context)
     return (
-        <div>
-            INDEX
-        </div>
+        <Container>
+        </Container>
     );
-};
+});
 
 export default IndexPage;

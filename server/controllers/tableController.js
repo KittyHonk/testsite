@@ -3,8 +3,7 @@ const ApiError = require('../error/ApiError')
 
 class tableController {
     async load(req, res) {
-        const {table_name, createAt} = req.query
-        let table = await Table.findAll({where: {table_name}});
+        let table = await Table.findAll();
         return res.json(table)
     }
 
@@ -18,6 +17,5 @@ class tableController {
         }
     }
 }
-
 
 module.exports = new tableController()
