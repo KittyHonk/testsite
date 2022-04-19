@@ -5,12 +5,14 @@ import {
     REGISTRATION_ROUTE,
     REPORT_LIST_ROUTE,
     TABLE_ROUTE,
+    REPORT_TABLES,
 } from "./utils/consts";
 import Admin from "./pages/Admin";
 import ReportList from "./pages/ReportList";
 import Tables from "./pages/Tables";
 import Auth from "./pages/Auth";
 import IndexPage from "./pages/IndexPage";
+import ReportsTable from "./pages/ReportsTable";
 
 export const authRoutes = [
     {
@@ -24,6 +26,10 @@ export const authRoutes = [
     {
         path: REPORT_LIST_ROUTE,
         Component: ReportList
+    },
+    {
+        path: REPORT_TABLES + "/:report_name",
+        Component: ReportsTable
     },
 ]
 

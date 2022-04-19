@@ -5,3 +5,8 @@ export const getAllReport = async () => {
     return data
 }
 
+export const getAllReportWhere = async (report_name) => {
+    const {data} = await $authHost.get("/api/reports_table/" + report_name)
+    return data
+}
+

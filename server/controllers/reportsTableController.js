@@ -7,6 +7,14 @@ class reportsTableController {
         return res.json(report)
     }
 
+    async getAllWhere(req, res) {
+        const {report_name} = req.params
+        const reports = await ReportsTable.findAll({
+            where: {report_name}
+        })
+        return res.json(reports)
+    }
+
     async create(req, res, next) {
         try {
             const {table_name, report_name} = req.body
