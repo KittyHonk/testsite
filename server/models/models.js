@@ -19,13 +19,34 @@ const ReportsTable = sequelize.define('reports_table', {
     table_name: {type: DataTypes.STRING, unique: true},
 })
 
-const Table = sequelize.define('table_value', {
+const TableMilkShp = sequelize.define('table_milk_shp', {
     row_id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    table_name: {type: DataTypes.STRING, allowNull: false},
-    value_id: {type: DataTypes.INTEGER, allowNull: false},
-    value: {type: DataTypes.INTEGER},
-    result_id: {type: DataTypes.INTEGER, allowNull: false},
-    result: {type: DataTypes.INTEGER}
+    row_owner: {type: DataTypes.STRING, defaultValue: "autoCreated"},
+    date: {type: DataTypes.STRING, require: true},
+    value1: {type: DataTypes.FLOAT},
+    value2: {type: DataTypes.FLOAT},
+    result12: {type: DataTypes.FLOAT},
+    value3: {type: DataTypes.FLOAT},
+    value4: {type: DataTypes.FLOAT},
+    result34: {type: DataTypes.FLOAT},
+    value5: {type: DataTypes.FLOAT},
+    value6: {type: DataTypes.FLOAT},
+    result56: {type: DataTypes.FLOAT},
+    value7: {type: DataTypes.FLOAT},
+    value8: {type: DataTypes.FLOAT},
+    result48: {type: DataTypes.FLOAT},
+})
+
+const TableMilkKfh = sequelize.define('table_milk_kfh', {
+    row_id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    row_owner: {type: DataTypes.STRING},
+    date: {type: DataTypes.STRING, require: true},
+    value1: {type: DataTypes.FLOAT},
+    value2: {type: DataTypes.FLOAT},
+    result12: {type: DataTypes.FLOAT},
+    value3: {type: DataTypes.FLOAT},
+    value4: {type: DataTypes.FLOAT},
+    result34: {type: DataTypes.FLOAT},
 })
 
 User.hasOne(Reports)
@@ -34,12 +55,10 @@ Reports.belongsTo(User)
 Reports.hasMany(ReportsTable)
 ReportsTable.belongsTo(Reports)
 
-Table.hasMany(ReportsTable)
-ReportsTable.belongsTo(Table)
-
 module.exports = {
     User,
     Reports,
     ReportsTable,
-    Table
+    TableMilkShp,
+    TableMilkKfh,
 }

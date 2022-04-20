@@ -20,7 +20,7 @@ export const authRoutes = [
         Component: Admin
     },
     {
-        path: TABLE_ROUTE/* + '/:table_name'*/,
+        path: TABLE_ROUTE + "/:table_name",
         Component: Tables
     },
     {

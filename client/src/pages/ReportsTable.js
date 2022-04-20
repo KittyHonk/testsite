@@ -20,7 +20,7 @@ const ReportTable = observer(() => {
             <Row>
                 {reportTable.reportTables.map(report =>
                     <Card
-                        key={report.row_id}
+                        key={report.table_name}
                         style={{width: "200px", left: "90px", padding: "5px", marginTop: "10px", marginLeft: "50px", textAlign: "center"}}
                         border="dark"
                         onClick={() => history.push(TABLE_ROUTE + "/" + report.table_name)}
