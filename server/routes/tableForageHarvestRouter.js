@@ -1,6 +1,6 @@
 const Router = require('express')
 const router = new Router()
-const tableController = require('../controllers/tableMilkShpController')
+const tableController = require('../controllers/tableForageHarvestController')
 
 
 router.get('/:row_owner', tableController.getAll)

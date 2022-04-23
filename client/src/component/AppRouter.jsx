@@ -3,6 +3,7 @@ import {Redirect, Route, Router, Switch, useHistory} from "react-router-dom";
 import {authRoutes, publicRoutes} from "../routes";
 import {Context} from "../index";
 import {observer} from "mobx-react-lite";
+import {INDEX_ROUTE} from "../utils/consts";
 
 const AppRouter = observer(() => {
     const {user} = useContext(Context)
@@ -17,6 +18,7 @@ const AppRouter = observer(() => {
                     <Route key={path} path={path} component={Component} exact/>
                 )}
             </Switch>
+            <Redirect to={INDEX_ROUTE}></Redirect>
         </Router>
     );
 });

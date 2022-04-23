@@ -4,12 +4,18 @@ const userRouter = require('./userRouter')
 const reportsRouter = require('./reportsRouter')
 const reportsTableRouter = require('./reportsTableRouter')
 const tableMilkShpRouter = require('./tableMilkShpRouter')
+const tableMilkKfhRouter = require('./tableMilkKfhRouter')
+const tableForageHarvestRouter = require('./tableForageHarvestRouter')
+const tableCornSilageRouter = require('./tableCornSilageRouter')
 
 
 router.use('/user', userRouter)
 router.use('/report', reportsRouter)
 router.use('/reports_table', reportsTableRouter)
 router.use('/milk_shp', tableMilkShpRouter)
+router.use('/milk_kfh', tableMilkKfhRouter)
+router.use('/forage_harvest', tableForageHarvestRouter)
+router.use('/corn_silage', tableCornSilageRouter)
 
 
 module.exports = router

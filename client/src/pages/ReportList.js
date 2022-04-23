@@ -17,9 +17,8 @@ const ReportList = observer(() => {
     return (
         <Col md={10} className="align-items-center justify-content-center">
             {reportList.reports.map(report =>
-                <Row>
+                <Row key={report.reports_name}>
                     <Card
-                        key={report.reports_name}
                         style={{left: "90px", padding: "5px", marginTop: "10px", marginLeft: "50px"}}
                         border="dark"
                         onClick={() => history.push(REPORT_TABLES + "/" + report.reports_name)}
