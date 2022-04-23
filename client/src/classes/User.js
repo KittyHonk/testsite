@@ -4,6 +4,8 @@ export default class User {
     constructor() {
         this._isAuth = false
         this._user = {}
+        this._role = ""
+        this._region = ""
         makeAutoObservable(this)
     }
 
@@ -15,11 +17,27 @@ export default class User {
         this._user = user
     }
 
+    setRole(role) {
+        this._role = role
+    }
+
+    setRegion(region) {
+        this._region = region
+    }
+
     get isAuth() {
         return this._isAuth
     }
 
     get user() {
         return this._user
+    }
+
+    get role() {
+        return this._role
+    }
+
+    get region() {
+        return this._region
     }
 }

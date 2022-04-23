@@ -1,11 +1,11 @@
-import React, {useRef, useContext} from 'react';
+import React, {useContext, useRef} from 'react';
 import {observer} from "mobx-react-lite";
-import {Button, Table, Form} from "react-bootstrap";
+import {Table, Form, Button} from "react-bootstrap";
 import TableBody from "./TableBody";
 import {Context} from "../../index";
 
 
-const MilkShp = observer((props) => {
+const CornSilage = observer((props) => {
     const {user} = useContext(Context)
     const regionList = []
     const childRef = [
@@ -44,27 +44,18 @@ const MilkShp = observer((props) => {
                 <thead>
                 <tr>
                     <th rowSpan={3}>Наименование района</th>
-                    <th colSpan={6}>Валовый надой молока, тонн</th>
-                    <th colSpan={3}>Суточный надой молоко на корову, кг</th>
-                    <th rowSpan={3}>Реализовано в зачете, т</th>
-                    <th rowSpan={3}>Реализовано в физ. весе, т</th>
-                    <th rowSpan={3}>% товарности</th>
+                    <th colSpan={4}>Уборка кукурузы на силос и зел. корм</th>
                     <th rowSpan={3}></th>
                 </tr>
                 <tr>
-                    <th colSpan={3}>С начала года</th>
-                    <th colSpan={3}>В т.ч. за день</th>
-                    <th rowSpan={2}>2021</th>
-                    <th rowSpan={2}>2022</th>
-                    <th rowSpan={2}>Разница</th>
+                    <th colSpan={2}>Площадь к уборке</th>
+                    <th colSpan={2}>Заложено сил. массы</th>
                 </tr>
                 <tr>
-                    <th>2021</th>
-                    <th>2022</th>
-                    <th>Разница</th>
-                    <th>2021</th>
-                    <th>2022</th>
-                    <th>Разница</th>
+                    <th>План тыс. га</th>
+                    <th>Факт тыс. га</th>
+                    <th>План тыс. тонн</th>
+                    <th>Факт тыс. тонн</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -80,4 +71,4 @@ const MilkShp = observer((props) => {
     );
 });
 
-export default MilkShp;
+export default CornSilage;

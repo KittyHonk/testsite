@@ -28,17 +28,4 @@
     text-align: center;
     color: teal;
 }
-table {
-    padding: 15px;
-    margin: 15px auto 5px auto;
-    border: 1px solid teal;
-    border-collapse: collapse;
-}
-
-table th, td, tr {
-    width: 125px;
-    font-size: 16px;
-    text-align: center;
-    border: 1px solid teal;
-}
 

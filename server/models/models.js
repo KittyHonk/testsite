@@ -5,7 +5,8 @@ const User = sequelize.define('user', {
     row_id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     login: {type: DataTypes.STRING, unique: true},
     password: {type: DataTypes.STRING},
-    role: {type: DataTypes.STRING, defaultValue: "USER"}
+    role: {type: DataTypes.STRING, defaultValue: "USER"},
+    region: {type: DataTypes.STRING}
 })
 
 const Reports = sequelize.define('reports', {
@@ -39,7 +40,7 @@ const TableMilkShp = sequelize.define('table_milk_shp', {
 
 const TableMilkKfh = sequelize.define('table_milk_kfh', {
     row_id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    row_owner: {type: DataTypes.STRING},
+    row_owner: {type: DataTypes.STRING, defaultValue: "autoCreated"},
     date: {type: DataTypes.STRING, require: true},
     value1: {type: DataTypes.FLOAT},
     value2: {type: DataTypes.FLOAT},
@@ -47,6 +48,33 @@ const TableMilkKfh = sequelize.define('table_milk_kfh', {
     value3: {type: DataTypes.FLOAT},
     value4: {type: DataTypes.FLOAT},
     result34: {type: DataTypes.FLOAT},
+})
+
+const TableForageHarvest = sequelize.define('table_forage_harvest', {
+    row_id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    row_owner: {type: DataTypes.STRING, defaultValue: "autoCreated"},
+    date: {type: DataTypes.STRING, require: true},
+    value1: {type: DataTypes.FLOAT},
+    value2: {type: DataTypes.FLOAT},
+    result12: {type: DataTypes.FLOAT},
+    value3: {type: DataTypes.FLOAT},
+    value4: {type: DataTypes.FLOAT},
+    result34: {type: DataTypes.FLOAT},
+    value5: {type: DataTypes.FLOAT},
+    value6: {type: DataTypes.FLOAT},
+    result56: {type: DataTypes.FLOAT},
+    value7: {type: DataTypes.FLOAT},
+    value8: {type: DataTypes.FLOAT},
+})
+
+const TableCornSilage = sequelize.define('table_corn_silage', {
+    row_id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    row_owner: {type: DataTypes.STRING, defaultValue: "autoCreated"},
+    date: {type: DataTypes.STRING, require: true},
+    value1: {type: DataTypes.FLOAT},
+    value2: {type: DataTypes.FLOAT},
+    value3: {type: DataTypes.FLOAT},
+    value4: {type: DataTypes.FLOAT},
 })
 
 User.hasOne(Reports)
@@ -61,4 +89,6 @@ module.exports = {
     ReportsTable,
     TableMilkShp,
     TableMilkKfh,
+    TableCornSilage,
+    TableForageHarvest,
 }

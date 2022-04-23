@@ -2,12 +2,17 @@ import React, {useState} from 'react';
 import InputUI from "./UI/input/InputUI";
 
 const InputField = React.forwardRef((props, ref) => {
-    const [input, setInput] = useState({field: '', placeholder: ''})
+    const [input, setInput] = useState({field: ''})
+    let readOnlyCheck = false
+
+    if ((props.user !== "ADMIN") && (props.user !== undefined)) {
+        readOnlyCheck = true
+    }
 
     return (
         <div>
             <InputUI
-                readOnly={props.readonly}
+                readOnly={readOnlyCheck}
                 ref={ref}
                 value={input.field}
                 type="number"

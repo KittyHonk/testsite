@@ -18,6 +18,8 @@ const Auth = observer(() => {
             data = await loginFunc(login, password)
             user.setUser(user)
             user.setIsAuth(true)
+            user.setRole(data.role)
+            user.setRegion(data.region)
             history.push(INDEX_ROUTE)
         } catch (e) {
             alert(e.response.data.message)

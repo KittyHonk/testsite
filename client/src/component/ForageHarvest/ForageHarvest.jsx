@@ -1,11 +1,12 @@
 import React, {useRef, useContext} from 'react';
 import {observer} from "mobx-react-lite";
 import {Button, Table, Form} from "react-bootstrap";
+import './styles.css'
 import TableBody from "./TableBody";
 import {Context} from "../../index";
 
 
-const MilkShp = observer((props) => {
+const ForageHarvest = observer((props) => {
     const {user} = useContext(Context)
     const regionList = []
     const childRef = [
@@ -44,27 +45,25 @@ const MilkShp = observer((props) => {
                 <thead>
                 <tr>
                     <th rowSpan={3}>Наименование района</th>
-                    <th colSpan={6}>Валовый надой молока, тонн</th>
-                    <th colSpan={3}>Суточный надой молоко на корову, кг</th>
-                    <th rowSpan={3}>Реализовано в зачете, т</th>
-                    <th rowSpan={3}>Реализовано в физ. весе, т</th>
-                    <th rowSpan={3}>% товарности</th>
+                    <th colSpan={3} rowSpan={2}>Скошено естестес. и сеяных трав на сено, сенаж, зел. корм и трав. муку, тыс. га</th>
+                    <th colSpan={3} rowSpan={2}>Заготовлено сена, тыс. тонн</th>
+                    <th colSpan={3} rowSpan={2}>Заготовлено сенажа, тыс. тонн</th>
+                    <th rowSpan={3}>Заготовлено травяной муки, тыс. тонн</th>
+                    <th rowSpan={3}>Заготовлено соломы, тыс. тонн</th>
                     <th rowSpan={3}></th>
                 </tr>
                 <tr>
-                    <th colSpan={3}>С начала года</th>
-                    <th colSpan={3}>В т.ч. за день</th>
-                    <th rowSpan={2}>2021</th>
-                    <th rowSpan={2}>2022</th>
-                    <th rowSpan={2}>Разница</th>
                 </tr>
                 <tr>
-                    <th>2021</th>
-                    <th>2022</th>
-                    <th>Разница</th>
-                    <th>2021</th>
-                    <th>2022</th>
-                    <th>Разница</th>
+                    <th>План</th>
+                    <th>Факт</th>
+                    <th>%</th>
+                    <th>План</th>
+                    <th>Факт</th>
+                    <th>%</th>
+                    <th>План</th>
+                    <th>Факт</th>
+                    <th>%</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -80,4 +79,4 @@ const MilkShp = observer((props) => {
     );
 });
 
-export default MilkShp;
+export default ForageHarvest;

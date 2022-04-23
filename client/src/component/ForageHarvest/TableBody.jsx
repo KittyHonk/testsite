@@ -1,12 +1,14 @@
-import React, {useRef, useState, useEffect, useImperativeHandle} from 'react';
+import React, {useRef, useState, useEffect, useContext, useImperativeHandle} from 'react';
 import InputField from "../InputField";
-import {checkMilkShp, createMilkShp, getAllMilkShp} from "../../http/TableApi";
+import {checkForageHarvest, createForageHarvest, getAllForageHarvest} from "../../http/TableApi";
 import {Button} from "react-bootstrap";
+import {Context} from "../../index";
 
 
 const TableBody = React.forwardRef((props, ref) => {
+    const {user} = useContext(Context)
     const row_owner = props.rowName
-    const [value, setValue] = useState([{value: []}])
+    const [value, setValue] = useState([{value: [0]}])
     let date = new Date(Date.now())
     date = date.toISOString().slice(0, 10)
 
@@ -22,15 +24,16 @@ const TableBody = React.forwardRef((props, ref) => {
     }
 
     useEffect(() => {
-        checkMilkShp(row_owner, date).then()
-        getAllMilkShp(row_owner, date).then(data => {
+        checkForageHarvest(row_owner, date).then()
+        getAllForageHarvest(row_owner, date).then(data => {
             setValue(data)
-        })
+        }).finally()
     }, [])
+
 
     useImperativeHandle(ref, () => ({
         newRow () {
-            createMilkShp(
+            createForageHarvest(
                 row_owner,
                 refList.ref0.current.value || (value[0].value1 || "0"),
                 refList.ref1.current.value || (value[0].value2 || "0"),
@@ -44,7 +47,7 @@ const TableBody = React.forwardRef((props, ref) => {
 
                 }
             ).finally(() => {
-                getAllMilkShp(row_owner, date).then(data => {
+                getAllForageHarvest(row_owner, date).then(data => {
                     setValue(data)
                 })
             })
@@ -55,36 +58,34 @@ const TableBody = React.forwardRef((props, ref) => {
         return (
             <tr>
                 <td>{row_owner}</td>
-                <td><InputField start={value[0].value1} ref={refList.ref0}></InputField></td>
+                <td><InputField user={user.role} start={value[0].value1} ref={refList.ref0}></InputField></td>
                 <td><InputField start={value[0].value2} ref={refList.ref1}></InputField></td>
                 <td>{value[0].result12}</td>
-                <td><InputField start={value[0].value3} ref={refList.ref2}></InputField></td>
+                <td><InputField user={user.role} start={value[0].value3} ref={refList.ref2}></InputField></td>
                 <td><InputField start={value[0].value4} ref={refList.ref3}></InputField></td>
                 <td>{value[0].result34}</td>
-                <td><InputField start={value[0].value5} ref={refList.ref4}></InputField></td>
+                <td><InputField user={user.role} start={value[0].value5} ref={refList.ref4}></InputField></td>
                 <td><InputField start={value[0].value6} ref={refList.ref5}></InputField></td>
                 <td>{value[0].result56}</td>
                 <td><InputField start={value[0].value7} ref={refList.ref6}></InputField></td>
                 <td><InputField start={value[0].value8} ref={refList.ref7}></InputField></td>
-                <td>{value[0].result48}</td>
             </tr>
         );
     } else {
         return (
             <tr>
                 <td>{row_owner}</td>
-                <td><InputField ref={refList.ref0}></InputField></td>
+                <td><InputField user={user.role} ref={refList.ref0}></InputField></td>
                 <td><InputField ref={refList.ref1}></InputField></td>
                 <td></td>
-                <td><InputField ref={refList.ref2}></InputField></td>
+                <td><InputField user={user.role} ref={refList.ref2}></InputField></td>
                 <td><InputField ref={refList.ref3}></InputField></td>
                 <td></td>
-                <td><InputField ref={refList.ref4}></InputField></td>
+                <td><InputField user={user.role} ref={refList.ref4}></InputField></td>
                 <td><InputField ref={refList.ref5}></InputField></td>
                 <td></td>
                 <td><InputField ref={refList.ref6}></InputField></td>
                 <td><InputField ref={refList.ref7}></InputField></td>
-                <td></td>
             </tr>
         );
     }
