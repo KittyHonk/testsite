@@ -47,4 +47,8 @@ export const publicRoutes = [
         path: REGISTRATION_ROUTE,
         Component: Auth
     },
+    {
+        path: "/csv",
+        Component: ExportToCSV
+    }
 ]
