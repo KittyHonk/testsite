@@ -19,6 +19,14 @@ const TableBody = React.forwardRef((props, ref) => {
         ref3: useRef(),
     }
 
+    useEffect(() => {
+        checkCornSilage(row_owner, date).then(data => {
+            getAllCornSilage(row_owner, date).then(data => {
+                setValue(data)
+            })
+        })
+    }, [])
+
     useImperativeHandle(ref, () => ({
         newRow () {
             createCornSilage(
@@ -28,21 +36,12 @@ const TableBody = React.forwardRef((props, ref) => {
                 refList.ref2.current.value || (value[0].value3 || "0"),
                 refList.ref3.current.value || (value[0].value4 || "0"),
             ).then(() => {
-                }
-            ).finally(() => {
                 getAllCornSilage(row_owner, date).then(data => {
                     setValue(data)
-                })
-            })
+                })}
+            )
         }
     }))
-
-    useEffect(() => {
-        checkCornSilage(row_owner, date).then()
-        getAllCornSilage(row_owner, date).then(data => {
-            setValue(data)
-        }).finally()
-    }, [])
 
     if (value.length !== 0){
         return (
@@ -52,7 +51,6 @@ const TableBody = React.forwardRef((props, ref) => {
                 <td><InputField start={value[0].value2} ref={refList.ref1}></InputField></td>
                 <td><InputField user={user.role} start={value[0].value3} ref={refList.ref2}></InputField></td>
                 <td><InputField start={value[0].value4} ref={refList.ref3}></InputField></td>
-                {/*<td><Button onClick={newRow}>Отправить</Button></td>*/}
             </tr>
         );
     } else {
@@ -63,7 +61,6 @@ const TableBody = React.forwardRef((props, ref) => {
                 <td><InputField ref={refList.ref1}></InputField></td>
                 <td><InputField user={user.role} ref={refList.ref2}></InputField></td>
                 <td><InputField ref={refList.ref3}></InputField></td>
-                {/*<td><Button onClick={newRow}>Отправить</Button></td>*/}
             </tr>
         );
     }

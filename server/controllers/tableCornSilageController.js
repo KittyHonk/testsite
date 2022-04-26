@@ -1,5 +1,6 @@
 const {TableCornSilage} = require('../models/models')
 const ApiError = require('../error/ApiError')
+const {Sequelize} = require('sequelize')
 
 class tableController {
     async getAll(req, res, next) {
@@ -38,6 +39,18 @@ class tableController {
                 value4: value4,
             }, {where: {row_owner, date}})
             return res.json(name)
+        } catch (e) {
+            next(ApiError.badRequest(e.message))
+        }
+    }
+
+    async collectDate(req, res, next) {
+        try {
+            let data = await TableCornSilage.findAll({attributes: [
+                Sequelize.fn('DISTINCT', Sequelize.col('date')), 'date',],
+                limit: 7,
+            })
+            return res.json(data)
         } catch (e) {
             next(ApiError.badRequest(e.message))
         }

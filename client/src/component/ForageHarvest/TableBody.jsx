@@ -24,10 +24,11 @@ const TableBody = React.forwardRef((props, ref) => {
     }
 
     useEffect(() => {
-        checkForageHarvest(row_owner, date).then()
-        getAllForageHarvest(row_owner, date).then(data => {
-            setValue(data)
-        }).finally()
+        checkForageHarvest(row_owner, date).then(data => {
+            getAllForageHarvest(row_owner, date).then(data => {
+                setValue(data)
+            })
+        })
     }, [])
 
 
@@ -44,9 +45,6 @@ const TableBody = React.forwardRef((props, ref) => {
                 refList.ref6.current.value || (value[0].value7 || "0"),
                 refList.ref7.current.value || (value[0].value8 || "0"),
             ).then(() => {
-
-                }
-            ).finally(() => {
                 getAllForageHarvest(row_owner, date).then(data => {
                     setValue(data)
                 })

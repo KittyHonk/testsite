@@ -18,9 +18,10 @@ const TableBody = React.forwardRef((props, ref) => {
     }
 
     useEffect(() => {
-        checkMilkKfh(row_owner, date).then()
-        getAllMilkKfh(row_owner, date).then(data => {
-            setValue(data)
+        checkMilkKfh(row_owner, date).then(data => {
+            getAllMilkKfh(row_owner, date).then(data => {
+                setValue(data)
+            })
         })
     }, [])
 
@@ -33,9 +34,6 @@ const TableBody = React.forwardRef((props, ref) => {
                 refList.ref2.current.value || (value[0].value3 || "0"),
                 refList.ref3.current.value || (value[0].value4 || "0"),
             ).then(() => {
-
-                }
-            ).finally(() => {
                 getAllMilkKfh(row_owner, date).then(data => {
                     setValue(data)
                 })

@@ -1,7 +1,6 @@
 import React, {useRef, useState, useEffect, useImperativeHandle} from 'react';
 import InputField from "../InputField";
 import {checkMilkShp, createMilkShp, getAllMilkShp} from "../../http/TableApi";
-import {Button} from "react-bootstrap";
 
 
 const TableBody = React.forwardRef((props, ref) => {
@@ -22,9 +21,10 @@ const TableBody = React.forwardRef((props, ref) => {
     }
 
     useEffect(() => {
-        checkMilkShp(row_owner, date).then()
-        getAllMilkShp(row_owner, date).then(data => {
-            setValue(data)
+        checkMilkShp(row_owner, date).then(data => {
+            getAllMilkShp(row_owner, date).then(data => {
+                setValue(data)
+            })
         })
     }, [])
 
@@ -40,10 +40,7 @@ const TableBody = React.forwardRef((props, ref) => {
                 refList.ref5.current.value || (value[0].value6 || "0"),
                 refList.ref6.current.value || (value[0].value7 || "0"),
                 refList.ref7.current.value || (value[0].value8 || "0"),
-            ).then(() => {
-
-                }
-            ).finally(() => {
+            ).then(data => {
                 getAllMilkShp(row_owner, date).then(data => {
                     setValue(data)
                 })

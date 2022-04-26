@@ -3,6 +3,7 @@ import {observer} from "mobx-react-lite";
 import {Table, Form, Button} from "react-bootstrap";
 import TableBody from "./TableBody";
 import {Context} from "../../index";
+import SelectDate from "../SelectDate";
 
 
 const CornSilage = observer((props) => {
@@ -32,11 +33,7 @@ const CornSilage = observer((props) => {
 
     return (
         <div>
-            <Form.Select aria-label="Default select example">
-                <option value="1">2022.02</option>
-                <option value="2">2022.03</option>
-                <option value="3">2022.04</option>
-            </Form.Select>
+            {/*<SelectDate types="days"></SelectDate>*/}
             <Table
                 striped bordered hover
                 style={{textAlign: "center"}}

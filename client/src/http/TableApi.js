@@ -50,6 +50,11 @@ export const getAllCornSilage = async (row_owner, date) => {
     return data
 }
 
+export const collectDateCornSilage = async () => {
+    const {data} = await $authHost.get("api/corn_silage/")
+    return data
+}
+
 export const checkCornSilage = async (row_owner, date) => {
     const {data} = await $authHost.post("api/corn_silage/check/", {row_owner, date})
     return data
