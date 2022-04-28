@@ -5,6 +5,11 @@ export const getAllMilkShp = async (row_owner, date) => {
     return data
 }
 
+export const collectDateMilkShp = async () => {
+    const {data} = await $authHost.get("api/milk_shp/")
+    return data
+}
+
 export const checkMilkShp = async (row_owner, date) => {
     const {data} = await $authHost.post("api/milk_shp/check/", {row_owner, date})
     return data
@@ -20,6 +25,11 @@ export const getAllMilkKfh = async (row_owner, date) => {
     return data
 }
 
+export const collectDateMilkKfh = async () => {
+    const {data} = await $authHost.get("api/milk_kfh/")
+    return data
+}
+
 export const checkMilkKfh = async (row_owner, date) => {
     const {data} = await $authHost.post("api/milk_kfh/check/", {row_owner, date})
     return data
@@ -32,6 +42,11 @@ export const createMilkKfh = async (row_owner, value1, value2, value3, value4) =
 
 export const getAllForageHarvest = async (row_owner, date) => {
     const {data} = await $host.get("api/forage_harvest/" + row_owner + `?date=${date}`)
+    return data
+}
+
+export const collectDateForageHarvest = async () => {
+    const {data} = await $authHost.get("api/forage_harvest/")
     return data
 }
 

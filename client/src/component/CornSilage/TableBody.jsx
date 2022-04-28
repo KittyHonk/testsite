@@ -1,6 +1,5 @@
 import React, {useRef, useState, useEffect, useContext, useImperativeHandle} from 'react';
 import InputField from "../InputField";
-import {Button} from "react-bootstrap";
 import {checkCornSilage, createCornSilage, getAllCornSilage} from "../../http/TableApi";
 import {Context} from "../../index";
 

@@ -1,5 +1,6 @@
 const {TableMilkKfh} = require('../models/models')
 const ApiError = require('../error/ApiError')
+const {Sequelize} = require("sequelize");
 
 class tableController {
     async getAll(req, res, next) {
@@ -43,6 +44,19 @@ class tableController {
                 result34: result34,
             }, {where: {row_owner, date}})
             return res.json(name)
+        } catch (e) {
+            next(ApiError.badRequest(e.message))
+        }
+    }
+
+    async collectDate(req, res, next) {
+        try {
+            let data = await TableMilkKfh.findAll({
+                order: [['date', 'DESC']],
+                attributes: [Sequelize.fn('DISTINCT', Sequelize.col('date')), 'date'],
+                limit: 7
+            })
+            return res.json(data)
         } catch (e) {
             next(ApiError.badRequest(e.message))
         }

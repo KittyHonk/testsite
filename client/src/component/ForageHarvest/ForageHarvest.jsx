@@ -4,6 +4,8 @@ import {Button, Table, Form} from "react-bootstrap";
 import './styles.css'
 import TableBody from "./TableBody";
 import {Context} from "../../index";
+import SelectDate from "../SelectDate";
+import {collectDateForageHarvest} from "../../http/TableApi";
 
 
 const ForageHarvest = observer((props) => {
@@ -33,11 +35,7 @@ const ForageHarvest = observer((props) => {
 
     return (
         <div>
-            <Form.Select aria-label="Default select example">
-                <option value="1">2022.02</option>
-                <option value="2">2022.03</option>
-                <option value="3">2022.04</option>
-            </Form.Select>
+            <SelectDate key="Заготовка кормов" label="Заготовка кормов" func={collectDateForageHarvest} types="days"></SelectDate>
             <Table
                 striped bordered hover
                 style={{textAlign: "center"}}

@@ -1,25 +1,34 @@
 import React, {useEffect, useState} from 'react';
 import {Form} from "react-bootstrap";
 import {collectDateCornSilage} from "../http/TableApi";
-import {observer} from "mobx-react-lite";
 
-const SelectDate = observer((props) => {
+const SelectDate = (props) => {
     const [dateList, setDateList] = useState([])
-    let optionList = []
+    const [optionList, setOptionList] = useState([])
 
     useEffect(() => {
-        collectDateCornSilage().then(data => {
+        props.func().then(data => {
             setDateList(data)
-        }).finally()
+        })
+
+        window.removeEventListener('mouseleave', () => {})
     }, [])
 
-    dateList.map(data => {
-        optionList.push(<option value={data.date}>{data.date}</option>)
-    })
+    const fillOptionList = () => {
+        console.log("Call")
+        for (let i = 0; i < dateList.length; i++) {
+            optionList.push(<option key={dateList[i].date + ' ' + props.label} value={dateList[i].date}>{dateList[i].date}</option>)
+        }
+    }
 
-    if (props.types == "days") {
+    const changeHandler = (e) => {
+        console.log(e.target.value)
+    }
+
+    if (props.types === "days") {
+        fillOptionList()
         return (
-            <Form.Select aria-label="Select Date">
+            <Form.Select onChange={changeHandler} aria-label={props.label}>
                 {optionList}
             </Form.Select>
         );
@@ -30,6 +39,6 @@ const SelectDate = observer((props) => {
             </div>
         );
     }
-});
+};
 
 export default SelectDate;

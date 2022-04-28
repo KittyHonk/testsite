@@ -1,9 +1,10 @@
 import React, {useContext, useRef} from 'react';
 import {observer} from "mobx-react-lite";
-import {Table, Form, Button} from "react-bootstrap";
+import {Table, Button} from "react-bootstrap";
 import TableBody from "./TableBody";
 import {Context} from "../../index";
 import SelectDate from "../SelectDate";
+import {collectDateCornSilage} from "../../http/TableApi";
 
 
 const CornSilage = observer((props) => {
@@ -33,7 +34,7 @@ const CornSilage = observer((props) => {
 
     return (
         <div>
-            {/*<SelectDate types="days"></SelectDate>*/}
+            <SelectDate key="Кукуруза на силос" label="Кукуруза на силос" func={collectDateCornSilage} types="days"></SelectDate>
             <Table
                 striped bordered hover
                 style={{textAlign: "center"}}

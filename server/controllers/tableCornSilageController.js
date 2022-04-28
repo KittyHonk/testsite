@@ -46,9 +46,10 @@ class tableController {
 
     async collectDate(req, res, next) {
         try {
-            let data = await TableCornSilage.findAll({attributes: [
-                Sequelize.fn('DISTINCT', Sequelize.col('date')), 'date',],
-                limit: 7,
+            let data = await TableCornSilage.findAll({
+                order: [['date', 'DESC']],
+                attributes: [Sequelize.fn('DISTINCT', Sequelize.col('date')), 'date'],
+                limit: 7
             })
             return res.json(data)
         } catch (e) {
