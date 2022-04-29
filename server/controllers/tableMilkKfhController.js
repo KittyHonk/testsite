@@ -28,10 +28,8 @@ class tableController {
 
     async create(req, res, next) {
         try {
-            let {row_owner, value1, value2, value3, value4} = req.body
+            let {row_owner, date, value1, value2, value3, value4} = req.body
             let result12, result34 = null
-            let date = new Date(Date.now())
-            date = date.toISOString().slice(0, 10)
             result12 = (value2 - value1)
             result34 = (value4 - value3)
             var name = await TableMilkKfh.update({

@@ -5,6 +5,7 @@ import {useParams} from "react-router-dom";
 import MilkKFH from "../component/MilkKFH/MilkKFH";
 import ForageHarvest from "../component/ForageHarvest/ForageHarvest";
 import CornSilage from "../component/CornSilage/CornSilage";
+import Gsm from "../component/Gsm/Gsm";
 
 const Tables = observer(() => {
 
@@ -29,6 +30,9 @@ const Tables = observer(() => {
         }
         case "Кукуруза на силос": {
             return <CornSilage rowName={regionList}/>
+        }
+        case "ГСМ": {
+            return <Gsm rowName={regionList}/>
         }
         default: {
             console.log(params.table_name)

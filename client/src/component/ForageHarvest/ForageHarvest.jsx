@@ -1,4 +1,4 @@
-import React, {useRef, useContext} from 'react';
+import React, {useRef, useContext, useEffect} from 'react';
 import {observer} from "mobx-react-lite";
 import {Button, Table, Form} from "react-bootstrap";
 import './styles.css'
@@ -11,12 +11,15 @@ import {collectDateForageHarvest} from "../../http/TableApi";
 const ForageHarvest = observer((props) => {
     const {user} = useContext(Context)
     const regionList = []
+    let date = new Date(Date.now())
+    date = date.toISOString().slice(0, 10)
     const childRef = [
         useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(),
         useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(),
         useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(),
         useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(),
     ]
+
     for (let i = 0; i < props.rowName.length; i++) {
         if ((props.rowName[i].name == user.region) || (user.role == "ADMIN")) {
             regionList.push(<TableBody ref={childRef[i]} key={props.rowName[i].name} rowName={props.rowName[i].name}/>)
@@ -26,21 +29,40 @@ const ForageHarvest = observer((props) => {
     const submitAll = () => {
         childRef.map(ref => {
             try {
-                ref.current.newRow()
+                ref.current.newRow(date)
             } catch (e) {
 
             }
         })
     }
 
+    const setAllChildDate = () => {
+        try {
+            childRef.map(ref => {
+                ref.current.setNewDate(date)
+            })
+        } catch (e) {
+
+        }
+    }
+
+    const getDate = (newDate) => {
+        date = newDate
+        setAllChildDate()
+    }
+
     return (
         <div>
-            <SelectDate key="Заготовка кормов" label="Заготовка кормов" func={collectDateForageHarvest} types="days"></SelectDate>
             <Table
                 striped bordered hover
                 style={{textAlign: "center"}}
             >
                 <thead>
+                <tr>
+                    <th>
+                        <SelectDate getDate={getDate} startDate={date} key="Заготовка кормов" label="Заготовка кормов" func={collectDateForageHarvest} types="days"></SelectDate>
+                    </th>
+                </tr>
                 <tr>
                     <th rowSpan={3}>Наименование района</th>
                     <th colSpan={3} rowSpan={2}>Скошено естестес. и сеяных трав на сено, сенаж, зел. корм и трав. муку, тыс. га</th>

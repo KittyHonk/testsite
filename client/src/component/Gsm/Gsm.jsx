@@ -60,25 +60,31 @@ const MilkKfh = observer((props) => {
                     <th><SelectDate getDate={getDate} startDate={date} key="Молоко КФХ" label="Молоко КФХ" func={collectDateMilkKfh} types="days"></SelectDate></th>
                 </tr>
                 <tr>
-                    <th rowSpan={3}>Наименование района</th>
-                    <th colSpan={6}>Валовый надой молока, тонн</th>
-                    <th rowSpan={3}></th>
+                    <th rowSpan={2}>Наименование района</th>
+                    <th colSpan={2}>Наличие тонн</th>
+                    <th colSpan={2}>Пост. с начала года</th>
+                    <th colSpan={4}>В т.ч. получ. от ООО Врннефтепрод.</th>
+                    <th colSpan={4}>В т.ч. получ от ООО Пред. Управ. Ком.</th>
+                    <th colSpan={2}>Прочие</th>
                 </tr>
                 <tr>
-                    <th colSpan={3}>С начала года</th>
-                    <th colSpan={3}>В т.ч. за день</th>
-                </tr>
-                <tr>
-                    <th>2021</th>
-                    <th>2022</th>
-                    <th>Разница</th>
-                    <th>2021</th>
-                    <th>2022</th>
-                    <th>Разница</th>
+                    <th>Бензин</th>
+                    <th>Дизтоп</th>
+                    <th>Бензин</th>
+                    <th>Дизтоп</th>
+                    <th colSpan={2}>Бензин</th>
+                    <th colSpan={2}>Дизтоп</th>
+                    <th colSpan={2}>Бензин</th>
+                    <th colSpan={2}>Дизтоп</th>
+                    <th>Бензин</th>
+                    <th>Дизтоп</th>
                 </tr>
                 </thead>
                 <tbody>
-                {regionList}
+                {/*{regionList}*/}
+                <tr>
+                    <th>1</th>
+                </tr>
                 </tbody>
                 <tfoot>
                     <tr>

@@ -27,9 +27,10 @@ const TableBody = React.forwardRef((props, ref) => {
     }, [])
 
     useImperativeHandle(ref, () => ({
-        newRow () {
+        newRow (date) {
             createCornSilage(
                 row_owner,
+                date,
                 refList.ref0.current.value || (value[0].value1 || "0"),
                 refList.ref1.current.value || (value[0].value2 || "0"),
                 refList.ref2.current.value || (value[0].value3 || "0"),
@@ -39,7 +40,13 @@ const TableBody = React.forwardRef((props, ref) => {
                     setValue(data)
                 })}
             )
-        }
+        },
+        setNewDate (newDate) {
+            date = newDate
+            getAllCornSilage(row_owner, date).then(data => {
+                setValue(data)
+            })
+        },
     }))
 
     if (value.length !== 0){

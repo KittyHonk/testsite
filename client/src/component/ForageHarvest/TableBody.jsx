@@ -1,16 +1,15 @@
 import React, {useRef, useState, useEffect, useContext, useImperativeHandle} from 'react';
 import InputField from "../InputField";
 import {checkForageHarvest, createForageHarvest, getAllForageHarvest} from "../../http/TableApi";
-import {Button} from "react-bootstrap";
 import {Context} from "../../index";
 
 
 const TableBody = React.forwardRef((props, ref) => {
     const {user} = useContext(Context)
-    const row_owner = props.rowName
-    const [value, setValue] = useState([{value: [0]}])
     let date = new Date(Date.now())
     date = date.toISOString().slice(0, 10)
+    const row_owner = props.rowName
+    const [value, setValue] = useState([{value: [0]}])
 
     const refList = {
         ref0: useRef(),
@@ -33,9 +32,10 @@ const TableBody = React.forwardRef((props, ref) => {
 
 
     useImperativeHandle(ref, () => ({
-        newRow () {
+        newRow (date) {
             createForageHarvest(
                 row_owner,
+                date,
                 refList.ref0.current.value || (value[0].value1 || "0"),
                 refList.ref1.current.value || (value[0].value2 || "0"),
                 refList.ref2.current.value || (value[0].value3 || "0"),
@@ -49,8 +49,15 @@ const TableBody = React.forwardRef((props, ref) => {
                     setValue(data)
                 })
             })
-        }
+        },
+        setNewDate (newDate) {
+            date = newDate
+            getAllForageHarvest(row_owner, date).then(data => {
+                setValue(data)
+            })
+        },
     }))
+
 
     if (value.length !== 0){
         return (

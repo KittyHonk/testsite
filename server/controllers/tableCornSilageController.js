@@ -28,9 +28,7 @@ class tableController {
 
     async create(req, res, next) {
         try {
-            let {row_owner, value1, value2, value3, value4} = req.body
-            let date = new Date(Date.now())
-            date = date.toISOString().slice(0, 10)
+            let {row_owner, date, value1, value2, value3, value4} = req.body
             var name = await TableCornSilage.update({
                 row_owner: row_owner,
                 value1: value1,

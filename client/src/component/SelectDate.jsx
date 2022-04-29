@@ -1,28 +1,27 @@
 import React, {useEffect, useState} from 'react';
 import {Form} from "react-bootstrap";
-import {collectDateCornSilage} from "../http/TableApi";
 
-const SelectDate = (props) => {
+const SelectDate = ({getDate, ...props}) => {
     const [dateList, setDateList] = useState([])
-    const [optionList, setOptionList] = useState([])
+    const optionList = []
 
     useEffect(() => {
         props.func().then(data => {
             setDateList(data)
         })
-
-        window.removeEventListener('mouseleave', () => {})
     }, [])
 
     const fillOptionList = () => {
-        console.log("Call")
         for (let i = 0; i < dateList.length; i++) {
+            if ((i === 0) && (props.startDate !== dateList[i].date)) {
+                optionList.push(<option key={props.startDate + ' ' + props.label} value={props.startDate}>{props.startDate}</option>)
+            }
             optionList.push(<option key={dateList[i].date + ' ' + props.label} value={dateList[i].date}>{dateList[i].date}</option>)
         }
     }
 
     const changeHandler = (e) => {
-        console.log(e.target.value)
+        getDate(e.target.value)
     }
 
     if (props.types === "days") {

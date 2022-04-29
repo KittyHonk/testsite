@@ -10,6 +10,8 @@ import SelectDate from "../SelectDate";
 const MilkShp = observer((props) => {
     const {user} = useContext(Context)
     const regionList = []
+    let date = new Date(Date.now())
+    date = date.toISOString().slice(0, 10)
     const childRef = [
         useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(),
         useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(),
@@ -25,21 +27,38 @@ const MilkShp = observer((props) => {
     const submitAll = () => {
         childRef.map(ref => {
             try {
-                ref.current.newRow()
+                ref.current.newRow(date)
             } catch (e) {
 
             }
         })
     }
 
+    const setAllChildDate = () => {
+        try {
+            childRef.map(ref => {
+                ref.current.setNewDate(date)
+            })
+        } catch (e) {
+
+        }
+    }
+
+    const getDate = (newDate) => {
+        date = newDate
+        setAllChildDate()
+    }
+
     return (
         <div>
-            <SelectDate key="Молоко СХП" label="Молоко СХП" func={collectDateMilkShp} types="days"></SelectDate>
             <Table
                 striped bordered hover
                 style={{textAlign: "center"}}
             >
                 <thead>
+                <tr>
+                    <th><SelectDate getDate={getDate} startDate={date} key="Молоко СХП" label="Молоко СХП" func={collectDateMilkShp} types="days"></SelectDate></th>
+                </tr>
                 <tr>
                     <th rowSpan={3}>Наименование района</th>
                     <th colSpan={6}>Валовый надой молока, тонн</th>
