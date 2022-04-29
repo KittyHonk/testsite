@@ -5,6 +5,7 @@ import User from "./classes/User";
 import Reports from "./classes/Reports";
 import ReportTables from "./classes/ReportTables";
 import Table from "./classes/Table";
+import DateCls from "./classes/DateCls";
 
 export const Context = createContext(null)
 
@@ -16,6 +17,7 @@ root.render(
         table: new Table(),
         reportList: new Reports(),
         reportTable: new ReportTables(),
+        datecls: new DateCls(),
     }}>
         <App/>
     </Context.Provider>

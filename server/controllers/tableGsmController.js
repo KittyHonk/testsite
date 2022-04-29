@@ -10,6 +10,7 @@ class tableController {
             let table = await TableGsm.findAll(
                 {
                     where: {row_owner, date},
+                    order: [['date', 'DESC']],
                 });
             return res.json(table)
         } catch (e) {
@@ -18,31 +19,35 @@ class tableController {
     }
 
     async check(req, res) {
-        let {row_owner, date} = req.body
+        let {row_owner, date, day} = req.body
         let checkTable = await TableGsm.findAll({where: {row_owner, date}});
         if (checkTable.length == 0) {
-            var name = await TableGsm.create({row_owner, date})
+            if (day === 4) {
+                var name = await TableGsm.create({row_owner, date})
+            }
         }
         return res.json(name)
     }
 
     async create(req, res, next) {
         try {
-            let {row_owner, date, value1, value2, value3, value4, value5, value6, value7, value8, value9, value10} = req.body
-            var name = await TableGsm.update({
-                row_owner: row_owner,
-                value1: value1,
-                value2: value2,
-                value3: value3,
-                value4: value4,
-                value5: value5,
-                value6: value6,
-                value7: value7,
-                value8: value8,
-                value9: value9,
-                value10: value10,
-            }, {where: {row_owner, date}})
-            return res.json(name)
+            let {row_owner, date, day, value1, value2, value3, value4, value5, value6, value7, value8, value9, value10} = req.body
+            if (day === 4) {
+                var name = await TableGsm.update({
+                    row_owner: row_owner,
+                    value1: value1,
+                    value2: value2,
+                    value3: value3,
+                    value4: value4,
+                    value5: value5,
+                    value6: value6,
+                    value7: value7,
+                    value8: value8,
+                    value9: value9,
+                    value10: value10,
+                }, {where: {row_owner, date}})
+                return res.json(name)
+            }
         } catch (e) {
             next(ApiError.badRequest(e.message))
         }
@@ -53,7 +58,7 @@ class tableController {
             let data = await TableGsm.findAll({
                 order: [['date', 'DESC']],
                 attributes: [Sequelize.fn('DISTINCT', Sequelize.col('date')), 'date'],
-                limit: 7
+                limit: 4
             })
             return res.json(data)
         } catch (e) {

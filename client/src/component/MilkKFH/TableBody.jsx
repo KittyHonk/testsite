@@ -6,8 +6,8 @@ import {checkMilkKfh, createMilkKfh, getAllMilkKfh} from "../../http/TableApi";
 const TableBody = React.forwardRef((props, ref) => {
     const row_owner = props.rowName
     const [value, setValue] = useState([{value: []}])
-    let date = new Date(Date.now())
-    date = date.toISOString().slice(0, 10)
+    let curDate = new Date(Date.now())
+    let date = curDate.toISOString().slice(0, 10)
 
     const refList = {
         ref0: useRef(),

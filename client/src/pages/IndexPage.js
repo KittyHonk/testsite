@@ -5,8 +5,7 @@ import {Context} from "../index";
 
 const IndexPage = observer(() => {
     const {user} = useContext(Context)
-    let date = new Date(Date.now())
-    const day = date.getDay()
+    const {datecls} = useContext(Context)
     const dayList = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота']
 
     return (
@@ -15,7 +14,7 @@ const IndexPage = observer(() => {
                 {`Добрый день, регион - ${user.region}`}
             </div>
             <div>
-                {`Сегодня: ${dayList[day]}`}
+                {`Сегодня: ${dayList[datecls.day]}`}
             </div>
         </Container>
     );

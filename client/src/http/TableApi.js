@@ -80,4 +80,24 @@ export const createCornSilage = async (row_owner, date, value1, value2, value3, 
     return data
 }
 
+export const getAllGsm = async (row_owner, date) => {
+    const {data} = await $host.get("api/gsm/" + row_owner + `?date=${date}`)
+    return data
+}
+
+export const collectDateGsm = async () => {
+    const {data} = await $authHost.get("api/gsm/")
+    return data
+}
+
+export const checkGsm = async (row_owner, date, day) => {
+    const {data} = await $authHost.post("api/gsm/check/", {row_owner, date, day})
+    return data
+}
+
+export const createGsm = async (row_owner, date, day, value1, value2, value3, value4, value5, value6, value7, value8, value9, value10) => {
+    const {data} = await $authHost.post("api/gsm/",{row_owner, date, day, value1, value2, value3, value4, value5, value6, value7, value8, value9, value10})
+    return data
+}
+
 
