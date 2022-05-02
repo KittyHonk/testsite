@@ -6,10 +6,10 @@ import {Context} from "../../index";
 
 const TableBody = React.forwardRef((props, ref) => {
     const {datecls} = useContext(Context)
+    let date = new Date()
+    date = datecls.findDay(props.day).toISOString().slice(0,10)
     const row_owner = props.rowName
-    const [value, setValue] = useState([{value: []}])
-    let date = new Date(Date.now())
-    date = date.toISOString().slice(0, 10)
+    const [value, setValue] = useState([{value: [0]}])
 
     const refList = {
         ref0: useRef(),
@@ -25,7 +25,7 @@ const TableBody = React.forwardRef((props, ref) => {
     }
 
     useEffect(() => {
-        checkGsm(row_owner, date, datecls.day).then(data => {
+        checkGsm(row_owner, date).then(data => {
             getAllGsm(row_owner, date).then(data => {
                 setValue(data)
             })
@@ -34,14 +34,9 @@ const TableBody = React.forwardRef((props, ref) => {
 
     useImperativeHandle(ref, () => ({
         newRow (date) {
-            if (datecls.day !== 4){
-                alert("Сегодня не четверг, попробуйте позже")
-                return null
-            }
             createGsm(
                 row_owner,
                 date,
-                datecls.day,
                 refList.ref0.current.value || (value[0].value1 || "0"),
                 refList.ref1.current.value || (value[0].value2 || "0"),
                 refList.ref2.current.value || (value[0].value3 || "0"),
@@ -64,10 +59,9 @@ const TableBody = React.forwardRef((props, ref) => {
                 setValue(data)
             })
         },
-        getValue () {
-            let values = value[0]
-            return values
-        }
+        // getValue () {
+        //     return value[0]
+        // },
     }))
 
     if (value.length !== 0){

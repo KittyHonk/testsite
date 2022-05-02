@@ -14,15 +14,25 @@ const SelectDate = ({getDate, ...props}) => {
     }, [])
 
     const fillOptionList = () => {
-        for (let i = 0; i < dateList.length; i++) {
-            if ((i === 0) && (props.startDate !== dateList[i].date)) {
-                if ((props.types === "weeks") && (datecls.day === 4)) {
-                    continue
-                } else {
+        if (props.types === "days") {
+            for (let i = 0; i < dateList.length; i++) {
+                if ((i === 0) && (props.startDate !== dateList[i].date)) {
+                    optionList.push(<option key="Select correct date">Select correct date</option>)
                     optionList.push(<option key={props.startDate + ' ' + props.label} value={props.startDate}>{props.startDate}</option>)
                 }
+                optionList.push(<option key={dateList[i].date + ' ' + props.label} value={dateList[i].date}>{dateList[i].date}</option>)
             }
-            optionList.push(<option key={dateList[i].date + ' ' + props.label} value={dateList[i].date}>{dateList[i].date}</option>)
+        }
+        if (props.types === "weeks") {
+            for (let i = 0; i < dateList.length; i++) {
+                let tempDate = datecls.findDay(props.day).toISOString().slice(0, 10)
+                if ((i === 0) && (tempDate !== dateList[i].date)) {
+                    optionList.push(<option key="Select correct date">Select correct date</option>)
+                    optionList.push(<option key={tempDate + ' ' + props.label} value={tempDate}>{tempDate}</option>)
+                }
+                optionList.push(<option key={dateList[i].date + ' ' + props.label} value={dateList[i].date}>{dateList[i].date}</option>)
+            }
+
         }
     }
 
@@ -30,7 +40,8 @@ const SelectDate = ({getDate, ...props}) => {
         getDate(e.target.value)
     }
 
-    if ((props.types === "days") || (props.types === "weeks")) {
+    if (true) {
+        console.log("Init list")
         fillOptionList()
         return (
             <Form.Select onChange={changeHandler} aria-label={props.label}>
@@ -40,7 +51,7 @@ const SelectDate = ({getDate, ...props}) => {
     } else {
         return (
             <div>
-                Ошибка
+                Ошибка при выборе даты
             </div>
         );
     }

@@ -21,7 +21,7 @@ const ForageHarvest = observer((props) => {
     ]
 
     for (let i = 0; i < props.rowName.length; i++) {
-        if ((props.rowName[i].name == user.region) || (user.role == "ADMIN")) {
+        if ((props.rowName[i].name === user.region) || (user.role === "ADMIN")) {
             regionList.push(<TableBody ref={childRef[i]} key={props.rowName[i].name} rowName={props.rowName[i].name}/>)
         }
     }

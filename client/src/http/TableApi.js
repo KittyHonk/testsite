@@ -76,7 +76,7 @@ export const checkCornSilage = async (row_owner, date) => {
 }
 
 export const createCornSilage = async (row_owner, date, value1, value2, value3, value4) => {
-    const {data} = await $authHost.post("api/corn_silage/",{row_owner, date, value1, value2, value3, value4})
+    const {data} = await $authHost.post("api/corn_silage/", {row_owner, date, value1, value2, value3, value4})
     return data
 }
 
@@ -90,13 +90,13 @@ export const collectDateGsm = async () => {
     return data
 }
 
-export const checkGsm = async (row_owner, date, day) => {
-    const {data} = await $authHost.post("api/gsm/check/", {row_owner, date, day})
+export const checkGsm = async (row_owner, date) => {
+    const {data} = await $authHost.post("api/gsm/check/", {row_owner, date})
     return data
 }
 
-export const createGsm = async (row_owner, date, day, value1, value2, value3, value4, value5, value6, value7, value8, value9, value10) => {
-    const {data} = await $authHost.post("api/gsm/",{row_owner, date, day, value1, value2, value3, value4, value5, value6, value7, value8, value9, value10})
+export const createGsm = async (row_owner, date, value1, value2, value3, value4, value5, value6, value7, value8, value9, value10) => {
+    const {data} = await $authHost.post("api/gsm/", {row_owner, date, value1, value2, value3, value4, value5, value6, value7, value8, value9, value10})
     return data
 }
 
