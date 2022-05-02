@@ -2,7 +2,7 @@ import {makeAutoObservable} from "mobx";
 
 export default class DateCls {
     constructor() {
-        // this._date = new Date('April 27, 2022 03:24:00')
+        // this._date = new Date('April 20, 2022 03:24:00')
         // this._day = new Date(this._date).getDay()
         // this._monthDay = new Date(this._date).getDate()
         this._date = new Date(Date.now())

@@ -37,11 +37,10 @@ const SelectDate = ({getDate, ...props}) => {
     }
 
     const changeHandler = (e) => {
-        getDate(e.target.value)
+        getDate(e.target.value, dateList)
     }
 
     if (true) {
-        console.log("Init list")
         fillOptionList()
         return (
             <Form.Select onChange={changeHandler} aria-label={props.label}>

@@ -59,9 +59,17 @@ const TableBody = React.forwardRef((props, ref) => {
                 setValue(data)
             })
         },
-        // getValue () {
-        //     return value[0]
-        // },
+        getValue (dateList) {
+            let valueList = []
+            dateList.map(data => {
+                getAllGsm(row_owner, data.date).then(data => {
+                    valueList.push(data)
+                })
+            })
+            if (true) {
+                return valueList
+            }
+        }
     }))
 
     if (value.length !== 0){

@@ -8,7 +8,7 @@ const IndexPage = observer(() => {
     const {datecls} = useContext(Context)
     const date = datecls.date
     const dayList = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота']
-    let prefDate = new Date(datecls.findDay(5))
+    let prefDate = new Date(datecls.findDay(4))
 
 
     if (true) {

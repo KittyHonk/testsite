@@ -3,7 +3,7 @@ import {observer} from "mobx-react-lite";
 import {Table, Button} from "react-bootstrap";
 import TableBody from "./TableBody";
 import {Context} from "../../index";
-import {collectDateGsm} from "../../http/TableApi";
+import {collectDateGsm, getAllGsm} from "../../http/TableApi";
 import SelectDate from "../SelectDate";
 
 
@@ -11,14 +11,10 @@ const Gsm = observer((props) => {
     const {user} = useContext(Context)
     const {datecls} = useContext(Context)
     const regionList = []
-    // const [result, setResult] = useState(new Array(10))
-    // const [valueList, setValueList] = useState([])
-    let valueList = []
+    const [result, setResult] = useState(new Array(10))
+    const [valueList, setValueList] = useState([])
+    let dateList = []
     let sumList = new Array(10).fill(0)
-    // const [date, setDate] = useState(new Date(datecls.findDay(4)).toISOString().slice(0, 10))
-    // let date = new Date(Date.now())
-    // date = date.toISOString().slice(0, 10)
-    // let date = new Date()
     let date = new Date()
     date = datecls.findDay(4).toISOString().slice(0, 10)
 
@@ -34,52 +30,63 @@ const Gsm = observer((props) => {
         }
     }
 
-    // useEffect(() => {
-    //     console.log(result)
-    // }, [result])
-
     const submitAll = () => {
         childRef.map(ref => {
             try {
                 ref.current.newRow(date)
-            } catch (e) {
-
-            }
+            } catch (e) {}
         })
+
     }
 
-    // const calcField = () => {
-    //     for (let i = 0; i < valueList.length; i++) {
-    //         if (valueList[i] !== undefined) {
-    //             sumList[0] += valueList[i].value1
-    //             sumList[1] += valueList[i].value2
-    //             sumList[2] += valueList[i].value3
-    //             sumList[3] += valueList[i].value4
-    //             sumList[4] += valueList[i].value5
-    //             sumList[5] += valueList[i].value6
-    //             sumList[6] += valueList[i].value7
-    //             sumList[7] += valueList[i].value8
-    //             sumList[8] += valueList[i].value9
-    //             sumList[9] += valueList[i].value10
-    //         }
-    //     }
-    //     setResult([sumList[0], sumList[1], sumList[2], sumList[3], sumList[4], sumList[5], sumList[6], sumList[7], sumList[8], sumList[9]])
-    // }
-
     const setAllChildDate = () => {
-        let tempValueList = []
         try {
             childRef.map(ref => {
                 ref.current.setNewDate(date)
             })
-        } catch (e) {
-
-        }
+        } catch (e) {}
     }
 
-    const getDate = (newDate) => {
+    // const getValues = async () => {
+    //     setValueList([])
+    //     for (let i = 0; i < props.rowName.length; i++) {
+    //         if (props.rowName[i].name === user.region){
+    //             // eslint-disable-next-line no-loop-func
+    //             dateList.map(data => {
+    //                 getAllGsm(props.rowName[i].name, data.date).then(data => {
+    //                     if (data.length !== 0) {
+    //                         valueList.push(data)
+    //                     }
+    //                 })
+    //             }) 
+    //         }
+    //     }
+    // }
+    
+
+    const getDate = (newDate, dateArray) => {
+        dateList = dateArray
         date = newDate
+        console.log(dateList)
         setAllChildDate()
+    }
+
+    const calcField = () => {
+        for (let i = 0; i < valueList.length; i++) {
+            if (valueList[i] !== undefined) {
+                sumList[0] += valueList[i].value1
+                sumList[1] += valueList[i].value2
+                sumList[2] += valueList[i].value3
+                sumList[3] += valueList[i].value4
+                sumList[4] += valueList[i].value5
+                sumList[5] += valueList[i].value6
+                sumList[6] += valueList[i].value7
+                sumList[7] += valueList[i].value8
+                sumList[8] += valueList[i].value9
+                sumList[9] += valueList[i].value10
+            }
+        }
+        setResult([sumList[0], sumList[1], sumList[2], sumList[3], sumList[4], sumList[5], sumList[6], sumList[7], sumList[8], sumList[9]])
     }
 
     return (
