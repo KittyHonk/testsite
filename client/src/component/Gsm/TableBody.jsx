@@ -32,6 +32,10 @@ const TableBody = React.forwardRef((props, ref) => {
         })
     }, [])
 
+    useEffect(() => {
+        
+    }, [value, setValue])
+
     useImperativeHandle(ref, () => ({
         newRow (date) {
             createGsm(
@@ -59,17 +63,6 @@ const TableBody = React.forwardRef((props, ref) => {
                 setValue(data)
             })
         },
-        getValue (dateList) {
-            let valueList = []
-            dateList.map(data => {
-                getAllGsm(row_owner, data.date).then(data => {
-                    valueList.push(data)
-                })
-            })
-            if (true) {
-                return valueList
-            }
-        }
     }))
 
     if (value.length !== 0){

@@ -24,10 +24,10 @@ const SelectDate = ({getDate, ...props}) => {
             }
         }
         if (props.types === "weeks") {
+            optionList.push(<option key="Select correct date">Select correct date</option>)
             for (let i = 0; i < dateList.length; i++) {
                 let tempDate = datecls.findDay(props.day).toISOString().slice(0, 10)
                 if ((i === 0) && (tempDate !== dateList[i].date)) {
-                    optionList.push(<option key="Select correct date">Select correct date</option>)
                     optionList.push(<option key={tempDate + ' ' + props.label} value={tempDate}>{tempDate}</option>)
                 }
                 optionList.push(<option key={dateList[i].date + ' ' + props.label} value={dateList[i].date}>{dateList[i].date}</option>)
@@ -37,7 +37,7 @@ const SelectDate = ({getDate, ...props}) => {
     }
 
     const changeHandler = (e) => {
-        getDate(e.target.value, dateList)
+        getDate(e.target.value)
     }
 
     if (true) {

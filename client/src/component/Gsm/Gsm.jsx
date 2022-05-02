@@ -1,4 +1,4 @@
-import React, {useRef, useContext, useState, useEffect} from 'react';
+import React, {useRef, useContext, useState, useEffect, version, useCallback} from 'react';
 import {observer} from "mobx-react-lite";
 import {Table, Button} from "react-bootstrap";
 import TableBody from "./TableBody";
@@ -11,12 +11,9 @@ const Gsm = observer((props) => {
     const {user} = useContext(Context)
     const {datecls} = useContext(Context)
     const regionList = []
-    const [result, setResult] = useState(new Array(10))
-    const [valueList, setValueList] = useState([])
-    let dateList = []
-    let sumList = new Array(10).fill(0)
-    let date = new Date()
-    date = datecls.findDay(4).toISOString().slice(0, 10)
+    let valueList = []
+    const [result, setResult] = useState([])
+    let date = useRef(new Date(datecls.findDay(4).toISOString().slice(0, 10)))
 
     const childRef = [
         useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(),
@@ -30,48 +27,56 @@ const Gsm = observer((props) => {
         }
     }
 
+    useEffect(() => {
+        sum.current = result
+    }, []) 
+
+    const measuredRef = useCallback(() => {
+        console.log("Ref change")
+    }, []);
+
+    let sum = measuredRef()
+
     const submitAll = () => {
         childRef.map(ref => {
             try {
-                ref.current.newRow(date)
+                ref.current.newRow(date.current)
             } catch (e) {}
         })
-
+        getValue().then(data => {
+            sum.current = calcField(data)
+        })
     }
 
     const setAllChildDate = () => {
         try {
             childRef.map(ref => {
-                ref.current.setNewDate(date)
+                ref.current.setNewDate(date.current)
             })
         } catch (e) {}
     }
 
-    // const getValues = async () => {
-    //     setValueList([])
-    //     for (let i = 0; i < props.rowName.length; i++) {
-    //         if (props.rowName[i].name === user.region){
-    //             // eslint-disable-next-line no-loop-func
-    //             dateList.map(data => {
-    //                 getAllGsm(props.rowName[i].name, data.date).then(data => {
-    //                     if (data.length !== 0) {
-    //                         valueList.push(data)
-    //                     }
-    //                 })
-    //             }) 
-    //         }
-    //     }
-    // }
-    
+    const getValue = async () => {
+        while (valueList.length > 0) {
+            valueList.pop()
+        }
+        for (let i = 0; i < props.rowName.length; i++) {
+            if ((props.rowName[i].name === user.region) || (user.role === "ADMIN")) {
+                await getAllGsm(props.rowName[i].name, date.current).then(data => {
+                    valueList.push(...data)
+                })
+            }
+        }
+        return valueList
+    }
 
-    const getDate = (newDate, dateArray) => {
-        dateList = dateArray
-        date = newDate
-        console.log(dateList)
+    const getDate = (newDate) => {
+        date.current = newDate
         setAllChildDate()
     }
 
-    const calcField = () => {
+    const calcField = (valueList) => {
+        let sumList = new Array(10).fill(0)
         for (let i = 0; i < valueList.length; i++) {
             if (valueList[i] !== undefined) {
                 sumList[0] += valueList[i].value1
@@ -86,7 +91,7 @@ const Gsm = observer((props) => {
                 sumList[9] += valueList[i].value10
             }
         }
-        setResult([sumList[0], sumList[1], sumList[2], sumList[3], sumList[4], sumList[5], sumList[6], sumList[7], sumList[8], sumList[9]])
+        setResult(sumList)
     }
 
     return (
@@ -97,7 +102,7 @@ const Gsm = observer((props) => {
             >
                 <thead>
                 <tr>
-                    <th><SelectDate getDate={getDate} startDate={date} day={4} key="ГСМ" label="ГСМ" func={collectDateGsm} types="weeks"></SelectDate></th>
+                    <th><SelectDate getDate={getDate} startDate={date.current} day={4} key="ГСМ" label="ГСМ" func={collectDateGsm} types="weeks"></SelectDate></th>
                 </tr>
                 <tr>
                     <th rowSpan={2}>Наименование района</th>
@@ -124,7 +129,7 @@ const Gsm = observer((props) => {
                 {regionList}
                 <tr>
                     <td>Сумма</td>
-                    {/* <td>{result[0]}</td>
+                    <td>{result[0]}</td>
                     <td>{result[1]}</td>
                     <td>{result[2]}</td>
                     <td>{result[3]}</td>
@@ -133,7 +138,7 @@ const Gsm = observer((props) => {
                     <td>{result[6]}</td>
                     <td>{result[7]}</td>
                     <td>{result[8]}</td>
-                    <td>{result[9]}</td> */}
+                    <td>{result[9]}</td>
                 </tr>
                 </tbody>
                 <tfoot>
