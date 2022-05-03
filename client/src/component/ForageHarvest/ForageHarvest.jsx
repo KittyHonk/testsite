@@ -1,11 +1,11 @@
 import React, {useRef, useContext} from 'react';
 import {observer} from "mobx-react-lite";
 import {Button, Table} from "react-bootstrap";
-import './styles.css'
 import TableBody from "./TableBody";
 import {Context} from "../../index";
 import SelectDate from "../SelectDate";
 import {collectDateForageHarvest} from "../../http/TableApi";
+import '../../styles/Component.css'
 
 
 const ForageHarvest = observer((props) => {
@@ -52,7 +52,7 @@ const ForageHarvest = observer((props) => {
     }
 
     return (
-        <div>
+        <div style={{overflow: "auto"}}>
             <Table
                 striped bordered hover
                 style={{textAlign: "center"}}
@@ -70,7 +70,6 @@ const ForageHarvest = observer((props) => {
                     <th colSpan={3} rowSpan={2}>Заготовлено сенажа, тыс. тонн</th>
                     <th rowSpan={3}>Заготовлено травяной муки, тыс. тонн</th>
                     <th rowSpan={3}>Заготовлено соломы, тыс. тонн</th>
-                    <th rowSpan={3}></th>
                 </tr>
                 <tr>
                 </tr>
@@ -91,10 +90,12 @@ const ForageHarvest = observer((props) => {
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colSpan={13}><Button style={{padding: "2px", margin: "10px"}} type="submit" onClick={submitAll}>Отправить</Button></td>
                     </tr>
                 </tfoot>
             </Table>
+            <div className="d-flex justify-content-center">
+                <Button style={{padding: "10px", margin: "20px auto 0 auto", position: "fixed"}} type="submit" onClick={submitAll}>Отправить</Button>
+            </div>
         </div>
     );
 });

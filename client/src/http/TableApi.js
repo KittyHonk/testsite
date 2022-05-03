@@ -100,4 +100,31 @@ export const createGsm = async (row_owner, date, value1, value2, value3, value4,
     return data
 }
 
+export const getAllAvalibleShTech = async (row_owner, date) => {
+    const {data} = await $host.get("api/avalible_sh_tech/" + row_owner + `?date=${date}`)
+    return data
+}
+
+export const collectDateAvalibleShTech = async () => {
+    const {data} = await $authHost.get("api/avalible_sh_tech/")
+    return data
+}
+
+export const checkAvalibleShTech = async (row_owner, date) => {
+    const {data} = await $authHost.post("api/avalible_sh_tech/check/", {row_owner, date})
+    return data
+}
+
+export const createAvalibleShTech = async (
+    row_owner, date, value1, value2, value3, value4, value5, value6, value7, value8, value9, value10,
+    value11, value12, value13, value14, value15, value16, value17, value18, value19, value20,
+    ) => {
+    const {data} = await $authHost.post("api/avalible_sh_tech/", {
+        row_owner, date, value1, value2, value3, value4, value5, value6, value7, value8, value9, value10,
+        value11, value12, value13, value14, value15, value16, value17, value18, value19, value20,
+    })
+    return data
+}
+
+
 

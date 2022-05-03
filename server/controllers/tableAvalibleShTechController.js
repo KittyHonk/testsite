@@ -1,4 +1,4 @@
-const {TableGsm} = require('../models/models')
+const {TableAvalibleShTech} = require('../models/models')
 const ApiError = require('../error/ApiError')
 const {Sequelize} = require('sequelize')
 
@@ -7,7 +7,7 @@ class tableController {
         try {
             const {row_owner} = req.params
             const {date} = req.query
-            let table = await TableGsm.findAll(
+            let table = await TableAvalibleShTech.findAll(
                 {
                     where: {row_owner, date},
                     order: [['date', 'DESC']],
@@ -20,9 +20,9 @@ class tableController {
 
     async check(req, res) {
         let {row_owner, date} = req.body
-        let checkTable = await TableGsm.findAll({where: {row_owner, date}});
+        let checkTable = await TableAvalibleShTech.findAll({where: {row_owner, date}});
         if (checkTable.length == 0) {
-            var name = await TableGsm.create({row_owner, date})
+            var name = await TableAvalibleShTech.create({row_owner, date})
         }
         return res.json(name)
     }
@@ -30,7 +30,7 @@ class tableController {
     async create(req, res, next) {
         try {
             let {row_owner, date, value1, value2, value3, value4, value5, value6, value7, value8, value9, value10} = req.body
-            var name = await TableGsm.update({
+            var name = await TableAvalibleShTech.update({
                 row_owner: row_owner,
                 value1: value1,
                 value2: value2,
@@ -51,7 +51,7 @@ class tableController {
 
     async collectDate(req, res, next) {
         try {
-            let data = await TableGsm.findAll({
+            let data = await TableAvalibleShTech.findAll({
                 order: [['date', 'DESC']],
                 attributes: [Sequelize.fn('DISTINCT', Sequelize.col('date')), 'date'],
                 limit: 4

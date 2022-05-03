@@ -50,7 +50,7 @@ const CornSilage = observer((props) => {
     }
 
     return (
-        <div>
+        <div style={{overflow: "auto"}}>
             <Table
                 striped bordered hover
                 style={{textAlign: "center"}}
@@ -62,7 +62,6 @@ const CornSilage = observer((props) => {
                 <tr>
                     <th rowSpan={3}>Наименование района</th>
                     <th colSpan={4}>Уборка кукурузы на силос и зел. корм</th>
-                    <th rowSpan={3}></th>
                 </tr>
                 <tr>
                     <th colSpan={2}>Площадь к уборке</th>
@@ -80,10 +79,13 @@ const CornSilage = observer((props) => {
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colSpan={13}><Button style={{padding: "2px", margin: "10px"}} type="submit" onClick={submitAll}>Отправить</Button></td>
+                        <td colSpan={13}></td>
                     </tr>
                 </tfoot>
             </Table>
+            <div className="d-flex justify-content-center">
+                <Button style={{padding: "10px", margin: "20px auto 0 auto", position: "fixed"}} type="submit" onClick={submitAll}>Отправить</Button>
+            </div>
         </div>
     );
 });

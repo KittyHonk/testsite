@@ -5,6 +5,7 @@ import TableBody from "./TableBody";
 import {Context} from "../../index";
 import {collectDateMilkKfh} from "../../http/TableApi";
 import SelectDate from "../SelectDate";
+import '../../styles/Component.css'
 
 
 const MilkKfh = observer((props) => {
@@ -50,7 +51,7 @@ const MilkKfh = observer((props) => {
     }
 
     return (
-        <div>
+        <div style={{overflow: "auto"}}>
             <Table
                 striped bordered hover
                 style={{textAlign: "center"}}
@@ -62,7 +63,6 @@ const MilkKfh = observer((props) => {
                 <tr>
                     <th rowSpan={3}>Наименование района</th>
                     <th colSpan={6}>Валовый надой молока, тонн</th>
-                    <th rowSpan={3}></th>
                 </tr>
                 <tr>
                     <th colSpan={3}>С начала года</th>
@@ -82,10 +82,12 @@ const MilkKfh = observer((props) => {
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colSpan={13}><Button style={{padding: "2px", margin: "10px"}} type="submit" onClick={submitAll}>Отправить</Button></td>
                     </tr>
                 </tfoot>
             </Table>
+            <div className="d-flex justify-content-center">
+                <Button style={{padding: "10px", margin: "20px auto 0 auto", position: "fixed"}} type="submit" onClick={submitAll}>Отправить</Button>
+            </div>
         </div>
     );
 });
