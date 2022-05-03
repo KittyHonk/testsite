@@ -1,6 +1,6 @@
-import React, {useRef, useContext, useEffect} from 'react';
+import React, {useRef, useContext} from 'react';
 import {observer} from "mobx-react-lite";
-import {Button, Table, Form} from "react-bootstrap";
+import {Button, Table} from "react-bootstrap";
 import './styles.css'
 import TableBody from "./TableBody";
 import {Context} from "../../index";
@@ -27,7 +27,7 @@ const ForageHarvest = observer((props) => {
     }
 
     const submitAll = () => {
-        childRef.map(ref => {
+        childRef.forEach(ref => {
             try {
                 ref.current.newRow(date)
             } catch (e) {
@@ -38,7 +38,7 @@ const ForageHarvest = observer((props) => {
 
     const setAllChildDate = () => {
         try {
-            childRef.map(ref => {
+            childRef.forEach(ref => {
                 ref.current.setNewDate(date)
             })
         } catch (e) {

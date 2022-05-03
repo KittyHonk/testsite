@@ -2,7 +2,7 @@ import React, {useContext, useEffect} from 'react';
 import {Card, Col, Row} from "react-bootstrap";
 import {observer} from "mobx-react-lite";
 import {Context} from "../index";
-import {getAllReport, getAllReportWhere} from "../http/RepostListApi";
+import {getAllReport} from "../http/RepostListApi";
 import {REPORT_TABLES} from "../utils/consts";
 import {useHistory} from "react-router-dom";
 

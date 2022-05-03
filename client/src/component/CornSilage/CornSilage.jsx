@@ -19,13 +19,13 @@ const CornSilage = observer((props) => {
         useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(),
     ]
     for (let i = 0; i < props.rowName.length; i++) {
-        if ((props.rowName[i].name == user.region) || (user.role == "ADMIN")) {
+        if ((props.rowName[i].name === user.region) || (user.role === "ADMIN")) {
             regionList.push(<TableBody ref={childRef[i]} key={props.rowName[i].name} rowName={props.rowName[i].name}/>)
         }
     }
 
     const submitAll = () => {
-        childRef.map(ref => {
+        childRef.forEach(ref => {
             try {
                 ref.current.newRow(date)
             } catch (e) {
@@ -36,7 +36,7 @@ const CornSilage = observer((props) => {
 
     const setAllChildDate = () => {
         try {
-            childRef.map(ref => {
+            childRef.forEach(ref => {
                 ref.current.setNewDate(date)
             })
         } catch (e) {

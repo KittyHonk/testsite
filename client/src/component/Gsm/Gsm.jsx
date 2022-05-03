@@ -1,4 +1,4 @@
-import React, {useRef, useContext, useState, useEffect, useMemo} from 'react';
+import React, {useRef, useContext, useState} from 'react';
 import {observer} from "mobx-react-lite";
 import {Table, Button} from "react-bootstrap";
 import TableBody from "./TableBody";
@@ -29,7 +29,7 @@ const Gsm = observer((props) => {
     }
     
     const submitAll = () => {
-        childRef.map(ref => {
+        childRef.forEach(ref => {
             try {
                 ref.current.newRow(date.current)
             } catch (e) {}
@@ -41,7 +41,7 @@ const Gsm = observer((props) => {
 
     const setAllChildDate = () => {
         try {
-            childRef.map(ref => {
+            childRef.forEach(ref => {
                 ref.current.setNewDate(date.current)
             })
         } catch (e) {}
