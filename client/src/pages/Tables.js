@@ -7,6 +7,7 @@ import ForageHarvest from "../component/ForageHarvest/ForageHarvest";
 import CornSilage from "../component/CornSilage/CornSilage";
 import Gsm from "../component/Gsm/Gsm";
 import AvalibleShTech from '../component/AvalibleShTech/AvalibleShTech';
+import ReadyShTech from '../component/ReadyShTech/ReadyShTech';
 
 const Tables = observer(() => {
 
@@ -37,6 +38,9 @@ const Tables = observer(() => {
         }
         case "Наличие сх тех": {
             return <AvalibleShTech rowName={regionList}/>
+        }
+        case "Готовность сх тех": {
+            return <ReadyShTech rowName={regionList}/>
         }
         default: {
             console.log(params.table_name)

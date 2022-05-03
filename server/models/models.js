@@ -119,6 +119,32 @@ const TableAvalibleShTech = sequelize.define('table_avalible_sh_tech', {
     value20: {type: DataTypes.FLOAT, defaultValue: "0"},
 })
 
+const TableReadyShTech = sequelize.define('table_ready_sh_tech', {
+    row_id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    row_owner: {type: DataTypes.STRING, defaultValue: "autoCreated"},
+    date: {type: DataTypes.STRING, require: true},
+    value1: {type: DataTypes.FLOAT, defaultValue: "0"},
+    value2: {type: DataTypes.FLOAT, defaultValue: "0"},
+    value3: {type: DataTypes.FLOAT, defaultValue: "0"},
+    value4: {type: DataTypes.FLOAT, defaultValue: "0"},
+    value5: {type: DataTypes.FLOAT, defaultValue: "0"},
+    value6: {type: DataTypes.FLOAT, defaultValue: "0"},
+    value7: {type: DataTypes.FLOAT, defaultValue: "0"},
+    value8: {type: DataTypes.FLOAT, defaultValue: "0"},
+    value9: {type: DataTypes.FLOAT, defaultValue: "0"},
+    value10: {type: DataTypes.FLOAT, defaultValue: "0"},
+    value11: {type: DataTypes.FLOAT, defaultValue: "0"},
+    value12: {type: DataTypes.FLOAT, defaultValue: "0"},
+    value13: {type: DataTypes.FLOAT, defaultValue: "0"},
+    value14: {type: DataTypes.FLOAT, defaultValue: "0"},
+    value15: {type: DataTypes.FLOAT, defaultValue: "0"},
+    value16: {type: DataTypes.FLOAT, defaultValue: "0"},
+    value17: {type: DataTypes.FLOAT, defaultValue: "0"},
+    value18: {type: DataTypes.FLOAT, defaultValue: "0"},
+    value19: {type: DataTypes.FLOAT, defaultValue: "0"},
+    value20: {type: DataTypes.FLOAT, defaultValue: "0"},
+})
+
 
 User.hasOne(Reports)
 Reports.belongsTo(User)
@@ -136,4 +162,5 @@ module.exports = {
     TableForageHarvest,
     TableGsm,
     TableAvalibleShTech,
+    TableReadyShTech,
 }

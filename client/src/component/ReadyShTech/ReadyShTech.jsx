@@ -3,12 +3,12 @@ import {observer} from "mobx-react-lite";
 import {Table, Button} from "react-bootstrap";
 import TableBody from "./TableBody";
 import {Context} from "../../index";
-import {collectDateAvalibleShTech, getAllAvalibleShTech} from "../../http/TableApi";
+import {collectDateReadyShTech, getAllReadyShTech} from "../../http/TableApi";
 import SelectDate from "../SelectDate";
 import '../../styles/Component.css'
 
 
-const AvalibleShTech = observer((props) => {
+const ReadyShTech = observer((props) => {
     const {user} = useContext(Context)
     const {datecls} = useContext(Context)
     const [result, setResult] = useState([])
@@ -54,7 +54,7 @@ const AvalibleShTech = observer((props) => {
         }
         for (let i = 0; i < props.rowName.length; i++) {
             if ((props.rowName[i].name === user.region) || (user.role === "ADMIN")) {
-                await getAllAvalibleShTech(props.rowName[i].name, date.current).then(data => {
+                await getAllReadyShTech(props.rowName[i].name, date.current).then(data => {
                     valueList.push(...data)
                 })
             }
@@ -112,49 +112,51 @@ const AvalibleShTech = observer((props) => {
                             getDate={getDate} 
                             startDate={date.current} 
                             day={4} 
-                            key="Наличие сх тех" 
-                            label="Наличие сх тех" 
-                            func={collectDateAvalibleShTech} 
+                            key="Готовность сх тех" 
+                            label="Готовность сх тех" 
+                            func={collectDateReadyShTech} 
                             types="weeks">
                         </SelectDate>
                     </th>
                 </tr>
                 <tr>
                     <th rowSpan={3}>Наименование района</th>
-                    <th colSpan={4}>Сеялки</th>
-                    <th colSpan={4}>Культиваторы</th>
-                    <th colSpan={4}>Плуги</th>
-                    <th colSpan={4}>Дисковые бороны</th>
-                    <th colSpan={4}>Тракторы</th>
+                    <th colSpan={6}>Кормоуборочные комбайны</th>
+                    <th colSpan={4}>Косилки</th>
+                    <th rowSpan={2} colSpan={2}>Грабли тракторные</th>
+                    <th rowSpan={2} colSpan={2}>Пресс-подборщики</th>
+                    <th rowSpan={2} colSpan={2}>Опрыскиватели</th>
+                    <th rowSpan={2} colSpan={2}>Жатки валковые</th>
+                    <th rowSpan={2} colSpan={2}>Грузовые автомобили</th>
                 </tr>
                 <tr>
-                    <th rowSpan={2}>Наличие</th>
-                    <th>Исправно</th>
-                    <th rowSpan={2}>Наход. в ремонте</th>
-                    <th rowSpan={2}>Наличие</th>
-                    <th>Исправно</th>
-                    <th rowSpan={2}>Наход. в ремонте</th>
-                    <th rowSpan={2}>Наличие</th>
-                    <th>Исправно</th>
-                    <th rowSpan={2}>Наход. в ремонте</th>
-                    <th rowSpan={2}>Наличие</th>
-                    <th>Исправно</th>
-                    <th rowSpan={2}>Наход. в ремонте</th>
-                    <th rowSpan={2}>Наличие</th>
-                    <th>Исправно</th>
-                    <th rowSpan={2}>Наход. в ремонте</th>
+                    <th rowSpan={2}>Всего</th>
+                    <th rowSpan={2}>В т.ч. отечеств.</th>
+                    <th rowSpan={2}>В т.ч. импортные</th>
+                    <th rowSpan={2}>Всего</th>
+                    <th rowSpan={2}>В т.ч. самоходные</th>
                 </tr>
                 <tr>
-                    <th>Всего</th>
-                    <th>В т.ч. отрем</th>
-                    <th>Всего</th>
-                    <th>В т.ч. отрем</th>
-                    <th>Всего</th>
-                    <th>В т.ч. отрем</th>
-                    <th>Всего</th>
-                    <th>В т.ч. отрем</th>
-                    <th>Всего</th>
-                    <th>В т.ч. отрем</th>
+                    <th>Наличие</th>
+                    <th>Исправно</th>
+                    <th>Наличие</th>
+                    <th>Исправно</th>
+                    <th>Наличие</th>
+                    <th>Исправно</th>
+                    <th>Наличие</th>
+                    <th>Исправно</th>
+                    <th>Наличие</th>
+                    <th>Исправно</th>
+                    <th>Наличие</th>
+                    <th>Исправно</th>
+                    <th>Наличие</th>
+                    <th>Исправно</th>
+                    <th>Наличие</th>
+                    <th>Исправно</th>
+                    <th>Наличие</th>
+                    <th>Исправно</th>
+                    <th>Наличие</th>
+                    <th>Исправно</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -195,4 +197,4 @@ const AvalibleShTech = observer((props) => {
     );
 });
 
-export default AvalibleShTech;
+export default ReadyShTech;
