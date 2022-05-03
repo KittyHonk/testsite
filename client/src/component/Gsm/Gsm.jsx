@@ -1,4 +1,4 @@
-import React, {useRef, useContext, useState, useEffect, version, useCallback} from 'react';
+import React, {useRef, useContext, useState, useEffect, useMemo} from 'react';
 import {observer} from "mobx-react-lite";
 import {Table, Button} from "react-bootstrap";
 import TableBody from "./TableBody";
@@ -10,11 +10,12 @@ import SelectDate from "../SelectDate";
 const Gsm = observer((props) => {
     const {user} = useContext(Context)
     const {datecls} = useContext(Context)
+    const [result, setResult] = useState([])
     const regionList = []
     let valueList = []
-    const [result, setResult] = useState([])
+    let sum = useRef()
     let date = useRef(new Date(datecls.findDay(4).toISOString().slice(0, 10)))
-
+    
     const childRef = [
         useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(),
         useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(),
@@ -26,26 +27,16 @@ const Gsm = observer((props) => {
             regionList.push(<TableBody day={4} ref={childRef[i]} key={props.rowName[i].name} rowName={props.rowName[i].name}/>)
         }
     }
-
-    useEffect(() => {
-        sum.current = result
-    }, []) 
-
-    const measuredRef = useCallback(() => {
-        console.log("Ref change")
-    }, []);
-
-    let sum = measuredRef()
-
+    
     const submitAll = () => {
         childRef.map(ref => {
             try {
                 ref.current.newRow(date.current)
             } catch (e) {}
         })
-        getValue().then(data => {
+        setTimeout(() => getValue().then(data => {
             sum.current = calcField(data)
-        })
+        }), 100)
     }
 
     const setAllChildDate = () => {
@@ -73,6 +64,9 @@ const Gsm = observer((props) => {
     const getDate = (newDate) => {
         date.current = newDate
         setAllChildDate()
+        getValue().then(data => {
+            sum.current = calcField(data)
+        })
     }
 
     const calcField = (valueList) => {

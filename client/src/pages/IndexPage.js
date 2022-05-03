@@ -9,6 +9,7 @@ const IndexPage = observer(() => {
     const date = datecls.date
     const dayList = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота']
     let prefDate = new Date(datecls.findDay(4))
+    let sliceDate = prefDate.toISOString().slice(0, 10)
 
 
     if (true) {
@@ -25,6 +26,9 @@ const IndexPage = observer(() => {
                 </div>
                 <div>
                     {`Тест: ${prefDate}`}
+                </div>
+                <div>
+                    {`Тест2: ${sliceDate}`}
                 </div>
             </Container>
         );

@@ -21,6 +21,17 @@ const TableBody = React.forwardRef((props, ref) => {
     }
 
     useEffect(() => {
+        refList.ref0.current.value = ''
+        refList.ref1.current.value = ''
+        refList.ref2.current.value = ''
+        refList.ref3.current.value = ''
+        refList.ref4.current.value = ''
+        refList.ref5.current.value = ''
+        refList.ref6.current.value = ''
+        refList.ref7.current.value = ''
+    }, [refList])
+
+    useEffect(() => {
         checkMilkShp(row_owner, date).then(data => {
             getAllMilkShp(row_owner, date).then(data => {
                 setValue(data)

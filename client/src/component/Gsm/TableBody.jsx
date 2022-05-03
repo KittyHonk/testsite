@@ -33,8 +33,17 @@ const TableBody = React.forwardRef((props, ref) => {
     }, [])
 
     useEffect(() => {
-        
-    }, [value, setValue])
+        refList.ref0.current.value = ''
+        refList.ref1.current.value = ''
+        refList.ref2.current.value = ''
+        refList.ref3.current.value = ''
+        refList.ref4.current.value = ''
+        refList.ref5.current.value = ''
+        refList.ref6.current.value = ''
+        refList.ref7.current.value = ''
+        refList.ref8.current.value = ''
+        refList.ref9.current.value = ''
+    }, [refList])
 
     useImperativeHandle(ref, () => ({
         newRow (date) {

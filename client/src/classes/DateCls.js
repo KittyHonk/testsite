@@ -1,4 +1,4 @@
-import {makeAutoObservable} from "mobx";
+import {makeAutoObservable, set} from "mobx";
 
 export default class DateCls {
     constructor() {
@@ -28,10 +28,14 @@ export default class DateCls {
         let getMonthDay = dateCopy.getMonth()
         for (let i = this.monthDay;i > -31;i--) {
             let setMonth = dateCopy.setMonth(getMonthDay, i)
-            let dateTemp = new Date(setMonth)
-            let getDayTemp = dateTemp.getDay()
+            let dateTemp = (new Date(setMonth)).getTimezoneOffset() * 60000
+            let dateOffset = (new Date((setMonth - dateTemp)))
+            let getDayTemp = dateOffset.getDay()
             if (getDayTemp === day) {
-                return dateTemp
+                // console.log(setMonth)
+                // console.log(dateTemp)
+                // console.log(dateOffset)
+                return dateOffset
             }
         }
     }
