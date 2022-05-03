@@ -130,11 +130,11 @@ const ReadyShTech = observer((props) => {
                     <th rowSpan={2} colSpan={2}>Грузовые автомобили</th>
                 </tr>
                 <tr>
-                    <th rowSpan={2}>Всего</th>
-                    <th rowSpan={2}>В т.ч. отечеств.</th>
-                    <th rowSpan={2}>В т.ч. импортные</th>
-                    <th rowSpan={2}>Всего</th>
-                    <th rowSpan={2}>В т.ч. самоходные</th>
+                    <th colSpan={2}>Всего</th>
+                    <th colSpan={2}>В т.ч. отечеств.</th>
+                    <th colSpan={2}>В т.ч. импортные</th>
+                    <th colSpan={2}>Всего</th>
+                    <th colSpan={2}>В т.ч. самоходные</th>
                 </tr>
                 <tr>
                     <th>Наличие</th>
