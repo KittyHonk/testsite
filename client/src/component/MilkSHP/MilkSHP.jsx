@@ -54,14 +54,14 @@ const MilkShp = observer((props) => {
     return (
         <div style={{overflow: "auto"}}>
             <div>
-            <SelectDate
-                getDate={getDate} 
-                startDate={date.current} 
-                key="Молоко СХП" 
-                label="Молоко СХП" 
-                func={collectDateMilkShp} 
-                types="days">
-            </SelectDate>
+                <SelectDate
+                    getDate={getDate} 
+                    startDate={date.current} 
+                    key="Молоко СХП" 
+                    label="Молоко СХП" 
+                    func={collectDateMilkShp} 
+                    types="days">
+                </SelectDate>
             </div>
             <Table
                 striped bordered hover

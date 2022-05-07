@@ -5,13 +5,15 @@ import TableBody from "./TableBody";
 import {Context} from "../../index";
 import SelectDate from "../SelectDate";
 import {collectDateCornSilage} from "../../http/TableApi";
+import '../../styles/Component.css';
+import Export from '../Export';
 
 
 const CornSilage = observer((props) => {
     const {user} = useContext(Context)
     const regionList = []
-    let date = new Date(Date.now())
-    date = date.toISOString().slice(0, 10)
+    let date = useRef(new Date(Date.now()).toISOString().slice(0, 10))
+    let tableRef = useRef()
     const childRef = [
         useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(),
         useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(),
@@ -27,7 +29,7 @@ const CornSilage = observer((props) => {
     const submitAll = () => {
         childRef.forEach(ref => {
             try {
-                ref.current.newRow(date)
+                ref.current.newRow(date.current)
             } catch (e) {
 
             }
@@ -37,7 +39,7 @@ const CornSilage = observer((props) => {
     const setAllChildDate = () => {
         try {
             childRef.forEach(ref => {
-                ref.current.setNewDate(date)
+                ref.current.setNewDate(date.current)
             })
         } catch (e) {
 
@@ -45,29 +47,39 @@ const CornSilage = observer((props) => {
     }
 
     const getDate = (newDate) => {
-        date = newDate
+        date.current = newDate
         setAllChildDate()
     }
 
     return (
         <div style={{overflow: "auto"}}>
+            <div>
+                <SelectDate 
+                    getDate={getDate} 
+                    startDate={date.current} 
+                    key="Кукуруза на силос" 
+                    label="Кукуруза на силос" 
+                    func={collectDateCornSilage} 
+                    types="days">
+                </SelectDate>
+            </div>
             <Table
                 striped bordered hover
                 style={{textAlign: "center", marginTop: "2%"}}
+                ref={tableRef}
             >
                 <thead>
                 <tr>
-                    <th><SelectDate getDate={getDate} startDate={date} key="Кукуруза на силос" label="Кукуруза на силос" func={collectDateCornSilage} types="days"></SelectDate></th>
-                </tr>
-                <tr>
-                    <th rowSpan={3}>Наименование района</th>
+                    <th></th>
                     <th colSpan={4}>Уборка кукурузы на силос и зел. корм</th>
                 </tr>
                 <tr>
+                    <th></th>
                     <th colSpan={2}>Площадь к уборке</th>
                     <th colSpan={2}>Заложено сил. массы</th>
                 </tr>
                 <tr>
+                    <th>Наименование района</th>
                     <th>План тыс. га</th>
                     <th>Факт тыс. га</th>
                     <th>План тыс. тонн</th>
@@ -84,7 +96,8 @@ const CornSilage = observer((props) => {
                 </tfoot>
             </Table>
             <div className="d-flex justify-content-center">
-                <Button style={{padding: "10px", margin: "20px auto 0 auto", position: "fixed"}} type="submit" onClick={submitAll}>Отправить</Button>
+                <Button style={{margin: "23px 45% 0 55%", position: "fixed"}} type="submit" onClick={submitAll}>Отправить</Button>
+                <Export fileName={"Кукуруза на силос"} tableRef={tableRef}/>
             </div>
         </div>
     );

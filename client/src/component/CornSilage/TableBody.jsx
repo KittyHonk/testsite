@@ -58,10 +58,10 @@ const TableBody = React.forwardRef((props, ref) => {
         return (
             <tr>
                 <td>{row_owner}</td>
-                <td><InputField user={user.role} start={value[0].value1} ref={refList.ref0}></InputField></td>
-                <td><InputField start={value[0].value2} ref={refList.ref1}></InputField></td>
-                <td><InputField user={user.role} start={value[0].value3} ref={refList.ref2}></InputField></td>
-                <td><InputField start={value[0].value4} ref={refList.ref3}></InputField></td>
+                <td><InputField user={user.role} start={value[0].value1} ref={refList.ref0}>{value[0].value1}</InputField></td>
+                <td><InputField start={value[0].value2} ref={refList.ref1}>{value[0].value2}</InputField></td>
+                <td><InputField user={user.role} start={value[0].value3} ref={refList.ref2}>{value[0].value3}</InputField></td>
+                <td><InputField start={value[0].value4} ref={refList.ref3}>{value[0].value4}</InputField></td>
             </tr>
         );
     } else {

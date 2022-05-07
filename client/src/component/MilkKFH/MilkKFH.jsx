@@ -6,14 +6,14 @@ import {Context} from "../../index";
 import {collectDateMilkKfh} from "../../http/TableApi";
 import SelectDate from "../SelectDate";
 import '../../styles/Component.css';
-import TableExport from 'tableexport';
+import Export from '../Export';
 
 
 const MilkKfh = observer((props) => {
     const {user} = useContext(Context)
     const regionList = []
-    let date = new Date(Date.now())
-    date = date.toISOString().slice(0, 10)
+    let date = useRef(new Date(Date.now()).toISOString().slice(0, 10))
+    let tableRef = useRef()
     const childRef = [
         useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(),
         useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(),
@@ -29,7 +29,7 @@ const MilkKfh = observer((props) => {
     const submitAll = () => {
         childRef.forEach(ref => {
             try {
-                ref.current.newRow(date)
+                ref.current.newRow(date.current)
             } catch (e) {
 
             }
@@ -39,7 +39,7 @@ const MilkKfh = observer((props) => {
     const setAllChildDate = () => {
         try {
             childRef.forEach(ref => {
-                ref.current.setNewDate(date)
+                ref.current.setNewDate(date.current)
             })
         } catch (e) {
 
@@ -47,29 +47,21 @@ const MilkKfh = observer((props) => {
     }
 
     const getDate = (newDate) => {
-        date = newDate
+        date.current = newDate
         setAllChildDate()
-    }
-
-    const tableRef = useRef()
-    const exportFile = () => {
-        const fileToExport = TableExport(tableRef.current, {
-            headers: true,
-            footers: false,
-            formats: ["xlsx"],
-            filename: "Молоко КФХ",
-            boostrap: true,
-            exportButtons: true,
-            trimWhitespace: false,
-            sheetname: `${date}`,
-        })
-        return fileToExport
     }
 
     return (
         <div style={{overflow: "auto"}}>
             <div>
-                <SelectDate getDate={getDate} startDate={date} key="Молоко КФХ" label="Молоко КФХ" func={collectDateMilkKfh} types="days"></SelectDate>
+                <SelectDate 
+                    getDate={getDate} 
+                    startDate={date.current} 
+                    key="Молоко КФХ" 
+                    label="Молоко КФХ" 
+                    func={collectDateMilkKfh} 
+                    types="days">
+                </SelectDate>
             </div>
             <Table
                 striped bordered hover
@@ -105,8 +97,8 @@ const MilkKfh = observer((props) => {
                 </tfoot>
             </Table>
             <div className="d-flex justify-content-center">
-                <Button style={{padding: "10px", margin: "20px auto 0 auto", position: "fixed"}} type="submit" onClick={submitAll}>Отправить</Button>
-                <Button style={{padding: "10px", margin: "20px 200px 0 auto", position: "fixed"}}type="submit" onClick={exportFile}>Экспорт</Button>
+                <Button style={{margin: "23px 45% 0 55%", position: "fixed"}} type="submit" onClick={submitAll}>Отправить</Button>
+                <Export fileName={"Молоко КФХ"} tableRef={tableRef}/>
             </div>
         </div>
     );

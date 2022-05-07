@@ -5,14 +5,15 @@ import TableBody from "./TableBody";
 import {Context} from "../../index";
 import SelectDate from "../SelectDate";
 import {collectDateForageHarvest} from "../../http/TableApi";
-import '../../styles/Component.css'
+import '../../styles/Component.css';
+import Export from '../Export';
 
 
 const ForageHarvest = observer((props) => {
     const {user} = useContext(Context)
     const regionList = []
-    let date = new Date(Date.now())
-    date = date.toISOString().slice(0, 10)
+    let date = useRef(new Date(Date.now()).toISOString().slice(0, 10))
+    let tableRef = useRef()
     const childRef = [
         useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(),
         useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(),
@@ -29,7 +30,7 @@ const ForageHarvest = observer((props) => {
     const submitAll = () => {
         childRef.forEach(ref => {
             try {
-                ref.current.newRow(date)
+                ref.current.newRow(date.current)
             } catch (e) {
 
             }
@@ -39,7 +40,7 @@ const ForageHarvest = observer((props) => {
     const setAllChildDate = () => {
         try {
             childRef.forEach(ref => {
-                ref.current.setNewDate(date)
+                ref.current.setNewDate(date.current)
             })
         } catch (e) {
 
@@ -47,33 +48,38 @@ const ForageHarvest = observer((props) => {
     }
 
     const getDate = (newDate) => {
-        date = newDate
+        date.current = newDate
         setAllChildDate()
     }
 
     return (
         <div style={{overflow: "auto"}}>
+            <div>
+                <SelectDate 
+                    getDate={getDate} 
+                    startDate={date.current} 
+                    key="Заготовка кормов" 
+                    label="Заготовка кормов" 
+                    func={collectDateForageHarvest} 
+                    types="days">
+                </SelectDate>
+            </div>
             <Table
                 striped bordered hover
                 style={{textAlign: "center", marginTop: "2%"}}
+                ref={tableRef}
             >
                 <thead>
                 <tr>
-                    <th>
-                        <SelectDate getDate={getDate} startDate={date} key="Заготовка кормов" label="Заготовка кормов" func={collectDateForageHarvest} types="days"></SelectDate>
-                    </th>
+                    <th></th>
+                    <th colSpan={3}>Скошено естестес. и сеяных трав на сено, сенаж, зел. корм и трав. муку, тыс. га</th>
+                    <th colSpan={3}>Заготовлено сена, тыс. тонн</th>
+                    <th colSpan={3}>Заготовлено сенажа, тыс. тонн</th>
+                    <th></th>
+                    <th></th>
                 </tr>
                 <tr>
-                    <th rowSpan={3}>Наименование района</th>
-                    <th colSpan={3} rowSpan={2}>Скошено естестес. и сеяных трав на сено, сенаж, зел. корм и трав. муку, тыс. га</th>
-                    <th colSpan={3} rowSpan={2}>Заготовлено сена, тыс. тонн</th>
-                    <th colSpan={3} rowSpan={2}>Заготовлено сенажа, тыс. тонн</th>
-                    <th rowSpan={3}>Заготовлено травяной муки, тыс. тонн</th>
-                    <th rowSpan={3}>Заготовлено соломы, тыс. тонн</th>
-                </tr>
-                <tr>
-                </tr>
-                <tr>
+                    <th>Наименование района</th>
                     <th>План</th>
                     <th>Факт</th>
                     <th>%</th>
@@ -83,6 +89,8 @@ const ForageHarvest = observer((props) => {
                     <th>План</th>
                     <th>Факт</th>
                     <th>%</th>
+                    <th>Заготовлено травяной муки, тыс. тонн</th>
+                    <th>Заготовлено соломы, тыс. тонн</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -94,7 +102,8 @@ const ForageHarvest = observer((props) => {
                 </tfoot>
             </Table>
             <div className="d-flex justify-content-center">
-                <Button style={{padding: "10px", margin: "20px auto 0 auto", position: "fixed"}} type="submit" onClick={submitAll}>Отправить</Button>
+                <Button style={{margin: "23px 45% 0 55%", position: "fixed"}} type="submit" onClick={submitAll}>Отправить</Button>
+                <Export fileName={"Заготовка кормов"} tableRef={tableRef}/>
             </div>
         </div>
     );
