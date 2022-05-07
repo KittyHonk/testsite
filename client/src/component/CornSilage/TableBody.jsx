@@ -6,10 +6,9 @@ import {Context} from "../../index";
 
 const TableBody = React.forwardRef((props, ref) => {
     const {user} = useContext(Context)
+    let date = useRef(new Date(Date.now()).toISOString().slice(0, 10))
     const row_owner = props.rowName
     const [value, setValue] = useState([{value: [0]}])
-    let date = new Date(Date.now())
-    date = date.toISOString().slice(0, 10)
 
     const refList = {
         ref0: useRef(),
@@ -19,15 +18,14 @@ const TableBody = React.forwardRef((props, ref) => {
     }
 
     useEffect(() => {
-        refList.ref0.current.value = ''
-        refList.ref1.current.value = ''
-        refList.ref2.current.value = ''
-        refList.ref3.current.value = ''
+        for (let key in refList) {
+            refList[key].current.value = ''
+        }
     }, [refList])
 
     useEffect(() => {
-        checkCornSilage(row_owner, date).then(data => {
-            getAllCornSilage(row_owner, date).then(data => {
+        checkCornSilage(row_owner, date.current).then(data => {
+            getAllCornSilage(row_owner, date.current).then(data => {
                 setValue(data)
             })
         })
@@ -49,8 +47,8 @@ const TableBody = React.forwardRef((props, ref) => {
             )
         },
         setNewDate (newDate) {
-            date = newDate
-            getAllCornSilage(row_owner, date).then(data => {
+            date.current = newDate
+            getAllCornSilage(row_owner, date.current).then(data => {
                 setValue(data)
             })
         },

@@ -17,6 +17,9 @@ const InputField = React.forwardRef((props, ref) => {
 
     return (
         <div>
+            <div style={{display: "none"}}>
+                {props.children}
+            </div>
             <InputUI
                 style={{backgroundColor: `${bg}`}}
                 readOnly={readOnlyCheck}

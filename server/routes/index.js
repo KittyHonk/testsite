@@ -10,6 +10,7 @@ const tableCornSilageRouter = require('./tableCornSilageRouter')
 const tableGsmRouter = require('./tableGsmRouter')
 const tableAvalibleShTech = require('./tableAvalibleShTechRouter')
 const tableReadyShTech = require('./tableReadyShTechRouter')
+const tableBeetHarvesters = require('./tableBeetHarvestersRouter')
 
 router.use('/user', userRouter)
 router.use('/report', reportsRouter)
@@ -21,5 +22,6 @@ router.use('/corn_silage', tableCornSilageRouter)
 router.use('/gsm', tableGsmRouter)
 router.use('/avalible_sh_tech', tableAvalibleShTech)
 router.use('/ready_sh_tech', tableReadyShTech)
+router.use('/beet_harvesters', tableBeetHarvesters)
 
 module.exports = router

@@ -6,13 +6,14 @@ import {Context} from "../../index";
 import {collectDateMilkShp} from "../../http/TableApi";
 import SelectDate from "../SelectDate";
 import '../../styles/Component.css'
+import Export from '../Export';
 
 
 const MilkShp = observer((props) => {
     const {user} = useContext(Context)
     const regionList = []
-    let date = new Date(Date.now())
-    date = date.toISOString().slice(0, 10)
+    let tableRef = useRef()
+    let date = useRef(new Date(Date.now()).toISOString().slice(0, 10))
     const childRef = [
         useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(),
         useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(),
@@ -28,7 +29,7 @@ const MilkShp = observer((props) => {
     const submitAll = () => {
         childRef.forEach(ref => {
             try {
-                ref.current.newRow(date)
+                ref.current.newRow(date.current)
             } catch (e) {
 
             }
@@ -38,7 +39,7 @@ const MilkShp = observer((props) => {
     const setAllChildDate = () => {
         try {
             childRef.forEach(ref => {
-                ref.current.setNewDate(date)
+                ref.current.setNewDate(date.current)
             })
         } catch (e) {
 
@@ -46,34 +47,45 @@ const MilkShp = observer((props) => {
     }
 
     const getDate = (newDate) => {
-        date = newDate
+        date.current = newDate
         setAllChildDate()
     }
 
     return (
         <div style={{overflow: "auto"}}>
+            <div>
+            <SelectDate
+                getDate={getDate} 
+                startDate={date.current} 
+                key="Молоко СХП" 
+                label="Молоко СХП" 
+                func={collectDateMilkShp} 
+                types="days">
+            </SelectDate>
+            </div>
             <Table
                 striped bordered hover
-                style={{textAlign: "center"}}
+                style={{textAlign: "center", marginTop: "2%"}}
+                ref={tableRef}
             >
                 <thead>
-                <tr>
-                    <th><SelectDate getDate={getDate} startDate={date} key="Молоко СХП" label="Молоко СХП" func={collectDateMilkShp} types="days"></SelectDate></th>
-                </tr>
                 <tr>
                     <th rowSpan={3}>Наименование района</th>
                     <th colSpan={6}>Валовый надой молока, тонн</th>
                     <th colSpan={3}>Суточный надой молоко на корову, кг</th>
-                    <th rowSpan={3}>Реализовано в зачете, т</th>
-                    <th rowSpan={3}>Реализовано в физ. весе, т</th>
-                    <th rowSpan={3}>% товарности</th>
+                    <th>Реализовано в зачете, т</th>
+                    <th>Реализовано в физ. весе, т</th>
+                    <th>% товарности</th>
                 </tr>
                 <tr>
                     <th colSpan={3}>С начала года</th>
                     <th colSpan={3}>В т.ч. за день</th>
-                    <th rowSpan={2}>2021</th>
-                    <th rowSpan={2}>2022</th>
-                    <th rowSpan={2}>Разница</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
                 </tr>
                 <tr>
                     <th>2021</th>
@@ -82,6 +94,12 @@ const MilkShp = observer((props) => {
                     <th>2021</th>
                     <th>2022</th>
                     <th>Разница</th>
+                    <th>2021</th>
+                    <th>2022</th>
+                    <th>Разница</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>                  
                 </tr>
                 </thead>
                 <tbody>
@@ -93,7 +111,8 @@ const MilkShp = observer((props) => {
                 </tfoot>
             </Table>
             <div className="d-flex justify-content-center">
-                <Button style={{padding: "10px", margin: "20px auto 0 auto", position: "fixed"}} type="submit" onClick={submitAll}>Отправить</Button>
+                <Button style={{margin: "23px 45% 0 55%", position: "fixed"}} type="submit" onClick={submitAll}>Отправить</Button>
+                <Export fileName={"Молоко СХП"} tableRef={tableRef}/>
             </div>
         </div>
     );

@@ -152,5 +152,33 @@ export const createReadyShTech = async (
     return data
 }
 
+export const getAllBeetHarvesters = async (row_owner, date) => {
+    const {data} = await $host.get("api/beet_harvesters/" + row_owner + `?date=${date}`)
+    return data
+}
+
+export const collectDateBeetHarvesters = async () => {
+    const {data} = await $authHost.get("api/beet_harvesters/")
+    return data
+}
+
+export const checkBeetHarvesters = async (row_owner, date) => {
+    const {data} = await $authHost.post("api/beet_harvesters/check/", {row_owner, date})
+    return data
+}
+
+export const createBeetHarvesters = async (
+    row_owner, date, value1, value2, value3, value4, value5, value6, value7, value8, value9, value10,
+    value11, value12, value13, value14, value15, value16, value17, value18, value19, value20, value21,
+    value22, value23, value24, value25, value26, value27, value28,
+    ) => {
+    const {data} = await $authHost.post("api/beet_harvesters/", {
+        row_owner, date, value1, value2, value3, value4, value5, value6, value7, value8, value9, value10,
+        value11, value12, value13, value14, value15, value16, value17, value18, value19, value20, value21,
+        value22, value23, value24, value25, value26, value27, value28,
+    })
+    return data
+}
+
 
 

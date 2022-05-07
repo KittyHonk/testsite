@@ -6,8 +6,7 @@ import {Context} from "../../index";
 
 const TableBody = React.forwardRef((props, ref) => {
     const {user} = useContext(Context)
-    let date = new Date(Date.now())
-    date = date.toISOString().slice(0, 10)
+    let date = useRef(new Date(Date.now()).toISOString().slice(0, 10))
     const row_owner = props.rowName
     const [value, setValue] = useState([{value: [0]}])
 
@@ -23,19 +22,14 @@ const TableBody = React.forwardRef((props, ref) => {
     }
 
     useEffect(() => {
-        refList.ref0.current.value = ''
-        refList.ref1.current.value = ''
-        refList.ref2.current.value = ''
-        refList.ref3.current.value = ''
-        refList.ref4.current.value = ''
-        refList.ref5.current.value = ''
-        refList.ref6.current.value = ''
-        refList.ref7.current.value = ''
+        for (let key in refList) {
+            refList[key].current.value = ''
+        }
     }, [refList])
 
     useEffect(() => {
-        checkForageHarvest(row_owner, date).then(data => {
-            getAllForageHarvest(row_owner, date).then(data => {
+        checkForageHarvest(row_owner, date.current).then(data => {
+            getAllForageHarvest(row_owner, date.current).then(data => {
                 setValue(data)
             })
         })
@@ -62,8 +56,8 @@ const TableBody = React.forwardRef((props, ref) => {
             })
         },
         setNewDate (newDate) {
-            date = newDate
-            getAllForageHarvest(row_owner, date).then(data => {
+            date.current = newDate
+            getAllForageHarvest(row_owner, date.current).then(data => {
                 setValue(data)
             })
         },

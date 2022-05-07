@@ -6,8 +6,7 @@ import {checkMilkShp, createMilkShp, getAllMilkShp} from "../../http/TableApi";
 const TableBody = React.forwardRef((props, ref) => {
     const row_owner = props.rowName
     const [value, setValue] = useState([{value: []}])
-    let date = new Date(Date.now())
-    date = date.toISOString().slice(0, 10)
+    let date = useRef(new Date(Date.now()).toISOString().slice(0, 10))
 
     const refList = {
         ref0: useRef(),
@@ -18,22 +17,17 @@ const TableBody = React.forwardRef((props, ref) => {
         ref5: useRef(),
         ref6: useRef(),
         ref7: useRef(),
-    }
+    } 
 
     useEffect(() => {
-        refList.ref0.current.value = ''
-        refList.ref1.current.value = ''
-        refList.ref2.current.value = ''
-        refList.ref3.current.value = ''
-        refList.ref4.current.value = ''
-        refList.ref5.current.value = ''
-        refList.ref6.current.value = ''
-        refList.ref7.current.value = ''
+        for (let key in refList) {
+            refList[key].current.value = ''
+        }
     }, [refList])
 
     useEffect(() => {
-        checkMilkShp(row_owner, date).then(data => {
-            getAllMilkShp(row_owner, date).then(data => {
+        checkMilkShp(row_owner, date.current).then(data => {
+            getAllMilkShp(row_owner, date.current).then(data => {
                 setValue(data)
             })
         })
@@ -59,8 +53,8 @@ const TableBody = React.forwardRef((props, ref) => {
             })
         },
         setNewDate (newDate) {
-            date = newDate
-            getAllMilkShp(row_owner, date).then(data => {
+            date.current = newDate
+            getAllMilkShp(row_owner, date.current).then(data => {
                 setValue(data)
             })
         },
@@ -70,17 +64,17 @@ const TableBody = React.forwardRef((props, ref) => {
         return (
             <tr>
                 <td>{row_owner}</td>
-                <td><InputField start={value[0].value1} ref={refList.ref0}></InputField></td>
-                <td><InputField start={value[0].value2} ref={refList.ref1}></InputField></td>
+                <td><InputField start={value[0].value1} ref={refList.ref0}>{value[0].value1}</InputField></td>
+                <td><InputField start={value[0].value2} ref={refList.ref1}>{value[0].value2}</InputField></td>
                 <td>{value[0].result12}</td>
-                <td><InputField start={value[0].value3} ref={refList.ref2}></InputField></td>
-                <td><InputField start={value[0].value4} ref={refList.ref3}></InputField></td>
+                <td><InputField start={value[0].value3} ref={refList.ref2}>{value[0].value3}</InputField></td>
+                <td><InputField start={value[0].value4} ref={refList.ref3}>{value[0].value4}</InputField></td>
                 <td>{value[0].result34}</td>
-                <td><InputField start={value[0].value5} ref={refList.ref4}></InputField></td>
-                <td><InputField start={value[0].value6} ref={refList.ref5}></InputField></td>
+                <td><InputField start={value[0].value5} ref={refList.ref4}>{value[0].value5}</InputField></td>
+                <td><InputField start={value[0].value6} ref={refList.ref5}>{value[0].value6}</InputField></td>
                 <td>{value[0].result56}</td>
-                <td><InputField start={value[0].value7} ref={refList.ref6}></InputField></td>
-                <td><InputField start={value[0].value8} ref={refList.ref7}></InputField></td>
+                <td><InputField start={value[0].value7} ref={refList.ref6}>{value[0].value7}</InputField></td>
+                <td><InputField start={value[0].value8} ref={refList.ref7}>{value[0].value8}</InputField></td>
                 <td>{value[0].result48}</td>
             </tr>
         );

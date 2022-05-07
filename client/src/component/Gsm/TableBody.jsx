@@ -6,8 +6,7 @@ import {Context} from "../../index";
 
 const TableBody = React.forwardRef((props, ref) => {
     const {datecls} = useContext(Context)
-    let date = new Date()
-    date = datecls.findDay(props.day).toISOString().slice(0,10)
+    let date = useRef(new Date(datecls.findDay(props.day).toISOString().slice(0,10)))
     const row_owner = props.rowName
     const [value, setValue] = useState([{value: [0]}])
 
@@ -25,24 +24,17 @@ const TableBody = React.forwardRef((props, ref) => {
     }
 
     useEffect(() => {
-        checkGsm(row_owner, date).then(data => {
-            getAllGsm(row_owner, date).then(data => {
+        checkGsm(row_owner, date.current).then(data => {
+            getAllGsm(row_owner, date.current).then(data => {
                 setValue(data)
             })
         })
     }, [])
 
     useEffect(() => {
-        refList.ref0.current.value = ''
-        refList.ref1.current.value = ''
-        refList.ref2.current.value = ''
-        refList.ref3.current.value = ''
-        refList.ref4.current.value = ''
-        refList.ref5.current.value = ''
-        refList.ref6.current.value = ''
-        refList.ref7.current.value = ''
-        refList.ref8.current.value = ''
-        refList.ref9.current.value = ''
+        for (let key in refList) {
+            refList[key].current.value = ''
+        }
     }, [refList])
 
     useImperativeHandle(ref, () => ({
@@ -67,8 +59,8 @@ const TableBody = React.forwardRef((props, ref) => {
             })
         },
         setNewDate (newDate) {
-            date = newDate
-            getAllGsm(row_owner, date).then(data => {
+            date.current = newDate
+            getAllGsm(row_owner, date.current).then(data => {
                 setValue(data)
             })
         },
@@ -78,16 +70,16 @@ const TableBody = React.forwardRef((props, ref) => {
         return (
             <tr>
                 <td>{row_owner}</td>
-                <td><InputField start={value[0].value1} ref={refList.ref0}></InputField></td>
-                <td><InputField start={value[0].value2} ref={refList.ref1}></InputField></td>
-                <td><InputField start={value[0].value3} ref={refList.ref2}></InputField></td>
-                <td><InputField start={value[0].value4} ref={refList.ref3}></InputField></td>
-                <td><InputField start={value[0].value5} ref={refList.ref4}></InputField></td>
-                <td><InputField start={value[0].value6} ref={refList.ref5}></InputField></td>
-                <td><InputField start={value[0].value7} ref={refList.ref6}></InputField></td>
-                <td><InputField start={value[0].value8} ref={refList.ref7}></InputField></td>
-                <td><InputField start={value[0].value9} ref={refList.ref8}></InputField></td>
-                <td><InputField start={value[0].value10} ref={refList.ref9}></InputField></td>
+                <td><InputField start={value[0].value1} ref={refList.ref0}>{value[0].value1}</InputField></td>
+                <td><InputField start={value[0].value2} ref={refList.ref1}>{value[0].value2}</InputField></td>
+                <td><InputField start={value[0].value3} ref={refList.ref2}>{value[0].value3}</InputField></td>
+                <td><InputField start={value[0].value4} ref={refList.ref3}>{value[0].value4}</InputField></td>
+                <td><InputField start={value[0].value5} ref={refList.ref4}>{value[0].value5}</InputField></td>
+                <td><InputField start={value[0].value6} ref={refList.ref5}>{value[0].value6}</InputField></td>
+                <td><InputField start={value[0].value7} ref={refList.ref6}>{value[0].value7}</InputField></td>
+                <td><InputField start={value[0].value8} ref={refList.ref7}>{value[0].value8}</InputField></td>
+                <td><InputField start={value[0].value9} ref={refList.ref8}>{value[0].value9}</InputField></td>
+                <td><InputField start={value[0].value10} ref={refList.ref9}>{value[0].value10}</InputField></td>
             </tr>
         );
     } else {

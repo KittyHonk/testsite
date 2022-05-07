@@ -3,13 +3,13 @@ import {observer} from "mobx-react-lite";
 import {Table, Button} from "react-bootstrap";
 import TableBody from "./TableBody";
 import {Context} from "../../index";
-import {collectDateAvalibleShTech, getAllAvalibleShTech} from "../../http/TableApi";
+import {collectDateBeetHarvesters, getAllBeetHarvesters} from "../../http/TableApi";
 import SelectDate from "../SelectDate";
-import '../../styles/Component.css'
+import '../../styles/Component.css';
 import Export from '../Export';
 
 
-const AvalibleShTech = observer((props) => {
+const BeetHarvesters = observer((props) => {
     const {user} = useContext(Context)
     const {datecls} = useContext(Context)
     const [result, setResult] = useState([])
@@ -56,7 +56,7 @@ const AvalibleShTech = observer((props) => {
         }
         for (let i = 0; i < props.rowName.length; i++) {
             if ((props.rowName[i].name === user.region) || (user.role === "ADMIN")) {
-                await getAllAvalibleShTech(props.rowName[i].name, date.current).then(data => {
+                await getAllBeetHarvesters(props.rowName[i].name, date.current).then(data => {
                     valueList.push(...data)
                 })
             }
@@ -73,7 +73,7 @@ const AvalibleShTech = observer((props) => {
     }
 
     const calcField = (valueList) => {
-        let sumList = new Array(20).fill(0)
+        let sumList = new Array(28).fill(0)
         for (let i = 0; i < valueList.length; i++) {
             if (valueList[i] !== undefined) {
                 sumList[0] += valueList[i].value1
@@ -96,6 +96,14 @@ const AvalibleShTech = observer((props) => {
                 sumList[17] += valueList[i].value18
                 sumList[18] += valueList[i].value19
                 sumList[19] += valueList[i].value20
+                sumList[20] += valueList[i].value21
+                sumList[21] += valueList[i].value22
+                sumList[22] += valueList[i].value23
+                sumList[23] += valueList[i].value24
+                sumList[24] += valueList[i].value25
+                sumList[25] += valueList[i].value26
+                sumList[26] += valueList[i].value27
+                sumList[27] += valueList[i].value28
             }
         }
         setResult(sumList)
@@ -103,15 +111,17 @@ const AvalibleShTech = observer((props) => {
 
     return (
         <div style={{overflow: "auto"}}>
-            <SelectDate
+            <div>
+            <SelectDate 
                 getDate={getDate} 
                 startDate={date.current} 
                 day={4} 
-                key="Наличие сх тех" 
-                label="Наличие сх тех" 
-                func={collectDateAvalibleShTech} 
+                key="Свеклоуборочные комбайны" 
+                label="Свеклоуборочные комбайны" 
+                func={collectDateBeetHarvesters} 
                 types="weeks">
             </SelectDate>
+            </div>
             <Table
                 striped bordered hover
                 style={{textAlign: "center", marginTop: "2%"}}
@@ -120,52 +130,66 @@ const AvalibleShTech = observer((props) => {
                 <thead>
                 <tr>
                     <th></th>
-                    <th colSpan={4}>Сеялки</th>
-                    <th colSpan={4}>Культиваторы</th>
-                    <th colSpan={4}>Плуги</th>
-                    <th colSpan={4}>Дисковые бороны</th>
-                    <th colSpan={4}>Тракторы</th>
+                    <th colSpan={5}>Свеклоуборочные комбайны</th>
+                    <th colSpan={2}>БМ</th>
+                    <th colSpan={5}>Свеклопогрузчики</th>
+                    <th colSpan={2}>Трактора</th>
+                    <th colSpan={4}>В том числе</th>
+                    <th colSpan={3}>Привлеченные</th>
+                    <th colSpan={5}>Грузовые автомобили</th>
+                    <th colSpan={2}>Сеялки</th>
                 </tr>
                 <tr>
                     <th></th>
+                    <th colSpan={2}>Всего</th>
+                    <th colSpan={2}>В т.ч. импортные</th>
                     <th></th>
-                    <th colSpan={2}>Исправно</th>
+                    <th colSpan={2}></th>
+                    <th colSpan={2}>Всего</th>
+                    <th colSpan={2}>В т.ч. импортные</th>
+                    <th></th>
+                    <th colSpan={2}>Всего</th>
+                    <th colSpan={2}>К-700, К-744</th>
+                    <th colSpan={2}>Импортные</th>
                     <th></th>
                     <th></th>
-                    <th colSpan={2}>Исправно</th>
+                    <th></th>
+                    <th colSpan={2}>Всего</th>
+                    <th colSpan={2}>В т.ч. Камаз</th>
                     <th></th>
                     <th></th>
-                    <th colSpan={2}>Исправно</th>
-                    <th></th>
-                    <th></th>
-                    <th colSpan={2}>Исправно</th>
-                    <th></th>
-                    <th></th>
-                    <th colSpan={2}>Исправно</th>
                     <th></th>
                 </tr>
                 <tr>
-                    <th>Наименование района</th>
+                    <th>Название района</th>
                     <th>Наличие</th>
-                    <th>Всего</th>
-                    <th>В т.ч. отрем</th>
-                    <th>Наход. в ремонте</th>
+                    <th>Исправно</th>
                     <th>Наличие</th>
-                    <th>Всего</th>
-                    <th>В т.ч. отрем</th>
-                    <th>Наход. в ремонте</th>
+                    <th>Исправно</th>
+                    <th>Привлеченные</th>
                     <th>Наличие</th>
-                    <th>Всего</th>
-                    <th>В т.ч. отрем</th>
-                    <th>Наход. в ремонте</th>
+                    <th>Исправно</th>
                     <th>Наличие</th>
-                    <th>Всего</th>
-                    <th>В т.ч. отрем</th>
-                    <th>Наход. в ремонте</th>
+                    <th>Исправно</th>
                     <th>Наличие</th>
+                    <th>Исправно</th>
+                    <th>Привлеченные</th>
+                    <th>Наличие</th>
+                    <th>Исправно</th>
+                    <th>Наличие</th>
+                    <th>Исправно</th>
+                    <th>Наличие</th>
+                    <th>Исправно</th>
                     <th>Всего</th>
-                    <th>В т.ч. отрем</th>
-                    <th>Наход. в ремонте</th>
+                    <th>К-700</th>
+                    <th>Импортные</th>
+                    <th>Наличие</th>
+                    <th>Исправно</th>
+                    <th>Наличие</th>
+                    <th>Исправно</th>
+                    <th>Привлеченные</th>
+                    <th>Наличие</th>
+                    <th>Исправно</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -192,6 +216,14 @@ const AvalibleShTech = observer((props) => {
                     <td>{result[17]}</td>
                     <td>{result[18]}</td>
                     <td>{result[19]}</td>
+                    <td>{result[20]}</td>
+                    <td>{result[21]}</td>
+                    <td>{result[22]}</td>
+                    <td>{result[23]}</td>
+                    <td>{result[24]}</td>
+                    <td>{result[25]}</td>
+                    <td>{result[26]}</td>
+                    <td>{result[27]}</td>
                 </tr>
                 </tbody>
                 <tfoot>
@@ -200,11 +232,11 @@ const AvalibleShTech = observer((props) => {
                 </tfoot>
             </Table>
             <div className="d-flex justify-content-center">
-                <Button style={{margin: "23px auto 0 auto", position: "fixed"}} type="submit" onClick={submitAll}>Отправить</Button>
-                <Export fileName={"Наличие сх тех"} tableRef={tableRef}></Export>
+                <Button style={{margin: "23px 45% 0 55%", position: "fixed"}} type="submit" onClick={submitAll}>Отправить</Button>
+                <Export fileName={"Свеклоуборочные комбайны"} tableRef={tableRef}/>
             </div>
         </div>
     );
 });
 
-export default AvalibleShTech;
+export default BeetHarvesters;

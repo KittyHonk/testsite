@@ -8,6 +8,7 @@ import CornSilage from "../component/CornSilage/CornSilage";
 import Gsm from "../component/Gsm/Gsm";
 import AvalibleShTech from '../component/AvalibleShTech/AvalibleShTech';
 import ReadyShTech from '../component/ReadyShTech/ReadyShTech';
+import BeetHarvesters from '../component/BeetHarvesters/BeetHarvesters';
 
 const Tables = observer(() => {
 
@@ -41,6 +42,9 @@ const Tables = observer(() => {
         }
         case "Готовность сх тех": {
             return <ReadyShTech rowName={regionList}/>
+        }
+        case "Свеклоуборочные комбайны": {
+            return <BeetHarvesters rowName={regionList}/>
         }
         default: {
             console.log(params.table_name)

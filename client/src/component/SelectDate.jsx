@@ -43,7 +43,11 @@ const SelectDate = ({getDate, ...props}) => {
     if (true) {
         fillOptionList()
         return (
-            <Form.Select onChange={changeHandler} aria-label={props.label}>
+            <Form.Select 
+                onChange={changeHandler} 
+                aria-label={props.label} 
+                style={{position: "fixed"}}
+            >
                 {optionList}
             </Form.Select>
         );

@@ -6,6 +6,7 @@ import {Context} from "../../index";
 import {collectDateReadyShTech, getAllReadyShTech} from "../../http/TableApi";
 import SelectDate from "../SelectDate";
 import '../../styles/Component.css'
+import Export from '../Export';
 
 
 const ReadyShTech = observer((props) => {
@@ -15,6 +16,7 @@ const ReadyShTech = observer((props) => {
     const regionList = []
     let valueList = []
     let sum = useRef()
+    let tableRef = useRef()
     let date = useRef(new Date(datecls.findDay(4).toISOString().slice(0, 10)))
     
     const childRef = [
@@ -101,42 +103,46 @@ const ReadyShTech = observer((props) => {
 
     return (
         <div style={{overflow: "auto"}}>
+            <SelectDate 
+                getDate={getDate} 
+                startDate={date.current} 
+                day={4} 
+                key="Готовность сх тех" 
+                label="Готовность сх тех" 
+                func={collectDateReadyShTech} 
+                types="weeks">
+            </SelectDate>
             <Table
                 striped bordered hover
-                style={{textAlign: "center"}}
+                style={{textAlign: "center", marginTop: "2%"}}
+                ref={tableRef}
             >
                 <thead>
                 <tr>
-                    <th>
-                        <SelectDate 
-                            getDate={getDate} 
-                            startDate={date.current} 
-                            day={4} 
-                            key="Готовность сх тех" 
-                            label="Готовность сх тех" 
-                            func={collectDateReadyShTech} 
-                            types="weeks">
-                        </SelectDate>
-                    </th>
-                </tr>
-                <tr>
-                    <th rowSpan={3}>Наименование района</th>
+                    <th></th>
                     <th colSpan={6}>Кормоуборочные комбайны</th>
                     <th colSpan={4}>Косилки</th>
-                    <th rowSpan={2} colSpan={2}>Грабли тракторные</th>
-                    <th rowSpan={2} colSpan={2}>Пресс-подборщики</th>
-                    <th rowSpan={2} colSpan={2}>Опрыскиватели</th>
-                    <th rowSpan={2} colSpan={2}>Жатки валковые</th>
-                    <th rowSpan={2} colSpan={2}>Грузовые автомобили</th>
+                    <th colSpan={2}>Грабли тракторные</th>
+                    <th colSpan={2}>Пресс-подборщики</th>
+                    <th colSpan={2}>Опрыскиватели</th>
+                    <th colSpan={2}>Жатки валковые</th>
+                    <th colSpan={2}>Грузовые автомобили</th>
                 </tr>
                 <tr>
+                    <th></th>
                     <th colSpan={2}>Всего</th>
                     <th colSpan={2}>В т.ч. отечеств.</th>
                     <th colSpan={2}>В т.ч. импортные</th>
                     <th colSpan={2}>Всего</th>
                     <th colSpan={2}>В т.ч. самоходные</th>
+                    <th colSpan={2}></th>
+                    <th colSpan={2}></th>
+                    <th colSpan={2}></th>
+                    <th colSpan={2}></th>
+                    <th colSpan={2}></th>
                 </tr>
                 <tr>
+                    <th>Наименование района</th>
                     <th>Наличие</th>
                     <th>Исправно</th>
                     <th>Наличие</th>
@@ -191,7 +197,8 @@ const ReadyShTech = observer((props) => {
                 </tfoot>
             </Table>
             <div className="d-flex justify-content-center">
-                <Button style={{padding: "10px", margin: "20px auto 0 auto", position: "fixed"}} type="submit" onClick={submitAll}>Отправить</Button>
+                <Button style={{margin: "23px 45% 0 55%", position: "fixed"}} type="submit" onClick={submitAll}>Отправить</Button>
+                <Export fileName={"Готовность сх тех"} tableRef={tableRef}/>
             </div>
         </div>
     );

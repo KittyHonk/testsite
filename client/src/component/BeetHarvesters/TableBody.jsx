@@ -1,6 +1,6 @@
 import React, {useRef, useState, useEffect, useImperativeHandle, useContext} from 'react';
 import InputField from "../InputField";
-import {checkReadyShTech, createReadyShTech, getAllReadyShTech} from "../../http/TableApi";
+import {checkBeetHarvesters, createBeetHarvesters, getAllBeetHarvesters} from "../../http/TableApi";
 import {Context} from "../../index";
 
 
@@ -15,11 +15,13 @@ const TableBody = React.forwardRef((props, ref) => {
         ref5: useRef(), ref6: useRef(), ref7: useRef(), ref8: useRef(), ref9: useRef(),
         ref10: useRef(), ref11: useRef(), ref12: useRef(), ref13: useRef(), ref14: useRef(), 
         ref15: useRef(), ref16: useRef(), ref17: useRef(), ref18: useRef(), ref19: useRef(),
-    }
+        ref20: useRef(), ref21: useRef(), ref22: useRef(), ref23: useRef(), ref24: useRef(),
+        ref25: useRef(), ref26: useRef(), ref27: useRef(),
+    } 
 
     useEffect(() => {
-        checkReadyShTech(row_owner, date.current).then(data => {
-            getAllReadyShTech(row_owner, date.current).then(data => {
+        checkBeetHarvesters(row_owner, date.current).then(data => {
+            getAllBeetHarvesters(row_owner, date.current).then(data => {
                 setValue(data)
             })
         })
@@ -33,7 +35,7 @@ const TableBody = React.forwardRef((props, ref) => {
 
     useImperativeHandle(ref, () => ({
         newRow (date) {
-            createReadyShTech(
+            createBeetHarvesters(
                 row_owner,
                 date,
                 refList.ref0.current.value || (value[0].value1 || "0"),
@@ -56,15 +58,23 @@ const TableBody = React.forwardRef((props, ref) => {
                 refList.ref17.current.value || (value[0].value18 || "0"),
                 refList.ref18.current.value || (value[0].value19 || "0"),
                 refList.ref19.current.value || (value[0].value20 || "0"),
+                refList.ref20.current.value || (value[0].value21 || "0"),
+                refList.ref21.current.value || (value[0].value22 || "0"),
+                refList.ref22.current.value || (value[0].value23 || "0"),
+                refList.ref23.current.value || (value[0].value24 || "0"),
+                refList.ref24.current.value || (value[0].value25 || "0"),
+                refList.ref25.current.value || (value[0].value26 || "0"),
+                refList.ref26.current.value || (value[0].value27 || "0"),
+                refList.ref27.current.value || (value[0].value28 || "0"),
             ).then(() => {
-                getAllReadyShTech(row_owner, date).then(data => {
+                getAllBeetHarvesters(row_owner, date).then(data => {
                     setValue(data)
                 })
             })
         },
         setNewDate (newDate) {
             date.current = newDate
-            getAllReadyShTech(row_owner, date.current).then(data => {
+            getAllBeetHarvesters(row_owner, date.current).then(data => {
                 setValue(data)
             })
         },
@@ -94,6 +104,14 @@ const TableBody = React.forwardRef((props, ref) => {
                 <td><InputField start={value[0].value18} ref={refList.ref17}>{value[0].value18}</InputField></td>
                 <td><InputField start={value[0].value19} ref={refList.ref18}>{value[0].value19}</InputField></td>
                 <td><InputField start={value[0].value20} ref={refList.ref19}>{value[0].value20}</InputField></td>
+                <td><InputField start={value[0].value21} ref={refList.ref20}>{value[0].value21}</InputField></td>
+                <td><InputField start={value[0].value22} ref={refList.ref21}>{value[0].value22}</InputField></td>
+                <td><InputField start={value[0].value23} ref={refList.ref22}>{value[0].value23}</InputField></td>
+                <td><InputField start={value[0].value24} ref={refList.ref23}>{value[0].value24}</InputField></td>
+                <td><InputField start={value[0].value25} ref={refList.ref24}>{value[0].value25}</InputField></td>
+                <td><InputField start={value[0].value26} ref={refList.ref25}>{value[0].value26}</InputField></td>
+                <td><InputField start={value[0].value27} ref={refList.ref26}>{value[0].value27}</InputField></td>
+                <td><InputField start={value[0].value28} ref={refList.ref27}>{value[0].value28}</InputField></td>
             </tr>
         );
     } else {
@@ -120,6 +138,14 @@ const TableBody = React.forwardRef((props, ref) => {
                 <td><InputField ref={refList.ref17}></InputField></td>
                 <td><InputField ref={refList.ref18}></InputField></td>
                 <td><InputField ref={refList.ref19}></InputField></td>
+                <td><InputField ref={refList.ref20}></InputField></td>
+                <td><InputField ref={refList.ref21}></InputField></td>
+                <td><InputField ref={refList.ref22}></InputField></td>
+                <td><InputField ref={refList.ref23}></InputField></td>
+                <td><InputField ref={refList.ref24}></InputField></td>
+                <td><InputField ref={refList.ref25}></InputField></td>
+                <td><InputField ref={refList.ref26}></InputField></td>
+                <td><InputField ref={refList.ref27}></InputField></td>
             </tr>
         );
     }

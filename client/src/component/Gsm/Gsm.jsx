@@ -6,6 +6,7 @@ import {Context} from "../../index";
 import {collectDateGsm, getAllGsm} from "../../http/TableApi";
 import SelectDate from "../SelectDate";
 import '../../styles/Component.css'
+import Export from '../Export';
 
 
 const Gsm = observer((props) => {
@@ -15,6 +16,7 @@ const Gsm = observer((props) => {
     const regionList = []
     let valueList = []
     let sum = useRef()
+    let tableRef = useRef()
     let date = useRef(new Date(datecls.findDay(4).toISOString().slice(0, 10)))
     
     const childRef = [
@@ -91,26 +93,23 @@ const Gsm = observer((props) => {
 
     return (
         <div style={{overflow: "auto"}}>
+            <SelectDate 
+                            getDate={getDate} 
+                startDate={date.current} 
+                day={4} 
+                key="ГСМ" 
+                label="ГСМ" 
+                func={collectDateGsm} 
+                types="weeks">
+            </SelectDate>
             <Table
                 striped bordered hover
-                style={{textAlign: "center"}}
+                style={{textAlign: "center", marginTop: "2%"}}
+                ref={tableRef}
             >
                 <thead>
                 <tr>
-                    <th>
-                        <SelectDate 
-                            getDate={getDate} 
-                            startDate={date.current} 
-                            day={4} 
-                            key="ГСМ" 
-                            label="ГСМ" 
-                            func={collectDateGsm} 
-                            types="weeks">
-                        </SelectDate>
-                    </th>
-                </tr>
-                <tr>
-                    <th rowSpan={2}>Наименование района</th>
+                    <th></th>
                     <th colSpan={2}>Наличие, тонн</th>
                     <th colSpan={2}>Пост. с начала года</th>
                     <th colSpan={2}>В т.ч. получ. от ООО Врннефтепрод.</th>
@@ -118,6 +117,7 @@ const Gsm = observer((props) => {
                     <th colSpan={2}>Прочие</th>
                 </tr>
                 <tr>
+                    <th>Наименование района</th>
                     <th>Бензин</th>
                     <th>Дизтоп</th>
                     <th>Бензин</th>
@@ -152,7 +152,8 @@ const Gsm = observer((props) => {
                 </tfoot>
             </Table>
             <div className="d-flex justify-content-center">
-                <Button style={{padding: "10px", margin: "20px auto 0 auto", position: "fixed"}} type="submit" onClick={submitAll}>Отправить</Button>
+                <Button style={{margin: "23px auto 0 auto", position: "fixed"}} type="submit" onClick={submitAll}>Отправить</Button>
+                <Export fileName={"ГСМ"} tableRef={tableRef}/>
             </div>
         </div>
     );

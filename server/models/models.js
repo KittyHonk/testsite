@@ -145,6 +145,40 @@ const TableReadyShTech = sequelize.define('table_ready_sh_tech', {
     value20: {type: DataTypes.FLOAT, defaultValue: "0"},
 })
 
+const TableBeetHarvesters = sequelize.define('table_beet_harvesters', {
+    row_id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    row_owner: {type: DataTypes.STRING, defaultValue: "autoCreated"},
+    date: {type: DataTypes.STRING, require: true},
+    value1: {type: DataTypes.FLOAT, defaultValue: "0"},
+    value2: {type: DataTypes.FLOAT, defaultValue: "0"},
+    value3: {type: DataTypes.FLOAT, defaultValue: "0"},
+    value4: {type: DataTypes.FLOAT, defaultValue: "0"},
+    value5: {type: DataTypes.FLOAT, defaultValue: "0"},
+    value6: {type: DataTypes.FLOAT, defaultValue: "0"},
+    value7: {type: DataTypes.FLOAT, defaultValue: "0"},
+    value8: {type: DataTypes.FLOAT, defaultValue: "0"},
+    value9: {type: DataTypes.FLOAT, defaultValue: "0"},
+    value10: {type: DataTypes.FLOAT, defaultValue: "0"},
+    value11: {type: DataTypes.FLOAT, defaultValue: "0"},
+    value12: {type: DataTypes.FLOAT, defaultValue: "0"},
+    value13: {type: DataTypes.FLOAT, defaultValue: "0"},
+    value14: {type: DataTypes.FLOAT, defaultValue: "0"},
+    value15: {type: DataTypes.FLOAT, defaultValue: "0"},
+    value16: {type: DataTypes.FLOAT, defaultValue: "0"},
+    value17: {type: DataTypes.FLOAT, defaultValue: "0"},
+    value18: {type: DataTypes.FLOAT, defaultValue: "0"},
+    value19: {type: DataTypes.FLOAT, defaultValue: "0"},
+    value20: {type: DataTypes.FLOAT, defaultValue: "0"},
+    value21: {type: DataTypes.FLOAT, defaultValue: "0"},
+    value22: {type: DataTypes.FLOAT, defaultValue: "0"},
+    value23: {type: DataTypes.FLOAT, defaultValue: "0"},
+    value24: {type: DataTypes.FLOAT, defaultValue: "0"},
+    value25: {type: DataTypes.FLOAT, defaultValue: "0"},
+    value26: {type: DataTypes.FLOAT, defaultValue: "0"},
+    value27: {type: DataTypes.FLOAT, defaultValue: "0"},
+    value28: {type: DataTypes.FLOAT, defaultValue: "0"},
+})
+
 
 User.hasOne(Reports)
 Reports.belongsTo(User)
@@ -163,4 +197,5 @@ module.exports = {
     TableGsm,
     TableAvalibleShTech,
     TableReadyShTech,
+    TableBeetHarvesters,
 }

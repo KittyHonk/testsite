@@ -55,7 +55,7 @@ const ForageHarvest = observer((props) => {
         <div style={{overflow: "auto"}}>
             <Table
                 striped bordered hover
-                style={{textAlign: "center"}}
+                style={{textAlign: "center", marginTop: "2%"}}
             >
                 <thead>
                 <tr>
