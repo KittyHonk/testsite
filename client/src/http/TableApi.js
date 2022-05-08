@@ -180,5 +180,29 @@ export const createBeetHarvesters = async (
     return data
 }
 
+export const getAllHarvesters = async (row_owner, date) => {
+    const {data} = await $host.get("api/harvesters/" + row_owner + `?date=${date}`)
+    return data
+}
+
+export const collectDateHarvesters = async () => {
+    const {data} = await $authHost.get("api/harvesters/")
+    return data
+}
+
+export const checkHarvesters = async (row_owner, date) => {
+    const {data} = await $authHost.post("api/harvesters/check/", {row_owner, date})
+    return data
+}
+
+export const createHarvesters = async (
+    row_owner, date, value1, value2, value3, value4, value5, 
+    value6, value7, value8, value9, value10, value11,) => {
+    const {data} = await $authHost.post("api/harvesters/", {
+        row_owner, date, value1, value2, value3, value4, value5, 
+        value6, value7, value8, value9, value10, value11,
+    })
+    return data
+}
 
 

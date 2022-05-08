@@ -17,8 +17,8 @@ const ReadyShTech = observer((props) => {
     let valueList = []
     let sum = useRef()
     let tableRef = useRef()
-    let date = useRef(new Date(datecls.findDay(4).toISOString().slice(0, 10)))
-    
+    let date = useRef(new Date(datecls.findDay(4)).toISOString().slice(0, 10))
+
     const childRef = [
         useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(),
         useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(),

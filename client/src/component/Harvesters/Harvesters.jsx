@@ -3,13 +3,13 @@ import {observer} from "mobx-react-lite";
 import {Table, Button} from "react-bootstrap";
 import TableBody from "./TableBody";
 import {Context} from "../../index";
-import {collectDateBeetHarvesters, getAllBeetHarvesters} from "../../http/TableApi";
+import {collectDateHarvesters, getAllHarvesters} from "../../http/TableApi";
 import SelectDate from "../SelectDate";
 import '../../styles/Component.css';
 import Export from '../Export';
 
 
-const BeetHarvesters = observer((props) => {
+const Harvesters = observer((props) => {
     const {user} = useContext(Context)
     const {datecls} = useContext(Context)
     const [result, setResult] = useState([])
@@ -56,7 +56,7 @@ const BeetHarvesters = observer((props) => {
         }
         for (let i = 0; i < props.rowName.length; i++) {
             if ((props.rowName[i].name === user.region) || (user.role === "ADMIN")) {
-                await getAllBeetHarvesters(props.rowName[i].name, date.current).then(data => {
+                await getAllHarvesters(props.rowName[i].name, date.current).then(data => {
                     valueList.push(...data)
                 })
             }
@@ -87,23 +87,6 @@ const BeetHarvesters = observer((props) => {
                 sumList[8] += valueList[i].value9
                 sumList[9] += valueList[i].value10
                 sumList[10] += valueList[i].value11
-                sumList[11] += valueList[i].value12
-                sumList[12] += valueList[i].value13
-                sumList[13] += valueList[i].value14
-                sumList[14] += valueList[i].value15
-                sumList[15] += valueList[i].value16
-                sumList[16] += valueList[i].value17
-                sumList[17] += valueList[i].value18
-                sumList[18] += valueList[i].value19
-                sumList[19] += valueList[i].value20
-                sumList[20] += valueList[i].value21
-                sumList[21] += valueList[i].value22
-                sumList[22] += valueList[i].value23
-                sumList[23] += valueList[i].value24
-                sumList[24] += valueList[i].value25
-                sumList[25] += valueList[i].value26
-                sumList[26] += valueList[i].value27
-                sumList[27] += valueList[i].value28
             }
         }
         setResult(sumList)
@@ -115,11 +98,10 @@ const BeetHarvesters = observer((props) => {
             <SelectDate 
                 getDate={getDate} 
                 startDate={date.current} 
-                day={4} 
-                key="Свеклоуборочные комбайны" 
-                label="Свеклоуборочные комбайны" 
-                func={collectDateBeetHarvesters} 
-                types="weeks">
+                key="Комбайны" 
+                label="Комбайны" 
+                func={collectDateHarvesters} 
+                types="days">
             </SelectDate>
             </div>
             <Table
@@ -130,32 +112,16 @@ const BeetHarvesters = observer((props) => {
                 <thead>
                 <tr>
                     <th></th>
-                    <th colSpan={5}>Свеклоуборочные комбайны</th>
-                    <th colSpan={2}>БМ</th>
-                    <th colSpan={5}>Свеклопогрузчики</th>
-                    <th colSpan={2}>Трактора</th>
-                    <th colSpan={4}>В том числе</th>
+                    <th colSpan={6}>Собственные</th>
                     <th colSpan={3}>Привлеченные</th>
-                    <th colSpan={5}>Грузовые автомобили</th>
-                    <th colSpan={2}>Сеялки</th>
+                    <th></th>
+                    <th></th>
                 </tr>
                 <tr>
                     <th></th>
                     <th colSpan={2}>Всего</th>
+                    <th colSpan={2}>В т.ч. отечественные</th>
                     <th colSpan={2}>В т.ч. импортные</th>
-                    <th></th>
-                    <th colSpan={2}></th>
-                    <th colSpan={2}>Всего</th>
-                    <th colSpan={2}>В т.ч. импортные</th>
-                    <th></th>
-                    <th colSpan={2}>Всего</th>
-                    <th colSpan={2}>К-700, К-744</th>
-                    <th colSpan={2}>Импортные</th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th colSpan={2}>Всего</th>
-                    <th colSpan={2}>В т.ч. Камаз</th>
                     <th></th>
                     <th></th>
                     <th></th>
@@ -166,30 +132,13 @@ const BeetHarvesters = observer((props) => {
                     <th>Исправно</th>
                     <th>Наличие</th>
                     <th>Исправно</th>
-                    <th>Привлеченные</th>
-                    <th>Наличие</th>
-                    <th>Исправно</th>
-                    <th>Наличие</th>
-                    <th>Исправно</th>
-                    <th>Наличие</th>
-                    <th>Исправно</th>
-                    <th>Привлеченные</th>
-                    <th>Наличие</th>
-                    <th>Исправно</th>
-                    <th>Наличие</th>
-                    <th>Исправно</th>
                     <th>Наличие</th>
                     <th>Исправно</th>
                     <th>Всего</th>
-                    <th>К-700</th>
-                    <th>Импортные</th>
-                    <th>Наличие</th>
-                    <th>Исправно</th>
-                    <th>Наличие</th>
-                    <th>Исправно</th>
-                    <th>Привлеченные</th>
-                    <th>Наличие</th>
-                    <th>Исправно</th>
+                    <th>В т.ч. отечественные</th>
+                    <th>В т.ч. импортные</th>
+                    <th>Принимают участие в обмолоте</th>
+                    <th>Дневная выработка на 1 ком. в день на обмолоте</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -207,23 +156,6 @@ const BeetHarvesters = observer((props) => {
                     <td>{result[8]}</td>
                     <td>{result[9]}</td>
                     <td>{result[10]}</td>
-                    <td>{result[11]}</td>
-                    <td>{result[12]}</td>
-                    <td>{result[13]}</td>
-                    <td>{result[14]}</td>
-                    <td>{result[15]}</td>
-                    <td>{result[16]}</td>
-                    <td>{result[17]}</td>
-                    <td>{result[18]}</td>
-                    <td>{result[19]}</td>
-                    <td>{result[20]}</td>
-                    <td>{result[21]}</td>
-                    <td>{result[22]}</td>
-                    <td>{result[23]}</td>
-                    <td>{result[24]}</td>
-                    <td>{result[25]}</td>
-                    <td>{result[26]}</td>
-                    <td>{result[27]}</td>
                 </tr>
                 </tbody>
                 <tfoot>
@@ -233,10 +165,10 @@ const BeetHarvesters = observer((props) => {
             </Table>
             <div className="d-flex justify-content-center">
                 <Button style={{margin: "23px 45% 0 55%", position: "fixed"}} type="submit" onClick={submitAll}>Отправить</Button>
-                <Export fileName={"Свеклоуборочные комбайны"} tableRef={tableRef}/>
+                <Export fileName={"Комбайны"} tableRef={tableRef}/>
             </div>
         </div>
     );
 });
 
-export default BeetHarvesters;
+export default Harvesters;

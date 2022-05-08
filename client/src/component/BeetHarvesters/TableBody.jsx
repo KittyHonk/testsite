@@ -6,7 +6,7 @@ import {Context} from "../../index";
 
 const TableBody = React.forwardRef((props, ref) => {
     const {datecls} = useContext(Context)
-    let date = useRef(new Date(datecls.findDay(props.day).toISOString().slice(0,10)))
+    let date = useRef(new Date(datecls.findDay(props.day)).toISOString().slice(0,10))
     const row_owner = props.rowName
     const [value, setValue] = useState([{value: [0]}])
 
