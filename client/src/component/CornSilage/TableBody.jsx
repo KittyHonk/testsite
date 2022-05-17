@@ -2,11 +2,12 @@ import React, {useRef, useState, useEffect, useContext, useImperativeHandle} fro
 import InputField from "../InputField";
 import {checkCornSilage, createCornSilage, getAllCornSilage} from "../../http/TableApi";
 import {Context} from "../../index";
+import moment from "moment";
 
 
 const TableBody = React.forwardRef((props, ref) => {
     const {user} = useContext(Context)
-    let date = useRef(new Date(Date.now()).toISOString().slice(0, 10))
+    let date = useRef(new Date(moment(Date.now()).format('YYYY-MM-DD')))
     const row_owner = props.rowName
     const [value, setValue] = useState([{value: [0]}])
 
@@ -29,7 +30,7 @@ const TableBody = React.forwardRef((props, ref) => {
                 setValue(data)
             })
         })
-    }, [])
+    }, [date.current])
 
     useImperativeHandle(ref, () => ({
         newRow (date) {

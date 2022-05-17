@@ -3,10 +3,11 @@ import {observer} from "mobx-react-lite";
 import {Table, Button} from "react-bootstrap";
 import TableBody from "./TableBody";
 import {Context} from "../../index";
-import {collectDateReadyShTech, getAllReadyShTech} from "../../http/TableApi";
+import {getAllReadyShTech} from "../../http/TableApi";
 import SelectDate from "../SelectDate";
 import '../../styles/Component.css'
 import Export from '../Export';
+import moment from "moment";
 
 
 const ReadyShTech = observer((props) => {
@@ -15,9 +16,8 @@ const ReadyShTech = observer((props) => {
     const [result, setResult] = useState([])
     const regionList = []
     let valueList = []
-    let sum = useRef()
     let tableRef = useRef()
-    let date = useRef(new Date(datecls.findDay(4)).toISOString().slice(0, 10))
+    let date = useRef(new Date(moment(datecls.findDay(4)).format('YYYY-MM-DD')))
 
     const childRef = [
         useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(),
@@ -38,13 +38,16 @@ const ReadyShTech = observer((props) => {
             } catch (e) {}
         })
         setTimeout(() => getValue().then(data => {
-            sum.current = calcField(data)
+            calcField(data)
         }), 100)
     }
 
     const setAllChildDate = () => {
         try {
             childRef.forEach(ref => {
+                if (ref.current === undefined) {
+                    return
+                }
                 ref.current.setNewDate(date.current)
             })
         } catch (e) {}
@@ -68,7 +71,7 @@ const ReadyShTech = observer((props) => {
         date.current = newDate
         setAllChildDate()
         getValue().then(data => {
-            sum.current = calcField(data)
+            calcField(data)
         })
     }
 
@@ -103,15 +106,14 @@ const ReadyShTech = observer((props) => {
 
     return (
         <div style={{overflow: "auto"}}>
-            <SelectDate 
-                getDate={getDate} 
-                startDate={date.current} 
-                day={4} 
-                key="Готовность сх тех" 
-                label="Готовность сх тех" 
-                func={collectDateReadyShTech} 
-                types="weeks">
-            </SelectDate>
+            <div style={{margin: "10px"}}>
+                <SelectDate
+                    getDate={getDate}
+                    day={4}
+                    key="Готовность сх тех"
+                    types="weeks">
+                </SelectDate>
+            </div>
             <Table
                 striped bordered hover
                 style={{textAlign: "center", marginTop: "2%"}}

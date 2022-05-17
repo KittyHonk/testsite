@@ -60,19 +60,6 @@ class tableController {
             next(ApiError.badRequest(e.message))
         }
     }
-
-    async collectDate(req, res, next) {
-        try {
-            let data = await TableReadyShTech.findAll({
-                order: [['date', 'DESC']],
-                attributes: [Sequelize.fn('DISTINCT', Sequelize.col('date')), 'date'],
-                limit: 4
-            })
-            return res.json(data)
-        } catch (e) {
-            next(ApiError.badRequest(e.message))
-        }
-    }
 }
 
 module.exports = new tableController()

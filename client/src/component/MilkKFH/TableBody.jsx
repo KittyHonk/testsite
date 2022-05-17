@@ -1,12 +1,13 @@
 import React, {useRef, useState, useEffect, useImperativeHandle} from 'react';
 import InputField from "../InputField";
 import {checkMilkKfh, createMilkKfh, getAllMilkKfh} from "../../http/TableApi";
+import moment from "moment";
 
 
 const TableBody = React.forwardRef((props, ref) => {
     const row_owner = props.rowName
     const [value, setValue] = useState([{value: []}])
-    let date = useRef(new Date(Date.now()).toISOString().slice(0, 10))
+    let date = useRef(new Date(moment(Date.now()).format('YYYY-MM-DD')))
 
     const refList = {
         ref0: useRef(),
@@ -27,7 +28,7 @@ const TableBody = React.forwardRef((props, ref) => {
                 setValue(data)
             })
         })
-    }, [])
+    }, [date.current])
 
     useImperativeHandle(ref, () => ({
         newRow (date) {

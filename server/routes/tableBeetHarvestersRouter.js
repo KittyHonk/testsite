@@ -4,7 +4,6 @@ const tableController = require('../controllers/tableBeetHarvestersController')
 
 
 router.get('/:row_owner', tableController.getAll)
-router.get('/', tableController.collectDate)
 router.post('/', tableController.create)
 router.post('/check', tableController.check)
 

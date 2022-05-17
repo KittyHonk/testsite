@@ -1,60 +1,48 @@
-import React, {useContext, useEffect, useState} from 'react';
-import {Form} from "react-bootstrap";
+import React, {useContext, useState} from 'react';
+import DatePicker, {registerLocale} from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import ru from 'date-fns/locale/ru'
 import {Context} from "../index";
+import moment from "moment";
+registerLocale('ru', ru)
 
 const SelectDate = ({getDate, ...props}) => {
     const {datecls} = useContext(Context)
-    const [dateList, setDateList] = useState([])
-    const optionList = []
 
-    useEffect(() => {
-        props.func().then(data => {
-            setDateList(data)
-        })
-    }, [])
+    if (props.day === undefined) {
+        var tempDate = new Date()
+    } else {
+        var tempDate = new Date(datecls.findDay(props.day))
+    }
+    const [date, setDate] = useState(tempDate)
 
-    const fillOptionList = () => {
-        if (props.types === "days") {
-            for (let i = 0; i < dateList.length; i++) {
-                if ((i === 0) && (props.startDate !== dateList[i].date)) {
-                    optionList.push(<option key="Select correct date">Select correct date</option>)
-                    optionList.push(<option key={props.startDate + ' ' + props.label} value={props.startDate}>{props.startDate}</option>)
-                }
-                optionList.push(<option key={dateList[i].date + ' ' + props.label} value={dateList[i].date}>{dateList[i].date}</option>)
-            }
-        }
-        if (props.types === "weeks") {
-            optionList.push(<option key="Select correct date">Select correct date</option>)
-            for (let i = 0; i < dateList.length; i++) {
-                let tempDate = datecls.findDay(props.day).toISOString().slice(0, 10)
-                if ((i === 0) && (tempDate !== dateList[i].date)) {
-                    optionList.push(<option key={tempDate + ' ' + props.label} value={tempDate}>{tempDate}</option>)
-                }
-                optionList.push(<option key={dateList[i].date + ' ' + props.label} value={dateList[i].date}>{dateList[i].date}</option>)
-            }
+    const setDateDailyHandler = (date) => {
+        setDate(date)
+        getDate(moment(date).format('YYYY-MM-DD'))
+    }
 
+    const setDateWeeklyHandler = (date, day) => {
+        const dayWeek = date.getDay()
+        if ((dayWeek !== day)) {
+            alert("Выберете другую дату")
+        } else {
+            setDate(date)
+            getDate(moment(date).format('YYYY-MM-DD'))
         }
     }
 
-    const changeHandler = (e) => {
-        getDate(e.target.value)
-    }
-
-    if (true) {
-        fillOptionList()
+    if (props.types === "days") {
         return (
-            <Form.Select 
-                onChange={changeHandler} 
-                aria-label={props.label} 
-                style={{position: "fixed"}}
-            >
-                {optionList}
-            </Form.Select>
+            <DatePicker selected={date} onChange={(date) => setDateDailyHandler(date)} locale="ru"></DatePicker>
+        );
+    } else if (props.types === "weeks") {
+        return (
+            <DatePicker selected={date} onChange={(date) => setDateWeeklyHandler(date, props.day)} locale="ru"></DatePicker>
         );
     } else {
         return (
             <div>
-                Ошибка при выборе даты
+                Ошибка при инициализации модуля даты
             </div>
         );
     }

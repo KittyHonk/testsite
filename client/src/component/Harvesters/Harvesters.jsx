@@ -3,21 +3,20 @@ import {observer} from "mobx-react-lite";
 import {Table, Button} from "react-bootstrap";
 import TableBody from "./TableBody";
 import {Context} from "../../index";
-import {collectDateHarvesters, getAllHarvesters} from "../../http/TableApi";
+import {getAllHarvesters} from "../../http/TableApi";
 import SelectDate from "../SelectDate";
 import '../../styles/Component.css';
 import Export from '../Export';
+import moment from "moment";
 
 
 const Harvesters = observer((props) => {
     const {user} = useContext(Context)
-    const {datecls} = useContext(Context)
     const [result, setResult] = useState([])
     const regionList = []
     let valueList = []
-    let sum = useRef()
     let tableRef = useRef()
-    let date = useRef(new Date(datecls.findDay(4)).toISOString().slice(0, 10))
+    let date = useRef(new Date(moment(Date.now()).format('YYYY-MM-DD')))
     
     const childRef = [
         useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(),
@@ -27,7 +26,7 @@ const Harvesters = observer((props) => {
     ]
     for (let i = 0; i < props.rowName.length; i++) {
         if ((props.rowName[i].name === user.region) || (user.role === "ADMIN")) {
-            regionList.push(<TableBody day={4} ref={childRef[i]} key={props.rowName[i].name} rowName={props.rowName[i].name}/>)
+            regionList.push(<TableBody ref={childRef[i]} key={props.rowName[i].name} rowName={props.rowName[i].name}/>)
         }
     }
     
@@ -38,13 +37,16 @@ const Harvesters = observer((props) => {
             } catch (e) {}
         })
         setTimeout(() => getValue().then(data => {
-            sum.current = calcField(data)
+            calcField(data)
         }), 100)
     }
 
     const setAllChildDate = () => {
         try {
             childRef.forEach(ref => {
+                if (ref.current === undefined) {
+                    return
+                }
                 ref.current.setNewDate(date.current)
             })
         } catch (e) {}
@@ -68,12 +70,12 @@ const Harvesters = observer((props) => {
         date.current = newDate
         setAllChildDate()
         getValue().then(data => {
-            sum.current = calcField(data)
+            calcField(data)
         })
     }
 
     const calcField = (valueList) => {
-        let sumList = new Array(28).fill(0)
+        let sumList = new Array(11).fill(0)
         for (let i = 0; i < valueList.length; i++) {
             if (valueList[i] !== undefined) {
                 sumList[0] += valueList[i].value1
@@ -94,19 +96,16 @@ const Harvesters = observer((props) => {
 
     return (
         <div style={{overflow: "auto"}}>
-            <div>
-            <SelectDate 
-                getDate={getDate} 
-                startDate={date.current} 
-                key="Комбайны" 
-                label="Комбайны" 
-                func={collectDateHarvesters} 
-                types="days">
-            </SelectDate>
+            <div style={{margin: "10px"}}>
+                <SelectDate
+                    getDate={getDate}
+                    key="Комбайны"
+                    types="days">
+                </SelectDate>
             </div>
             <Table
                 striped bordered hover
-                style={{textAlign: "center", marginTop: "2%"}}
+                style={{textAlign: "center"}}
                 ref={tableRef}
             >
                 <thead>
@@ -114,14 +113,16 @@ const Harvesters = observer((props) => {
                     <th></th>
                     <th colSpan={6}>Собственные</th>
                     <th colSpan={3}>Привлеченные</th>
-                    <th></th>
-                    <th></th>
+                    <th>Принимают участие в обмолоте</th>
+                    <th>Дневная выработка на 1 ком. в день на обмолоте</th>
                 </tr>
                 <tr>
                     <th></th>
                     <th colSpan={2}>Всего</th>
                     <th colSpan={2}>В т.ч. отечественные</th>
                     <th colSpan={2}>В т.ч. импортные</th>
+                    <th></th>
+                    <th></th>
                     <th></th>
                     <th></th>
                     <th></th>
@@ -137,8 +138,8 @@ const Harvesters = observer((props) => {
                     <th>Всего</th>
                     <th>В т.ч. отечественные</th>
                     <th>В т.ч. импортные</th>
-                    <th>Принимают участие в обмолоте</th>
-                    <th>Дневная выработка на 1 ком. в день на обмолоте</th>
+                    <th></th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>

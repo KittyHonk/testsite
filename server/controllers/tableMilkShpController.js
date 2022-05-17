@@ -30,9 +30,9 @@ class tableController {
         try {
             let {row_owner, date, value1, value2, value3, value4, value5, value6, value7, value8} = req.body
             let result12, result34, result56, result48 = null
-            result12 = (value2 - value1)
-            result34 = (value4 - value3)
-            result56 = (value6 - value5)
+            result12 = (value2 - value1) || "0"
+            result34 = (value4 - value3) || "0"
+            result56 = (value6 - value5) || "0"
             result48 = ((value8/value4)*100).toFixed(2)
             var name = await TableMilkShp.update({
                 row_owner: row_owner,
@@ -50,19 +50,6 @@ class tableController {
                 result48: result48,
             }, {where: {row_owner, date}})
             return res.json(name)
-        } catch (e) {
-            next(ApiError.badRequest(e.message))
-        }
-    }
-
-    async collectDate(req, res, next) {
-        try {
-            let data = await TableMilkShp.findAll({
-                order: [['date', 'DESC']],
-                attributes: [Sequelize.fn('DISTINCT', Sequelize.col('date')), 'date'],
-                limit: 7
-            })
-            return res.json(data)
         } catch (e) {
             next(ApiError.badRequest(e.message))
         }

@@ -28,14 +28,10 @@ export default class DateCls {
         let getMonthDay = dateCopy.getMonth()
         for (let i = this.monthDay;i > -31;i--) {
             let setMonth = dateCopy.setMonth(getMonthDay, i)
-            let dateTemp = (new Date(setMonth)).getTimezoneOffset() * 60000
-            let dateOffset = (new Date((setMonth - dateTemp)))
-            let getDayTemp = dateOffset.getDay()
+            let newDate = new Date(setMonth)
+            let getDayTemp = newDate.getDay()
             if (getDayTemp === day) {
-                // console.log(setMonth)
-                // console.log(dateTemp)
-                // console.log(dateOffset)
-                return dateOffset
+                return newDate
             }
         }
     }

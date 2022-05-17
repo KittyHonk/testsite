@@ -1,12 +1,11 @@
 import React, {useRef, useState, useEffect, useImperativeHandle, useContext} from 'react';
 import InputField from "../InputField";
 import {checkHarvesters, createHarvesters, getAllHarvesters} from "../../http/TableApi";
-import {Context} from "../../index";
+import moment from "moment";
 
 
 const TableBody = React.forwardRef((props, ref) => {
-    const {datecls} = useContext(Context)
-    let date = useRef(new Date(datecls.findDay(props.day)).toISOString().slice(0,10))
+    let date = useRef(new Date(moment(Date.now()).format('YYYY-MM-DD')))
     const row_owner = props.rowName
     const [value, setValue] = useState([{value: [0]}])
 
@@ -22,7 +21,7 @@ const TableBody = React.forwardRef((props, ref) => {
                 setValue(data)
             })
         })
-    }, [])
+    }, [date.current])
 
     useEffect(() => {
         for (let key in refList) {

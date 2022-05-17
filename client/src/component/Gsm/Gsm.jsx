@@ -3,21 +3,21 @@ import {observer} from "mobx-react-lite";
 import {Table, Button} from "react-bootstrap";
 import TableBody from "./TableBody";
 import {Context} from "../../index";
-import {collectDateGsm, getAllGsm} from "../../http/TableApi";
+import {getAllGsm} from "../../http/TableApi";
 import SelectDate from "../SelectDate";
 import '../../styles/Component.css'
 import Export from '../Export';
+import moment from "moment";
 
 
 const Gsm = observer((props) => {
     const {user} = useContext(Context)
     const {datecls} = useContext(Context)
-    const [result, setResult] = useState([])
     const regionList = []
+    const [result, setResult] = useState([])
     let valueList = []
-    let sum = useRef()
     let tableRef = useRef()
-    let date = useRef(new Date(datecls.findDay(4)).toISOString().slice(0, 10))
+    let date = useRef(new Date(moment(datecls.findDay(4)).format('YYYY-MM-DD')))
     
     const childRef = [
         useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(),
@@ -38,16 +38,27 @@ const Gsm = observer((props) => {
             } catch (e) {}
         })
         setTimeout(() => getValue().then(data => {
-            sum.current = calcField(data)
+            calcField(data)
         }), 100)
     }
 
     const setAllChildDate = () => {
         try {
             childRef.forEach(ref => {
+                if (ref.current === undefined) {
+                    return
+                }
                 ref.current.setNewDate(date.current)
             })
         } catch (e) {}
+    }
+
+    const getDate = (newDate) => {
+        date.current = newDate
+        setAllChildDate()
+        getValue().then(data => {
+            calcField(data)
+        })
     }
 
     const getValue = async () => {
@@ -62,14 +73,6 @@ const Gsm = observer((props) => {
             }
         }
         return valueList
-    }
-
-    const getDate = (newDate) => {
-        date.current = newDate
-        setAllChildDate()
-        getValue().then(data => {
-            sum.current = calcField(data)
-        })
     }
 
     const calcField = (valueList) => {
@@ -93,18 +96,17 @@ const Gsm = observer((props) => {
 
     return (
         <div style={{overflow: "auto"}}>
-            <SelectDate 
-                            getDate={getDate} 
-                startDate={date.current} 
-                day={4} 
-                key="ГСМ" 
-                label="ГСМ" 
-                func={collectDateGsm} 
-                types="weeks">
-            </SelectDate>
+            <div style={{margin: "10px"}} >
+                <SelectDate
+                    getDate={getDate}
+                    day={4}
+                    key="ГСМ"
+                    types="weeks">
+                </SelectDate>
+            </div>
             <Table
                 striped bordered hover
-                style={{textAlign: "center", marginTop: "2%"}}
+                style={{textAlign: "center"}}
                 ref={tableRef}
             >
                 <thead>
@@ -152,7 +154,7 @@ const Gsm = observer((props) => {
                 </tfoot>
             </Table>
             <div className="d-flex justify-content-center">
-                <Button style={{margin: "23px auto 0 auto", position: "fixed"}} type="submit" onClick={submitAll}>Отправить</Button>
+                <Button style={{margin: "23px 45% 0 55%", position: "fixed"}} type="submit" onClick={submitAll}>Отправить</Button>
                 <Export fileName={"ГСМ"} tableRef={tableRef}/>
             </div>
         </div>

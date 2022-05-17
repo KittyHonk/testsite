@@ -10,6 +10,7 @@ import AvalibleShTech from '../component/AvalibleShTech/AvalibleShTech';
 import ReadyShTech from '../component/ReadyShTech/ReadyShTech';
 import BeetHarvesters from '../component/BeetHarvesters/BeetHarvesters';
 import Harvesters from '../component/Harvesters/Harvesters';
+import LeftoverGrain from "../component/LeftoverGrain/LeftoverGrain";
 
 const Tables = observer(() => {
 
@@ -49,6 +50,9 @@ const Tables = observer(() => {
         }
         case "Комбайны": {
             return <Harvesters rowName={regionList}/>
+        }
+        case "Остатки зерна": {
+            return <LeftoverGrain rowName={regionList}/>
         }
         default: {
             console.log(params.table_name)
