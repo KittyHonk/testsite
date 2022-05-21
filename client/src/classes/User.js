@@ -40,4 +40,11 @@ export default class User {
     get region() {
         return this._region
     }
+
+    logOut() {
+        this._isAuth = false
+        this._user = {}
+        this._role = ""
+        this._region = ""
+    }
 }

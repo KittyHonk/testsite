@@ -6,6 +6,7 @@ import Reports from "./classes/Reports";
 import ReportTables from "./classes/ReportTables";
 import Table from "./classes/Table";
 import DateCls from "./classes/DateCls";
+import '../src/styles/App.css'
 
 export const Context = createContext(null)
 
@@ -19,7 +20,7 @@ root.render(
         reportTable: new ReportTables(),
         datecls: new DateCls(),
     }}>
-        <App/>
+        <App className="App"/>
     </Context.Provider>
 );
 

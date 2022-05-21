@@ -1,6 +1,7 @@
 import React from 'react';
 import {TableExport} from 'tableexport'
 import {Button} from 'react-bootstrap'
+import '../styles/Component.css'
 
 const Export = (props) => {
     const exportFile = () => {
@@ -12,7 +13,8 @@ const Export = (props) => {
             formats: ["xlsx"],
             filename: {fileName},
             exportButtons: false,
-            trimWhitespace: true,
+            trimWhitespace: false,
+            bootstrap: true,
         })
         let exportDataXLSX = fileToExport.getExportData();
         exportDataXLSX = exportDataXLSX[Object.keys(exportDataXLSX)[0]]['xlsx']  
@@ -20,7 +22,7 @@ const Export = (props) => {
     }
 
     return (
-        <div style={{margin: "23px 55% 0 45%", position: "fixed"}}>
+        <div className="exportButton">
             <Button onClick={exportFile}>Экспорт</Button>
         </div>
     );

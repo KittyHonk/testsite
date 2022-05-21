@@ -4,7 +4,7 @@ import {observer} from "mobx-react-lite";
 import {loginFunc} from "../http/UserApi";
 import {Context} from "../index";
 import {useHistory} from "react-router-dom";
-import {INDEX_ROUTE} from "../utils/consts";
+import {INDEX_ROUTE, REPORT_LIST_ROUTE} from "../utils/consts";
 
 const Auth = observer(() => {
     const {user} = useContext(Context)
@@ -20,7 +20,7 @@ const Auth = observer(() => {
             user.setIsAuth(true)
             user.setRole(data.role)
             user.setRegion(data.region)
-            history.push(INDEX_ROUTE)
+            history.push(REPORT_LIST_ROUTE)
         } catch (e) {
             alert(e.response.data.message)
         }

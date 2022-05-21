@@ -15,9 +15,10 @@ const LeftoverGrain = observer((props) => {
     const {datecls} = useContext(Context)
     const [result, setResult] = useState([])
     const regionList = []
+    const day = 1
     let valueList = []
     let tableRef = useRef()
-    let date = useRef(new Date(moment(datecls.findDay(4)).format('YYYY-MM-DD')))
+    let date = useRef(moment(new Date(datecls.findDay(day))).format("YYYY-MM-DD"))
     
     const childRef = [
         useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(),
@@ -27,7 +28,7 @@ const LeftoverGrain = observer((props) => {
     ]
     for (let i = 0; i < props.rowName.length; i++) {
         if ((props.rowName[i].name === user.region) || (user.role === "ADMIN")) {
-            regionList.push(<TableBody day={1} ref={childRef[i]} key={props.rowName[i].name} rowName={props.rowName[i].name}/>)
+            regionList.push(<TableBody day={day} ref={childRef[i]} key={props.rowName[i].name} rowName={props.rowName[i].name}/>)
         }
     }
     
@@ -119,18 +120,19 @@ const LeftoverGrain = observer((props) => {
     }
 
     return (
-        <div style={{overflow: "auto"}}>
-            <div style={{margin: "10px"}}>
+        <div classTable="divMain">
+            <div className="divSelect">
             <SelectDate 
                 getDate={getDate}
-                day={1}
+                day={day}
                 key="Остатки зерна"
                 types="weeks">
             </SelectDate>
             </div>
+            <div className="mainBlock">
             <Table
+                className="mainTable"
                 striped bordered hover
-                style={{textAlign: "center"}}
                 ref={tableRef}
             >
                 <thead>
@@ -192,7 +194,7 @@ const LeftoverGrain = observer((props) => {
                     <th>урожай 2022</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody className="bodyTable">
                 {regionList}
                 <tr>
                     <td>Сумма</td>
@@ -232,13 +234,10 @@ const LeftoverGrain = observer((props) => {
                     <td>{result[33]}</td>
                 </tr>
                 </tbody>
-                <tfoot>
-                    <tr>
-                    </tr>
-                </tfoot>
             </Table>
-            <div className="d-flex justify-content-center">
-                <Button style={{margin: "23px 45% 0 55%", position: "fixed"}} type="submit" onClick={submitAll}>Отправить</Button>
+            </div>
+            <div className="bottomBar">
+                <Button className="submitButton" type="submit" onClick={submitAll}>Отправить</Button>
                 <Export fileName={"Остатки зерна"} tableRef={tableRef}/>
             </div>
         </div>

@@ -16,7 +16,7 @@ const Harvesters = observer((props) => {
     const regionList = []
     let valueList = []
     let tableRef = useRef()
-    let date = useRef(new Date(moment(Date.now()).format('YYYY-MM-DD')))
+    let date = useRef(moment(new Date (Date.now())).format('YYYY-MM-DD'))
     
     const childRef = [
         useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(),
@@ -95,29 +95,29 @@ const Harvesters = observer((props) => {
     }
 
     return (
-        <div style={{overflow: "auto"}}>
-            <div style={{margin: "10px"}}>
+        <div classTable="divMain">
+            <div className="divSelect">
                 <SelectDate
                     getDate={getDate}
                     key="Комбайны"
                     types="days">
                 </SelectDate>
             </div>
+            <div className="mainBlock">
             <Table
+                className="mainTable"
                 striped bordered hover
-                style={{textAlign: "center"}}
                 ref={tableRef}
             >
                 <thead>
                 <tr>
-                    <th></th>
+                    <th rowSpan={3}>Название района</th>
                     <th colSpan={6}>Собственные</th>
                     <th colSpan={3}>Привлеченные</th>
                     <th>Принимают участие в обмолоте</th>
                     <th>Дневная выработка на 1 ком. в день на обмолоте</th>
                 </tr>
                 <tr>
-                    <th></th>
                     <th colSpan={2}>Всего</th>
                     <th colSpan={2}>В т.ч. отечественные</th>
                     <th colSpan={2}>В т.ч. импортные</th>
@@ -128,7 +128,6 @@ const Harvesters = observer((props) => {
                     <th></th>
                 </tr>
                 <tr>
-                    <th>Название района</th>
                     <th>Наличие</th>
                     <th>Исправно</th>
                     <th>Наличие</th>
@@ -142,7 +141,7 @@ const Harvesters = observer((props) => {
                     <th></th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody className="bodyTable">
                 {regionList}
                 <tr>
                     <td>Сумма</td>
@@ -159,13 +158,10 @@ const Harvesters = observer((props) => {
                     <td>{result[10]}</td>
                 </tr>
                 </tbody>
-                <tfoot>
-                    <tr>
-                    </tr>
-                </tfoot>
             </Table>
-            <div className="d-flex justify-content-center">
-                <Button style={{margin: "23px 45% 0 55%", position: "fixed"}} type="submit" onClick={submitAll}>Отправить</Button>
+            </div>
+            <div className="bottomBar">
+                <Button className="submitButton" type="submit" onClick={submitAll}>Отправить</Button>
                 <Export fileName={"Комбайны"} tableRef={tableRef}/>
             </div>
         </div>

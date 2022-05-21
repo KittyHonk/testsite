@@ -1,4 +1,5 @@
 import {makeAutoObservable} from "mobx";
+import moment from "moment";
 
 export default class DateCls {
     constructor() {
@@ -31,7 +32,8 @@ export default class DateCls {
             let newDate = new Date(setMonth)
             let getDayTemp = newDate.getDay()
             if (getDayTemp === day) {
-                return newDate
+                newDate = moment(newDate).format("YYYY-MM-DD")
+                return newDate;
             }
         }
     }

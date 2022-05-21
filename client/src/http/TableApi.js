@@ -504,29 +504,6 @@ export const createBeetHarvest = async (
     return data
 }
 
-export const getAllSoyHarvest = async (row_owner, date) => {
-    const {data} = await $host.get("api/soy_harvest/" + row_owner + `?date=${date}`)
-    return data
-}
-
-export const checkSoyHarvest = async (row_owner, date) => {
-    const {data} = await $authHost.post("api/soy_harvest/check/", {row_owner, date})
-    return data
-}
-
-export const createSoyHarvest = async (
-    row_owner, date, value1, value2, value3, value4, value5, value6, value7, value8, value9,
-    value10, value11, value12, value13, value14, value15, value16, value17, value18, value19,
-    value20, value21,
-) => {
-    const {data} = await $authHost.post("api/soy_harvest/", {
-        row_owner, date, value1, value2, value3, value4, value5, value6, value7, value8, value9,
-        value10, value11, value12, value13, value14, value15, value16, value17, value18, value19,
-        value20, value21,
-    })
-    return data
-}
-
 export const getAllSowWinterCrop = async (row_owner, date) => {
     const {data} = await $host.get("api/sow_winter_crop/" + row_owner + `?date=${date}`)
     return data

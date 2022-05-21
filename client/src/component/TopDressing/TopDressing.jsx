@@ -1,35 +1,38 @@
 import React, {useRef, useContext, useState} from 'react';
 import {observer} from "mobx-react-lite";
-import {Button, Table} from "react-bootstrap";
+import {Table, Button} from "react-bootstrap";
 import TableBody from "./TableBody";
 import {Context} from "../../index";
+import {getAllTopDressing} from "../../http/TableApi";
 import SelectDate from "../SelectDate";
-import {getAllForageHarvest} from "../../http/TableApi";
 import '../../styles/Component.css';
 import Export from '../Export';
 import moment from "moment";
 
 
-const ForageHarvest = observer((props) => {
+const TopDressing = observer((props) => {
     const {user} = useContext(Context)
-    const regionList = []
-    let date = useRef(moment(new Date (Date.now())).format('YYYY-MM-DD'))
+    const {datecls} = useContext(Context)
     const [result, setResult] = useState([])
+    const regionList = []
+    const day = 2
     let valueList = []
     let tableRef = useRef()
+    let date = useRef(moment(new Date(datecls.findDay(day))).format("YYYY-MM-DD"))
+    
     const childRef = [
         useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(),
         useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(),
         useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(),
         useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(),
     ]
-
     for (let i = 0; i < props.rowName.length; i++) {
+        console.log(day)
         if ((props.rowName[i].name === user.region) || (user.role === "ADMIN")) {
-            regionList.push(<TableBody ref={childRef[i]} key={props.rowName[i].name} rowName={props.rowName[i].name}/>)
+            regionList.push(<TableBody day={day} ref={childRef[i]} key={props.rowName[i].name} rowName={props.rowName[i].name}/>)
         }
     }
-
+    
     const submitAll = () => {
         childRef.forEach(ref => {
             try {
@@ -52,26 +55,26 @@ const ForageHarvest = observer((props) => {
         } catch (e) {}
     }
 
-    const getDate = (newDate) => {
-        date.current = newDate
-        setAllChildDate()
-        getValue().then(data => {
-            calcField(data)
-        })
-    }
-
     const getValue = async () => {
         while (valueList.length > 0) {
             valueList.pop()
         }
         for (let i = 0; i < props.rowName.length; i++) {
             if ((props.rowName[i].name === user.region) || (user.role === "ADMIN")) {
-                await getAllForageHarvest(props.rowName[i].name, date.current).then(data => {
+                await getAllTopDressing(props.rowName[i].name, date.current).then(data => {
                     valueList.push(...data)
                 })
             }
         }
         return valueList
+    }
+
+    const getDate = (newDate) => {
+        date.current = newDate
+        setAllChildDate()
+        getValue().then(data => {
+            calcField(data)
+        })
     }
 
     const calcField = (valueList) => {
@@ -97,10 +100,11 @@ const ForageHarvest = observer((props) => {
     return (
         <div classTable="divMain">
             <div className="divSelect">
-                <SelectDate 
+                <SelectDate
                     getDate={getDate}
-                    key="Заготовка кормов"
-                    types="days">
+                    day={day}
+                    key="Подкормка"
+                    types="weeks">
                 </SelectDate>
             </div>
             <div className="mainBlock">
@@ -112,25 +116,31 @@ const ForageHarvest = observer((props) => {
                 <thead>
                 <tr>
                     <th></th>
-                    <th colSpan={3}>Скошено естестес. и сеяных трав на сено, сенаж, зел. корм и трав. муку, тыс. га</th>
-                    <th colSpan={3}>Заготовлено сена, тыс. тонн</th>
-                    <th colSpan={3}>Заготовлено сенажа, тыс. тонн</th>
+                    <th colSpan={9}>Подкормка озимых и многолетних трав тыс. га</th>
+                    <th>В т.ч. подкорм. авиац.</th>
+                    <th>Работало самолетов</th>
+                </tr>
+                <tr>
+                    <th></th>
+                    <th colSpan={3}>Озимые</th>
+                    <th colSpan={3}>В т.ч. озимая пщеница</th>
+                    <th colSpan={3}>Многолетние травы</th>
                     <th></th>
                     <th></th>
                 </tr>
                 <tr>
                     <th>Наименование района</th>
-                    <th>План</th>
-                    <th>Факт</th>
+                    <th>Посеве (план)</th>
+                    <th>Подкрормлено</th>
                     <th>%</th>
-                    <th>План</th>
-                    <th>Факт</th>
+                    <th>Посеве (план)</th>
+                    <th>Подкрормлено</th>
                     <th>%</th>
-                    <th>План</th>
-                    <th>Факт</th>
+                    <th>Посеве (план)</th>
+                    <th>Подкрормлено</th>
                     <th>%</th>
-                    <th>Заготовлено травяной муки, тыс. тонн</th>
-                    <th>Заготовлено соломы, тыс. тонн</th>
+                    <th></th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody className="bodyTable">
@@ -154,10 +164,10 @@ const ForageHarvest = observer((props) => {
             </div>
             <div className="bottomBar">
                 <Button className="submitButton" type="submit" onClick={submitAll}>Отправить</Button>
-                <Export fileName={"Заготовка кормов"} tableRef={tableRef}/>
+                <Export fileName={"Подкормка"} tableRef={tableRef}/>
             </div>
         </div>
     );
 });
 
-export default ForageHarvest;
+export default TopDressing;

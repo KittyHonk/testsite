@@ -15,9 +15,10 @@ const BeetHarvesters = observer((props) => {
     const {datecls} = useContext(Context)
     const [result, setResult] = useState([])
     const regionList = []
+    const day = 4
     let valueList = []
     let tableRef = useRef()
-    let date = useRef(new Date(moment(datecls.findDay(4)).format('YYYY-MM-DD')))
+    let date = useRef(moment(new Date(datecls.findDay(day))).format("YYYY-MM-DD"))
     
     const childRef = [
         useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(),
@@ -27,7 +28,7 @@ const BeetHarvesters = observer((props) => {
     ]
     for (let i = 0; i < props.rowName.length; i++) {
         if ((props.rowName[i].name === user.region) || (user.role === "ADMIN")) {
-            regionList.push(<TableBody day={4} ref={childRef[i]} key={props.rowName[i].name} rowName={props.rowName[i].name}/>)
+            regionList.push(<TableBody day={day} ref={childRef[i]} key={props.rowName[i].name} rowName={props.rowName[i].name}/>)
         }
     }
     
@@ -113,18 +114,19 @@ const BeetHarvesters = observer((props) => {
     }
 
     return (
-        <div style={{overflow: "auto"}}>
-            <div style={{margin: "10px"}}>
+        <div classTable="divMain">
+            <div className="divSelect">
             <SelectDate 
                 getDate={getDate}
-                day={4} 
+                day={day}
                 key="Свеклоуборочные комбайны"
                 types="weeks">
             </SelectDate>
             </div>
+            <div className="mainBlock">
             <Table
+                className="mainTable"
                 striped bordered hover
-                style={{textAlign: "center"}}
                 ref={tableRef}
             >
                 <thead>
@@ -192,7 +194,7 @@ const BeetHarvesters = observer((props) => {
                     <th>Исправно</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody className="bodyTable">
                 {regionList}
                 <tr>
                     <td>Сумма</td>
@@ -226,13 +228,10 @@ const BeetHarvesters = observer((props) => {
                     <td>{result[27]}</td>
                 </tr>
                 </tbody>
-                <tfoot>
-                    <tr>
-                    </tr>
-                </tfoot>
             </Table>
-            <div className="d-flex justify-content-center">
-                <Button style={{margin: "23px 45% 0 55%", position: "fixed"}} type="submit" onClick={submitAll}>Отправить</Button>
+            </div>
+            <div className="bottomBar">
+                <Button className="submitButton" type="submit" onClick={submitAll}>Отправить</Button>
                 <Export fileName={"Свеклоуборочные комбайны"} tableRef={tableRef}/>
             </div>
         </div>

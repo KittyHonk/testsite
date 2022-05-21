@@ -16,12 +16,12 @@ const ReportTable = observer(() => {
     }, [])
 
     return (
-        <Col md={10} className="d-flex align-items-center justify-content-center">
+        <Col className="columnReportTable">
             <Row>
                 {reportTable.reportTables.map(report =>
                     <Card
                         key={report.table_name}
-                        style={{width: "200px", left: "90px", padding: "5px", marginTop: "10px", marginLeft: "50px", textAlign: "center"}}
+                        className="cardReportTable"
                         border="dark"
                         onClick={() => history.push(TABLE_ROUTE + "/" + report.table_name)}
                     >

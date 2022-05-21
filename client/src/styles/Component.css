@@ -1,8 +1,124 @@
 th {
+    margin: 5px;
+    padding: 10px;
+    height: 0;
     min-width: 100px;
     max-width: 150px;
+    /*border: 1px solid #2b2b2c;*/
+}
+
+tr {
+    margin: 5px;
+    padding: 10px;
+    border: 1px solid #2b2b2c;
+}
+
+td {
+    margin: 5px;
+    padding: 10px;
+    border: 1px solid #2b2b2c;
 }
 
 Button {
-    width: 150px;
+    width: 20vh;
 }
+
+.navBar {
+    position: fixed;
+    top: 0;
+    height: 60px;
+    width: 100%;
+    background: #2b2b2c;
+}
+
+.columnReportList {
+    max-width: 100%;
+    width: 50%;
+    padding-top: 10px;
+}
+
+.cardReportList {
+    left: 50%;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.columnReportTable {
+    margin: 0 auto 0 auto;
+    max-width: 100%;
+    width: 1000px;
+    justify-items: center;
+}
+
+.cardReportTable {
+    flex: none;
+    max-width: 200px;
+    max-height: 100px;
+    width: 200px;
+    height: 100px;
+    padding: 5px;
+    margin-top: 10px;
+    margin-left: 50px;
+    justify-content: center;
+}
+
+.buttonReportList {
+    position: absolute;
+    right: 45%;
+}
+
+.buttonLogin {
+}
+
+.buttonIndexPage {
+}
+
+.mainBlock {
+    border-radius: 5px;
+    overflow-x: auto;
+    overflow-y: scroll;
+    max-height: 70vh;
+    margin: 10px;
+    border: 1px solid #2b2b2c;
+}
+
+.mainTable {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.divSelect {
+    /*margin: 20px 5% 20px;*/
+    margin: 20px
+}
+
+.divMain {
+    margin: 100px;
+}
+
+.bodyTable {
+    height: 100%;
+}
+
+.submitButton {
+    position: fixed;
+    bottom: 10px;
+    right: 20%;
+}
+
+.exportButton {
+    position: fixed;
+    bottom: 10px;
+    right: 5%;
+}
+
+.bottomBar {
+    position: fixed;
+    bottom: 0;
+    height: 60px;
+    width: 100%;
+    background: #2b2b2c;
+}
+
+

@@ -7,7 +7,7 @@ import moment from "moment";
 
 const TableBody = React.forwardRef((props, ref) => {
     const {datecls} = useContext(Context)
-    let date = useRef(new Date(moment(datecls.findDay(props.day)).format('YYYY-MM-DD')))
+    let date = useRef(moment(new Date(datecls.findDay(props.day))).format('YYYY-MM-DD'))
     const row_owner = props.rowName
     const [value, setValue] = useState([{value: [0]}])
 

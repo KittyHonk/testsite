@@ -11,6 +11,8 @@ import ReadyShTech from '../component/ReadyShTech/ReadyShTech';
 import BeetHarvesters from '../component/BeetHarvesters/BeetHarvesters';
 import Harvesters from '../component/Harvesters/Harvesters';
 import LeftoverGrain from "../component/LeftoverGrain/LeftoverGrain";
+import TopDressing from "../component/TopDressing/TopDressing";
+import CropCondition from "../component/CropCondition/CropCondition";
 
 const Tables = observer(() => {
 
@@ -18,9 +20,36 @@ const Tables = observer(() => {
     const regionList = [
         {name: "Анна"},
         {name: "Бобров"},
+        {name: "Богучар"},
         {name: "Борисоглебск"},
-        {name: "Воронеж"},
-        {name: "Бутурлиновка"}
+        {name: "Бутурлиновка"},
+        {name: "В. Мамом"},
+        {name: "В. Хава"},
+        {name: "Воробьевка"},
+        {name: "Грибановка"},
+        {name: "Калач"},
+        {name: "Каменка"},
+        {name: "Кантемировка"},
+        {name: "Кашира"},
+        {name: "Лиски"},
+        {name: "Н. Девицк"},
+        {name: "Н. Усмань"},
+        {name: "Новохоперск"},
+        {name: "Ольховатка"},
+        {name: "Острогоржск"},
+        {name: "Павловский"},
+        {name: "Панино"},
+        {name: "Петропавловка"},
+        {name: "Поворино"},
+        {name: "Подгорное"},
+        {name: "Рамонь"},
+        {name: "Репьёвка"},
+        {name: "Россошь"},
+        {name: "Семилуки"},
+        {name: "Таловая"},
+        {name: "Терновка"},
+        {name: "Хохол"},
+        {name: "Эртиль"},
     ]
 
     switch(params.table_name) {
@@ -53,6 +82,12 @@ const Tables = observer(() => {
         }
         case "Остатки зерна": {
             return <LeftoverGrain rowName={regionList}/>
+        }
+        case "Подкормка": {
+            return <TopDressing rowName={regionList}/>
+        }
+        case "Состояние посевов": {
+            return <CropCondition rowName={regionList}/>
         }
         default: {
             console.log(params.table_name)

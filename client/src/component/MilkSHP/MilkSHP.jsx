@@ -16,7 +16,7 @@ const MilkShp = observer((props) => {
     const [result, setResult] = useState([])
     let valueList = []
     let tableRef = useRef()
-    let date = useRef(new Date(moment(Date.now()).format('YYYY-MM-DD')))
+    let date = useRef(moment(new Date (Date.now())).format('YYYY-MM-DD'))
     const childRef = [
         useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(),
         useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(),
@@ -95,17 +95,18 @@ const MilkShp = observer((props) => {
     }
 
     return (
-        <div style={{overflow: "auto"}}>
-            <div style={{margin: "10px"}}>
+        <div classTable="divMain">
+            <div className="divSelect">
                 <SelectDate
                     getDate={getDate}
                     key="Молоко СХП"
                     types="days">
                 </SelectDate>
             </div>
+            <div className="mainBlock">
             <Table
+                className="mainTable"
                 striped bordered hover
-                style={{textAlign: "center"}}
                 ref={tableRef}
             >
                 <thead>
@@ -139,10 +140,10 @@ const MilkShp = observer((props) => {
                     <th>Разница</th>
                     <th></th>
                     <th></th>
-                    <th></th>                  
+                    <th></th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody className="bodyTable">
                 {regionList}
                 <tr>
                     <td>Сумма</td>
@@ -160,13 +161,10 @@ const MilkShp = observer((props) => {
                     <td>{result[11]}</td>
                 </tr>
                 </tbody>
-                <tfoot>
-                    <tr>
-                    </tr>
-                </tfoot>
             </Table>
-            <div className="d-flex justify-content-center">
-                <Button style={{margin: "23px 45% 0 55%", position: "fixed"}} type="submit" onClick={submitAll}>Отправить</Button>
+            </div>
+            <div className="bottomBar">
+                <Button className="submitButton" type="submit" onClick={submitAll}>Отправить</Button>
                 <Export fileName={"Молоко СХП"} tableRef={tableRef}/>
             </div>
         </div>

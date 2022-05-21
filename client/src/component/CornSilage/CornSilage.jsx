@@ -13,7 +13,7 @@ import moment from "moment";
 const CornSilage = observer((props) => {
     const {user} = useContext(Context)
     const regionList = []
-    let date = useRef(new Date(moment(Date.now()).format('YYYY-MM-DD')))
+    let date = useRef(moment(new Date (Date.now())).format('YYYY-MM-DD'))
     const [result, setResult] = useState([])
     let valueList = []
     let tableRef = useRef()
@@ -87,17 +87,18 @@ const CornSilage = observer((props) => {
     }
 
     return (
-        <div style={{overflow: "auto"}}>
-            <div style={{margin: "10px"}}>
+        <div classTable="divMain">
+            <div className="divSelect">
                 <SelectDate 
                     getDate={getDate}
                     key="Кукуруза на силос"
                     types="days">
                 </SelectDate>
             </div>
+            <div className="mainBlock">
             <Table
+                className="mainTable"
                 striped bordered hover
-                style={{textAlign: "center"}}
                 ref={tableRef}
             >
                 <thead>
@@ -118,7 +119,7 @@ const CornSilage = observer((props) => {
                     <th>Факт тыс. тонн</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody className="bodyTable">
                 {regionList}
                 <tr>
                     <td>Сумма</td>
@@ -128,14 +129,10 @@ const CornSilage = observer((props) => {
                     <td>{result[3]}</td>
                 </tr>
                 </tbody>
-                <tfoot>
-                    <tr>
-                        <td colSpan={13}></td>
-                    </tr>
-                </tfoot>
             </Table>
-            <div className="d-flex justify-content-center">
-                <Button style={{margin: "23px 45% 0 55%", position: "fixed"}} type="submit" onClick={submitAll}>Отправить</Button>
+            </div>
+            <div className="bottomBar">
+                <Button className="submitButton" type="submit" onClick={submitAll}>Отправить</Button>
                 <Export fileName={"Кукуруза на силос"} tableRef={tableRef}/>
             </div>
         </div>

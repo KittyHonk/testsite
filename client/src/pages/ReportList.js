@@ -5,6 +5,7 @@ import {Context} from "../index";
 import {getAllReport} from "../http/RepostListApi";
 import {REPORT_TABLES} from "../utils/consts";
 import {useHistory} from "react-router-dom";
+import "../styles/Component.css"
 
 const ReportList = observer(() => {
     const {reportList} = useContext(Context)
@@ -15,11 +16,11 @@ const ReportList = observer(() => {
     }, [])
 
     return (
-        <Col md={10} className="align-items-center justify-content-center">
+        <Col className="columnReportList">
             {reportList.reports.map(report =>
-                <Row key={report.reports_name}>
+                <Row className="rowRepostList" key={report.reports_name}>
                     <Card
-                        style={{left: "90px", padding: "5px", marginTop: "10px", marginLeft: "50px"}}
+                        className="cardReportList"
                         border="dark"
                         onClick={() => history.push(REPORT_TABLES + "/" + report.reports_name)}
                     >
