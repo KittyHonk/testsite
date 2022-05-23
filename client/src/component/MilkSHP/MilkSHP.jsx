@@ -95,7 +95,7 @@ const MilkShp = observer((props) => {
     }
 
     return (
-        <div classTable="divMain">
+        <div classТable="divMain">
             <div className="divSelect">
                 <SelectDate
                     getDate={getDate}
@@ -165,7 +165,7 @@ const MilkShp = observer((props) => {
             </div>
             <div className="bottomBar">
                 <Button className="submitButton" type="submit" onClick={submitAll}>Отправить</Button>
-                <Export fileName={"Молоко СХП"} tableRef={tableRef}/>
+                <Export fileName={`Молоко СХП ${date.current}`} tableRef={tableRef}/>
             </div>
         </div>
     );

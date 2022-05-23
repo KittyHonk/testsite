@@ -133,7 +133,7 @@ const CornSilage = observer((props) => {
             </div>
             <div className="bottomBar">
                 <Button className="submitButton" type="submit" onClick={submitAll}>Отправить</Button>
-                <Export fileName={"Кукуруза на силос"} tableRef={tableRef}/>
+                <Export fileName={`Кукуруза на силос ${date.current}`} tableRef={tableRef}/>
             </div>
         </div>
     );

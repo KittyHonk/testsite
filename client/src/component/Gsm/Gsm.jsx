@@ -154,7 +154,7 @@ const Gsm = observer((props) => {
             </div>
             <div className="bottomBar">
                 <Button className="submitButton" type="submit" onClick={submitAll}>Отправить</Button>
-                <Export fileName={"ГСМ"} tableRef={tableRef}/>
+                <Export fileName={`ГСМ ${date.current}`} tableRef={tableRef}/>
             </div>
         </div>
     );

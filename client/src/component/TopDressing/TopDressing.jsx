@@ -164,7 +164,7 @@ const TopDressing = observer((props) => {
             </div>
             <div className="bottomBar">
                 <Button className="submitButton" type="submit" onClick={submitAll}>Отправить</Button>
-                <Export fileName={"Подкормка"} tableRef={tableRef}/>
+                <Export fileName={`Подкормка ${date.current}`} tableRef={tableRef}/>
             </div>
         </div>
     );

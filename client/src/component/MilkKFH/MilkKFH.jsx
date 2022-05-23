@@ -139,7 +139,7 @@ const MilkKfh = observer((props) => {
             </div>
             <div className="bottomBar">
                 <Button className="submitButton" type="submit" onClick={submitAll}>Отправить</Button>
-                <Export fileName={"Молоко КФХ"} tableRef={tableRef}/>
+                <Export fileName={`Молоко КФХ ${date.current}`} tableRef={tableRef}/>
             </div>
         </div>
     );

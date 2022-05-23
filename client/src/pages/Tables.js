@@ -13,6 +13,20 @@ import Harvesters from '../component/Harvesters/Harvesters';
 import LeftoverGrain from "../component/LeftoverGrain/LeftoverGrain";
 import TopDressing from "../component/TopDressing/TopDressing";
 import CropCondition from "../component/CropCondition/CropCondition";
+import FertilizerSpring from "../component/FertilizerSpring/FertilizerSpring";
+import FertilizerAutumn from "../component/FertilizerAutumn/FertilizerAutumn";
+import Harrowing from "../component/Harrowing/Harrowing";
+import SowSpringCrop from "../component/SowSpringCrop/SowSpringCrop";
+import SowPotato from "../component/SowPotato/SowPotato";
+import SowVegetableAndGourd from "../component/SowVegetableAndGourd/SowVegetableAndGourd";
+import SowPerennialPlanting from "../component/SowPerennialPlanting/SowPerennialPlanting";
+import FruitBerryHarvest from "../component/FruitBerryHarvest/FruitBerryHarvest";
+import VegetableHarvest from "../component/VegetableHarvest/VegetableHarvest";
+import SoilPreparation from "../component/SoilPreparation/SoilPreparation";
+import SoyHarvest from "../component/SoyHarvest/SoyHarvest";
+import SunflowerHarvest from "../component/SunflowerHarvest/SunflowerHarvest";
+import BeetHarvest from "../component/BeetHarvest/BeetHarvest";
+import SowWinterCrop from "../component/SowWinterCrop/SowWinterCrop";
 
 const Tables = observer(() => {
 
@@ -88,6 +102,48 @@ const Tables = observer(() => {
         }
         case "Состояние посевов": {
             return <CropCondition rowName={regionList}/>
+        }
+        case "Удобрение весна": {
+            return <FertilizerSpring rowName={regionList}/>
+        }
+        case "Удобрение осень": {
+            return <FertilizerAutumn rowName={regionList}/>
+        }
+        case "Боронование": {
+            return <Harrowing rowName={regionList}/>
+        }
+        case "Сев яровых": {
+            return <SowSpringCrop rowName={regionList}/>
+        }
+        case "Сев картофеля": {
+            return <SowPotato rowName={regionList}/>
+        }
+        case "Сев овощебахчевых": {
+            return <SowVegetableAndGourd rowName={regionList}/>
+        }
+        case "Закладка мн. насаждений": {
+            return <SowPerennialPlanting rowName={regionList}/>
+        }
+        case "Уборка плод-ягод": {
+            return <FruitBerryHarvest rowName={regionList}/>
+        }
+        case "Уборка овощей": {
+            return <VegetableHarvest rowName={regionList}/>
+        }
+        case "Подготовка почвы": {
+            return <SoilPreparation rowName={regionList}/>
+        }
+        case "Уборка сои": {
+            return <SoyHarvest rowName={regionList}/>
+        }
+        case "Уборка подсолнечника": {
+            return <SunflowerHarvest rowName={regionList}/>
+        }
+        case "Уборка свеклы": {
+            return <BeetHarvest rowName={regionList}/>
+        }
+        case "Сев озимых": {
+            return <SowWinterCrop rowName={regionList}/>
         }
         default: {
             console.log(params.table_name)

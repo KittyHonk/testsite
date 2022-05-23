@@ -238,7 +238,7 @@ const LeftoverGrain = observer((props) => {
             </div>
             <div className="bottomBar">
                 <Button className="submitButton" type="submit" onClick={submitAll}>Отправить</Button>
-                <Export fileName={"Остатки зерна"} tableRef={tableRef}/>
+                <Export fileName={`Остатки зерна ${date.current}`} tableRef={tableRef}/>
             </div>
         </div>
     );

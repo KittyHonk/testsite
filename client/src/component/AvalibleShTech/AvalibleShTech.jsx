@@ -202,7 +202,7 @@ const AvalibleShTech = observer((props) => {
             </div>
             <div className="bottomBar">
                 <Button className="submitButton" type="submit" onClick={submitAll}>Отправить</Button>
-                <Export fileName={"Наличие сх тех"} tableRef={tableRef}></Export>
+                <Export fileName={`Наличие сх тех ${date.current}`} tableRef={tableRef}></Export>
             </div>
         </div>
     );

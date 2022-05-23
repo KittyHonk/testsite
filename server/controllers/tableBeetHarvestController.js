@@ -29,7 +29,7 @@ class tableController {
 
     async create(req, res, next) {
         try {
-            let {row_owner, date, value1, value2, value3, value4, value5, value6, value7, value8,
+            let {row_owner, date, value1, value2, value3, value4, value5, value6, value7, value8, value9
             } = req.body
             let result12, result24, result25 = null
             result12 = ((value2/value1)*100).toFixed(2)
@@ -48,6 +48,7 @@ class tableController {
                 value6: value6,
                 value7: value7,
                 value8: value8,
+                value9: value9,
             }, {where: {row_owner, date}})
                 return res.json(name)
         } catch (e) {

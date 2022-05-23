@@ -1,10 +1,19 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import InputUI from "./UI/input/InputUI";
+import "../styles/Component.css"
 
 const InputField = React.forwardRef((props, ref) => {
     const [input, setInput] = useState({field: ''})
+    const maxInput = 5
     let readOnlyCheck = false
     let bg = ""
+
+    useEffect(() => {
+        if (input.field.length > maxInput) {
+            let tempInput = input.field.slice(0, maxInput)
+            setInput({field: tempInput})
+        }
+    }, [input])
 
     if (props.readonly) {
         readOnlyCheck = true
@@ -12,7 +21,7 @@ const InputField = React.forwardRef((props, ref) => {
 
     if ((props.user !== "ADMIN") && (props.user !== undefined)) {
         readOnlyCheck = true
-        bg = '#FADADD'
+        bg = 'rgba(156,204,153,0.49)'
     }
 
     return (
@@ -20,6 +29,7 @@ const InputField = React.forwardRef((props, ref) => {
             <div style={{display: "none"}}>
                 {props.children}
             </div>
+            <div>
             <InputUI
                 style={{backgroundColor: `${bg}`}}
                 readOnly={readOnlyCheck}
@@ -29,6 +39,7 @@ const InputField = React.forwardRef((props, ref) => {
                 placeholder={props.start}
                 onChange={e => setInput({...input, field: e.target.value})}
             />
+            </div>
         </div>
     );
 });

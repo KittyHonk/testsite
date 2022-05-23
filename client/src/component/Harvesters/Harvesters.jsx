@@ -162,7 +162,7 @@ const Harvesters = observer((props) => {
             </div>
             <div className="bottomBar">
                 <Button className="submitButton" type="submit" onClick={submitAll}>Отправить</Button>
-                <Export fileName={"Комбайны"} tableRef={tableRef}/>
+                <Export fileName={`Комбайны ${date.current}`} tableRef={tableRef}/>
             </div>
         </div>
     );

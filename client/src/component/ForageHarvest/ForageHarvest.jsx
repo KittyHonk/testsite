@@ -154,7 +154,7 @@ const ForageHarvest = observer((props) => {
             </div>
             <div className="bottomBar">
                 <Button className="submitButton" type="submit" onClick={submitAll}>Отправить</Button>
-                <Export fileName={"Заготовка кормов"} tableRef={tableRef}/>
+                <Export fileName={`Заготовка кормов ${date.current}`} tableRef={tableRef}/>
             </div>
         </div>
     );

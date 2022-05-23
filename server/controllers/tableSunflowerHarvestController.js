@@ -33,7 +33,7 @@ class tableController {
             } = req.body
             let result12, result23 = null
             result12 = ((value2/value1)*100).toFixed(2)
-            result23 = ((value3/value2)*100).toFixed(2)
+            result23 = ((value3*10000)/(value2*1000)).toFixed(2)
             var name = await TableSunflowerHarvest.update({
                 row_owner: row_owner,
                 value1: value1,

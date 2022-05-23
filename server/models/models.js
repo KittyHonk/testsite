@@ -629,6 +629,19 @@ const TableSowWinterCrop = sequelize.define('table_sow_winter_crop', {
     value11: {type: DataTypes.FLOAT, defaultValue: "0"},
 })
 
+const TableStaff = sequelize.define('table_staff', {
+    row_id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    row_owner: {type: DataTypes.STRING, defaultValue: "autoCreated"},
+    date: {type: DataTypes.STRING, require: true},
+    value1: {type: DataTypes.FLOAT, defaultValue: "0"},
+    value2: {type: DataTypes.FLOAT, defaultValue: "0"},
+    value3: {type: DataTypes.FLOAT, defaultValue: "0"},
+    value4: {type: DataTypes.FLOAT, defaultValue: "0"},
+    value5: {type: DataTypes.FLOAT, defaultValue: "0"},
+    value6: {type: DataTypes.FLOAT, defaultValue: "0"},
+    value7: {type: DataTypes.FLOAT, defaultValue: "0"},
+})
+
 User.hasOne(Reports)
 Reports.belongsTo(User)
 
@@ -665,4 +678,5 @@ module.exports = {
     TableSunflowerHarvest,
     TableBeetHarvest,
     TableSowWinterCrop,
+    TableStaff,
 }

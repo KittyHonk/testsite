@@ -17,11 +17,10 @@ const start = async () => {
     try {
         await sequilize.authenticate()
         await sequilize.sync()
-        app.listen(PORT,() => console.log(`Server started on port ${5000}`))
+        app.listen(PORT,() => console.log(`Server started on port ${process.env.PORT}`))
     } catch (e) {
         console.log(e)
     }
 }
-
 
 start()

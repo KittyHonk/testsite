@@ -58,6 +58,6 @@ router.use('/soil_preparation', tableSoilPreparation)
 router.use('/soy_harvest', tableSoyHarvest)
 router.use('/sunflower_harvest', tableSunflowerHarvest)
 router.use('/beet_harvest', tableBeetHarvest)
-router.use('/sow_winter_crop', tableSowSpringCrop)
+router.use('/sow_winter_crop', tableSowWinterCrop)
 
 module.exports = router
