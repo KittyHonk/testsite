@@ -10,13 +10,13 @@ th {
 tr {
     margin: 5px;
     padding: 10px;
-    border: 1px solid #2b2b2c;
+    border: 1px solid #212529;
 }
 
 td {
     margin: 5px;
     padding: 10px;
-    border: 1px solid #2b2b2c;
+    border: 1px solid #212529;
 }
 
 Button {
@@ -28,7 +28,7 @@ Button {
     top: 0;
     height: 60px;
     width: 100%;
-    background: #2b2b2c;
+    background: #212529;
 }
 
 .columnReportList {
@@ -74,12 +74,13 @@ Button {
 }
 
 .mainBlock {
+    background: white;
     border-radius: 5px;
     overflow-x: auto;
     overflow-y: scroll;
     max-height: 70vh;
     margin: 10px;
-    border: 3px solid #2b2b2c;
+    border: 3px solid #212529;
     scroll-behavior: auto;
 }
 
@@ -92,8 +93,8 @@ Button {
 }
 
 .mainBlock::-webkit-scrollbar-thumb {
-    background-color: #2b2b2c;
-    border: 1px solid #2b2b2c;
+    background-color: #212529;
+    border: 1px solid #212529;
     border-radius: 1px;
 }
 
@@ -125,8 +126,20 @@ Button {
 }
 
 input {
-    padding: 5px;
+    box-shadow: 1px 2px 1px #212529;
     border-radius: 5px;
+    color: #212529;
+    border: 1px solid rgba(33, 37, 41, 0.48)
+}
+
+input.datePicker {
+    text-align: center;
+    color: #ffffff;
+    font-size: 18px;
+    width: 175px;
+    border-radius: 5px;
+    background: #0d6efd;
+    border: 2px solid #212529;
 }
 
 .bottomBar {
@@ -136,7 +149,7 @@ input {
     transition: opacity 0.5s;
     height: 60px;
     width: 100%;
-    background: #2b2b2c;
+    background: #212529;
 }
 
 .bottomBar:hover {
@@ -146,7 +159,7 @@ input {
     transition: opacity 0.5s;
     height: 60px;
     width: 100%;
-    background: #2b2b2c;
+    background: #212529;
 }
 
 

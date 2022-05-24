@@ -37,4 +37,12 @@ export default class DateCls {
             }
         }
     }
+
+    findMonthDay (day) {
+        let dateCopy = new Date(this._date)
+        let getMonthDay = dateCopy.getMonth()
+        let newDate = dateCopy.setMonth(getMonthDay, day)
+        newDate = moment(newDate).format("YYYY-MM-DD")
+        return newDate
+    }
 }

@@ -29,6 +29,7 @@ const tableSoyHarvest = require('./tableSoyHarvestRouter')
 const tableSunflowerHarvest = require('./tableSunflowerHarvestRouter')
 const tableBeetHarvest = require('./tableBeetHarvestRouter')
 const tableSowWinterCrop = require('./tableSowWinterCropRouter')
+const tableStaff = require('./tableStaffRouter')
 
 router.use('/user', userRouter)
 router.use('/report', reportsRouter)
@@ -59,5 +60,6 @@ router.use('/soy_harvest', tableSoyHarvest)
 router.use('/sunflower_harvest', tableSunflowerHarvest)
 router.use('/beet_harvest', tableBeetHarvest)
 router.use('/sow_winter_crop', tableSowWinterCrop)
+router.use('/staff', tableStaff)
 
 module.exports = router

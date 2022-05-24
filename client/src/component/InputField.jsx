@@ -21,7 +21,7 @@ const InputField = React.forwardRef((props, ref) => {
 
     if ((props.user !== "ADMIN") && (props.user !== undefined)) {
         readOnlyCheck = true
-        bg = 'rgba(156,204,153,0.49)'
+        bg = 'rgba(234,119,119,0.45)'
     }
 
     return (

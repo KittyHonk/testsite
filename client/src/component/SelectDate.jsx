@@ -11,8 +11,10 @@ const SelectDate = ({getDate, ...props}) => {
 
     if (props.day === undefined) {
         var tempDate = new Date()
-    } else {
+    } else if (props.types === "weeks") {
         var tempDate = new Date(datecls.findDay(props.day))
+    } else if (props.types === "months") {
+        var tempDate = new Date(datecls.findMonthDay(props.day))
     }
     const [date, setDate] = useState(tempDate)
 
@@ -31,14 +33,28 @@ const SelectDate = ({getDate, ...props}) => {
         }
     }
 
+    const setDateMonthlyHandler = (date, day) => {
+        const dayMonth = date.getDate()
+        if ((dayMonth !== day)) {
+            alert("Выберете другую дату")
+        } else {
+            setDate(date)
+            getDate(moment(date).format('YYYY-MM-DD'))
+        }
+    }
+
     if (props.types === "days") {
         return (
-            <DatePicker selected={date} onChange={(date) => setDateDailyHandler(date)} locale="ru"></DatePicker>
+            <DatePicker className="datePicker" selected={date} onChange={(date) => setDateDailyHandler(date)} locale="ru"></DatePicker>
         );
     } else if (props.types === "weeks") {
         return (
-            <DatePicker selected={date} onChange={(date) => setDateWeeklyHandler(date, props.day)} locale="ru"></DatePicker>
+            <DatePicker className="datePicker" selected={date} onChange={(date) => setDateWeeklyHandler(date, props.day)} locale="ru"></DatePicker>
         );
+    } else if (props.types === "months") {
+        return (
+            <DatePicker className="datePicker" selected={date} onChange={(date) => setDateMonthlyHandler(date, props.day)} locale="ru"></DatePicker>
+        )
     } else {
         return (
             <div>

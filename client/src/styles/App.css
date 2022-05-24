@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+body {
+    background: rgba(151, 205, 225, 0.24);
+}
+
 .App {
     width: 100%;
 }

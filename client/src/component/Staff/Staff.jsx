@@ -3,11 +3,12 @@ import {observer} from "mobx-react-lite";
 import {Table, Button} from "react-bootstrap";
 import TableBody from "./TableBody";
 import {Context} from "../../index";
-import {getAllSowPotato} from "../../http/TableApi";
+import {getAllStaff} from "../../http/TableApi";
 import SelectDate from "../SelectDate";
 import '../../styles/Component.css';
 import Export from '../Export';
 import moment from "moment";
+import {sum} from "react-table/src/aggregations";
 
 
 const SowPotato = observer((props) => {
@@ -15,10 +16,10 @@ const SowPotato = observer((props) => {
     const {datecls} = useContext(Context)
     const [result, setResult] = useState([])
     const regionList = []
-    const day = 2
+    const day = 1
     let valueList = []
     let tableRef = useRef()
-    let date = useRef(moment(new Date(datecls.findDay(day))).format("YYYY-MM-DD"))
+    let date = useRef(moment(new Date(datecls.findMonthDay(day))).format("YYYY-MM-DD"))
     
     const childRef = [
         useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef(),
@@ -60,7 +61,7 @@ const SowPotato = observer((props) => {
         }
         for (let i = 0; i < props.rowName.length; i++) {
             if ((props.rowName[i].name === user.region) || (user.role === "ADMIN")) {
-                await getAllSowPotato(props.rowName[i].name, date.current).then(data => {
+                await getAllStaff(props.rowName[i].name, date.current).then(data => {
                     valueList.push(...data)
                 })
             }
@@ -77,19 +78,16 @@ const SowPotato = observer((props) => {
     }
 
     const calcField = (valueList) => {
-        let sumList = new Array(10).fill(0)
+        let sumList = new Array(7).fill(0)
         for (let i = 0; i < valueList.length; i++) {
             if (valueList[i] !== undefined) {
                 sumList[0] += valueList[i].value1
                 sumList[1] += valueList[i].value2
-                sumList[2] = ((sumList[1]/sumList[0])*100).toFixed(2)
-                sumList[3] += valueList[i].value3
-                sumList[4] += valueList[i].value4
-                sumList[5] += valueList[i].value5
-                sumList[6] += valueList[i].value6
-                sumList[7] = ((sumList[6]/sumList[5])*100).toFixed(2)
-                sumList[8] += valueList[i].value7
-                sumList[9] += valueList[i].value8
+                sumList[2] += valueList[i].value3
+                sumList[3] += valueList[i].value4
+                sumList[4] += valueList[i].value5
+                sumList[5] += valueList[i].value6
+                sumList[6] += valueList[i].value7
             }
         }
         setResult(sumList)
@@ -101,8 +99,8 @@ const SowPotato = observer((props) => {
                 <SelectDate
                     getDate={getDate}
                     day={day}
-                    key="Сев картофеля"
-                    types="weeks">
+                    key="Кадры"
+                    types="months">
                 </SelectDate>
             </div>
             <div className="mainBlock">
@@ -114,39 +112,27 @@ const SowPotato = observer((props) => {
                 <thead>
                 <tr>
                     <th>Наименование района</th>
-                    <th colSpan={5}>Картофель</th>
-                    <th colSpan={5}>Овощи</th>
-                </tr>
-                <tr>
-                    <th></th>
-                    <th>План</th>
-                    <th colSpan={4}>Факт</th>
-                    <th>План</th>
-                    <th colSpan={4}>Факт</th>
+                    <th>Подготовлено повышен. квалификации кадров всего</th>
+                    <th colSpan={4}>В том числе</th>
+                    <th colSpan={2}>Учеба кадров массовых профессий</th>
                 </tr>
                 <tr>
                     <th></th>
                     <th></th>
-                    <th>Все категории хозяйств</th>
-                    <th>%</th>
-                    <th colSpan={2}>В том числе</th>
-                    <th></th>
-                    <th>Все категории хозяйств</th>
-                    <th>%</th>
-                    <th colSpan={2}>В том числе</th>
+                    <th>Руководители с/х предприятий</th>
+                    <th>Специалисты с/х предприятий</th>
+                    <th>Всего</th>
+                    <th colSpan={3}>В том числе</th>
                 </tr>
                 <tr>
                     <th></th>
                     <th></th>
                     <th></th>
                     <th></th>
-                    <th>СХП</th>
-                    <th>КФХ</th>
                     <th></th>
-                    <th></th>
-                    <th></th>
-                    <th>СХП</th>
-                    <th>КФХ</th>
+                    <th>Механизаторы</th>
+                    <th>Операторы машин. доения</th>
+                    <th>Водители</th>
                 </tr>
                 </thead>
                 <tbody className="bodyTable">
@@ -160,16 +146,13 @@ const SowPotato = observer((props) => {
                     <td>{result[4]}</td>
                     <td>{result[5]}</td>
                     <td>{result[6]}</td>
-                    <td>{result[7]}</td>
-                    <td>{result[8]}</td>
-                    <td>{result[9]}</td>
                 </tr>
                 </tbody>
             </Table>
             </div>
             <div className="bottomBar">
                 <Button className="submitButton" type="submit" onClick={submitAll}>Отправить</Button>
-                <Export fileName={`Сев картофеля ${date.current}`} tableRef={tableRef}/>
+                <Export fileName={`Кадры ${date.current}`} tableRef={tableRef}/>
             </div>
         </div>
     );

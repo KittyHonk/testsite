@@ -525,6 +525,25 @@ export const createSowWinterCrop = async (
     return data
 }
 
+export const getAllStaff = async (row_owner, date) => {
+    const {data} = await $host.get("api/staff/" + row_owner + `?date=${date}`)
+    return data
+}
+
+export const checkStaff = async (row_owner, date) => {
+    const {data} = await $authHost.post("api/staff/check/", {row_owner, date})
+    return data
+}
+
+export const createStaff = async (
+    row_owner, date, value1, value2, value3, value4, value5, value6, value7,
+) => {
+    const {data} = await $authHost.post("api/staff/", {
+        row_owner, date, value1, value2, value3, value4, value5, value6, value7,
+    })
+    return data
+}
+
 
 
 

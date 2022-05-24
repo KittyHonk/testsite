@@ -27,6 +27,7 @@ import SoyHarvest from "../component/SoyHarvest/SoyHarvest";
 import SunflowerHarvest from "../component/SunflowerHarvest/SunflowerHarvest";
 import BeetHarvest from "../component/BeetHarvest/BeetHarvest";
 import SowWinterCrop from "../component/SowWinterCrop/SowWinterCrop";
+import Staff from "../component/Staff/Staff";
 
 const Tables = observer(() => {
 
@@ -144,6 +145,9 @@ const Tables = observer(() => {
         }
         case "Сев озимых": {
             return <SowWinterCrop rowName={regionList}/>
+        }
+        case "Кадры": {
+            return <Staff rowName={regionList}/>
         }
         default: {
             console.log(params.table_name)
