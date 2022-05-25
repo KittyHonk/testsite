@@ -28,6 +28,7 @@ import SunflowerHarvest from "../component/SunflowerHarvest/SunflowerHarvest";
 import BeetHarvest from "../component/BeetHarvest/BeetHarvest";
 import SowWinterCrop from "../component/SowWinterCrop/SowWinterCrop";
 import Staff from "../component/Staff/Staff";
+import GrainForageBalance from "../component/GrainForageBalance/GrainForageBalance";
 
 const Tables = observer(() => {
 
@@ -148,6 +149,9 @@ const Tables = observer(() => {
         }
         case "Кадры": {
             return <Staff rowName={regionList}/>
+        }
+        case "Баланс": {
+            return <GrainForageBalance rowName={regionList}/>
         }
         default: {
             console.log(params.table_name)

@@ -544,6 +544,27 @@ export const createStaff = async (
     return data
 }
 
+export const getAllGrainForageBalance = async (row_owner, date, culture, category) => {
+    const {data} = await $host.get("api/grain_forage_balance/" + row_owner + `?date=${date}&culture=${culture}&category=${category}`)
+    return data
+}
+
+export const checkGrainForageBalance = async (row_owner, date, culture, category) => {
+    const {data} = await $authHost.post("api/grain_forage_balance/check/", {row_owner, date, culture, category})
+    return data
+}
+
+export const createGrainForageBalance = async (
+    row_owner, date, culture, category, value1, value2, value3, value4, value5, value6, value7, value8, value9,
+    value10, value11, value12, value13, value14, value15, value16, value17, value18, value19,
+) => {
+    const {data} = await $authHost.post("api/grain_forage_balance/", {
+        row_owner, date, culture, category, value1, value2, value3, value4, value5, value6, value7, value8, value9,
+        value10, value11, value12, value13, value14, value15, value16, value17, value18, value19,
+    })
+    return data
+}
+
 
 
 

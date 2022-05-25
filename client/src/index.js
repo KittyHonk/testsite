@@ -7,6 +7,7 @@ import ReportTables from "./classes/ReportTables";
 import Table from "./classes/Table";
 import DateCls from "./classes/DateCls";
 import '../src/styles/App.css'
+import GrainForageBalanceStore from "./classes/GrainForageBalanceStore";
 
 export const Context = createContext(null)
 
@@ -19,6 +20,7 @@ root.render(
         reportList: new Reports(),
         reportTable: new ReportTables(),
         datecls: new DateCls(),
+        store: new GrainForageBalanceStore(),
     }}>
         <App className="App"/>
     </Context.Provider>

@@ -106,7 +106,19 @@ Button {
 
 .divSelect {
     /*margin: 20px 5% 20px;*/
-    margin: 20px
+    margin: 20px;
+}
+
+.divSelectOption {
+    color: #212529;
+    margin-left: 10px;
+    text-align: center;
+    height: 45px;
+    font-size: 18px;
+    max-width: 500px;
+    width: 45vh;
+    border-radius: 5px;
+    border: 2px solid #212529;
 }
 
 .bodyTable {
@@ -126,19 +138,17 @@ Button {
 }
 
 input {
-    box-shadow: 1px 2px 1px #212529;
     border-radius: 5px;
     color: #212529;
-    border: 1px solid rgba(33, 37, 41, 0.48)
+    border: 2px solid #212529
 }
 
 input.datePicker {
     text-align: center;
-    color: #ffffff;
     font-size: 18px;
-    width: 175px;
+    height: 45px;
+    width: 45vh;
     border-radius: 5px;
-    background: #0d6efd;
     border: 2px solid #212529;
 }
 
